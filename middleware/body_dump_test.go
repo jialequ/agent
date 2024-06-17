@@ -5,6 +5,7 @@ package middleware
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -63,7 +64,7 @@ func TestBodyDumpFails(t *testing.T) {
 		return errors.New("some error")
 	}
 
-	mw := BodyDump(func(c echo.Context, reqBody, resBody []byte) {})
+	mw := BodyDump(func(c echo.Context, reqBody, resBody []byte) { fmt.Print("1234") })
 
 	if !assert.Error(t, mw(h)(c)) {
 		t.FailNow()
@@ -82,6 +83,7 @@ func TestBodyDumpFails(t *testing.T) {
 				return true
 			},
 			Handler: func(c echo.Context, reqBody, resBody []byte) {
+				fmt.Print("1234")
 			},
 		})
 

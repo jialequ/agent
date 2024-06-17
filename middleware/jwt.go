@@ -166,7 +166,7 @@ func JWT(key interface{}) echo.MiddlewareFunc {
 // See: `JWT()`.
 //
 // Deprecated: Please use https://github.com/labstack/echo-jwt instead
-func JWTWithConfig(config JWTConfig) echo.MiddlewareFunc {
+func JWTWithConfig(config JWTConfig) echo.MiddlewareFunc { //NOSONAR
 	// Defaults
 	if config.Skipper == nil {
 		config.Skipper = DefaultJWTConfig.Skipper

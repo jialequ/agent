@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCORS(t *testing.T) {
+func TestCORS(t *testing.T) { //NOSONAR
 	var testCases = []struct {
 		name             string
 		givenMW          echo.MiddlewareFunc
@@ -626,7 +626,7 @@ func TestCorsHeaders(t *testing.T) {
 	}
 }
 
-func TestallowOriginFunc(t *testing.T) {
+func TestAllowOriginFunc(t *testing.T) {
 	returnTrue := func(origin string) (bool, error) {
 		return true, nil
 	}

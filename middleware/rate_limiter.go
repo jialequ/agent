@@ -108,7 +108,7 @@ RateLimiterWithConfig returns a rate limiting middleware
 		return c.String(http.StatusOK, "test")
 	}, middleware.RateLimiterWithConfig(config))
 */
-func RateLimiterWithConfig(config RateLimiterConfig) echo.MiddlewareFunc {
+func RateLimiterWithConfig(config RateLimiterConfig) echo.MiddlewareFunc { //NOSONAR
 	if config.Skipper == nil {
 		config.Skipper = DefaultRateLimiterConfig.Skipper
 	}

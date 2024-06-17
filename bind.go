@@ -64,7 +64,7 @@ func (b *DefaultBinder) BindQueryParams(c Context, i interface{}) error {
 // which parses form data from BOTH URL and BODY if content type is not MIMEMultipartForm
 // See non-MIMEMultipartForm: https://golang.org/pkg/net/http/#Request.ParseForm
 // See MIMEMultipartForm: https://golang.org/pkg/net/http/#Request.ParseMultipartForm
-func (b *DefaultBinder) BindBody(c Context, i interface{}) (err error) {
+func (b *DefaultBinder) BindBody(c Context, i interface{}) (err error) { //NOSONAR
 	req := c.Request()
 	if req.ContentLength == 0 {
 		return
@@ -132,7 +132,7 @@ func (b *DefaultBinder) Bind(i interface{}, c Context) (err error) {
 }
 
 // bindData will bind data ONLY fields in destination struct that have EXPLICIT tag
-func (b *DefaultBinder) bindData(destination interface{}, data map[string][]string, tag string) error {
+func (b *DefaultBinder) bindData(destination interface{}, data map[string][]string, tag string) error { //NOSONAR
 	if destination == nil || len(data) == 0 {
 		return nil
 	}

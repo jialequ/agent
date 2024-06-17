@@ -67,7 +67,7 @@ func Recover() echo.MiddlewareFunc {
 
 // RecoverWithConfig returns a Recover middleware with config.
 // See: `Recover()`.
-func RecoverWithConfig(config RecoverConfig) echo.MiddlewareFunc {
+func RecoverWithConfig(config RecoverConfig) echo.MiddlewareFunc { //NOSONAR
 	// Defaults
 	if config.Skipper == nil {
 		config.Skipper = DefaultRecoverConfig.Skipper

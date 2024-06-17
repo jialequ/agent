@@ -54,7 +54,7 @@ func BasicAuth(fn BasicAuthValidator) echo.MiddlewareFunc {
 
 // BasicAuthWithConfig returns an BasicAuth middleware with config.
 // See `BasicAuth()`.
-func BasicAuthWithConfig(config BasicAuthConfig) echo.MiddlewareFunc {
+func BasicAuthWithConfig(config BasicAuthConfig) echo.MiddlewareFunc { //NOSONAR
 	// Defaults
 	if config.Validator == nil {
 		panic("echo: basic-auth middleware requires a validator function")

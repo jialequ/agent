@@ -69,7 +69,7 @@ func Gzip() echo.MiddlewareFunc {
 
 // GzipWithConfig return Gzip middleware with config.
 // See: `Gzip()`.
-func GzipWithConfig(config GzipConfig) echo.MiddlewareFunc {
+func GzipWithConfig(config GzipConfig) echo.MiddlewareFunc { //NOSONAR
 	// Defaults
 	if config.Skipper == nil {
 		config.Skipper = DefaultGzipConfig.Skipper

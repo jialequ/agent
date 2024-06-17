@@ -92,7 +92,7 @@ func KeyAuth(fn KeyAuthValidator) echo.MiddlewareFunc {
 
 // KeyAuthWithConfig returns an KeyAuth middleware with config.
 // See `KeyAuth()`.
-func KeyAuthWithConfig(config KeyAuthConfig) echo.MiddlewareFunc {
+func KeyAuthWithConfig(config KeyAuthConfig) echo.MiddlewareFunc { //NOSONAR
 	// Defaults
 	if config.Skipper == nil {
 		config.Skipper = DefaultKeyAuthConfig.Skipper

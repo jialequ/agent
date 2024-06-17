@@ -49,7 +49,7 @@ func Decompress() echo.MiddlewareFunc {
 }
 
 // DecompressWithConfig decompresses request body based if content encoding type is set to "gzip" with config
-func DecompressWithConfig(config DecompressConfig) echo.MiddlewareFunc {
+func DecompressWithConfig(config DecompressConfig) echo.MiddlewareFunc { //NOSONAR
 	// Defaults
 	if config.Skipper == nil {
 		config.Skipper = DefaultGzipConfig.Skipper

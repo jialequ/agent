@@ -81,7 +81,7 @@ func RemoveTrailingSlash() echo.MiddlewareFunc {
 
 // RemoveTrailingSlashWithConfig returns a RemoveTrailingSlash middleware with config.
 // See `RemoveTrailingSlash()`.
-func RemoveTrailingSlashWithConfig(config TrailingSlashConfig) echo.MiddlewareFunc {
+func RemoveTrailingSlashWithConfig(config TrailingSlashConfig) echo.MiddlewareFunc { //NOSONAR
 	// Defaults
 	if config.Skipper == nil {
 		config.Skipper = DefaultTrailingSlashConfig.Skipper

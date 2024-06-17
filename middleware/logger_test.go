@@ -129,7 +129,7 @@ func TestLoggerTemplate(t *testing.T) {
 		"secret-form":                          false,
 		"hexvalue":                             false,
 		"GET":                                  true,
-		literal_1087:                            true,
+		literal_1087:                           true,
 		"\"path\":\"/users/1\"":                true,
 		"\"route\":\"/users/:id\"":             true,
 		"\"uri\":\"/\"":                        true,
@@ -199,7 +199,7 @@ func TestLoggerCustomTagFunc(t *testing.T) {
 	assert.Equal(t, `{"method":"GET","tag":"my-value"}`+"\n", buf.String())
 }
 
-func BenchmarkLoggerWithConfig_withoutMapFields(b *testing.B) {
+func BenchmarkLoggerWithConfigwithoutMapFields(b *testing.B) {
 	e := echo.New()
 
 	buf := new(bytes.Buffer)
@@ -235,7 +235,7 @@ func BenchmarkLoggerWithConfig_withoutMapFields(b *testing.B) {
 	}
 }
 
-func BenchmarkLoggerWithConfig_withMapFields(b *testing.B) {
+func BenchmarkLoggerWithConfigwithMapFields(b *testing.B) {
 	e := echo.New()
 
 	buf := new(bytes.Buffer)

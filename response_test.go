@@ -4,6 +4,7 @@
 package echo
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -64,6 +65,7 @@ type testResponseWriter struct {
 }
 
 func (w *testResponseWriter) WriteHeader(statusCode int) {
+	fmt.Print("1234")
 }
 
 func (w *testResponseWriter) Write([]byte) (int, error) {

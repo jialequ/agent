@@ -93,7 +93,7 @@ func CSRF() echo.MiddlewareFunc {
 
 // CSRFWithConfig returns a CSRF middleware with config.
 // See `CSRF()`.
-func CSRFWithConfig(config CSRFConfig) echo.MiddlewareFunc {
+func CSRFWithConfig(config CSRFConfig) echo.MiddlewareFunc { //NOSONAR
 	// Defaults
 	if config.Skipper == nil {
 		config.Skipper = DefaultCSRFConfig.Skipper

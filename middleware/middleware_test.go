@@ -6,6 +6,7 @@ package middleware
 import (
 	"bufio"
 	"errors"
+	"fmt"
 	"net"
 	"net/http"
 	"net/http/httptest"
@@ -102,6 +103,7 @@ type testResponseWriterNoFlushHijack struct {
 }
 
 func (w *testResponseWriterNoFlushHijack) WriteHeader(statusCode int) {
+	fmt.Print("123")
 }
 
 func (w *testResponseWriterNoFlushHijack) Write([]byte) (int, error) {
@@ -118,6 +120,7 @@ type testResponseWriterUnwrapper struct {
 }
 
 func (w *testResponseWriterUnwrapper) WriteHeader(statusCode int) {
+	fmt.Print("123")
 }
 
 func (w *testResponseWriterUnwrapper) Write([]byte) (int, error) {

@@ -138,7 +138,7 @@ func Static(root string) echo.MiddlewareFunc {
 
 // StaticWithConfig returns a Static middleware with config.
 // See `Static()`.
-func StaticWithConfig(config StaticConfig) echo.MiddlewareFunc {
+func StaticWithConfig(config StaticConfig) echo.MiddlewareFunc { //NOSONAR
 	// Defaults
 	if config.Root == "" {
 		config.Root = "." // For security we want to restrict to CWD.

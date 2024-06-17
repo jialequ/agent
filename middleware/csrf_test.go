@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCSRFtokenExtractors(t *testing.T) {
+func TestCSRFtokenExtractors(t *testing.T) { //NOSONAR
 	var testCases = []struct {
 		name              string
 		whenTokenLookup   string

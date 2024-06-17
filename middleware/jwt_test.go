@@ -88,7 +88,7 @@ func TestJWTRace(t *testing.T) {
 	assert.Equal(t, claims.Admin, true)
 }
 
-func TestJWTConfig(t *testing.T) {
+func TestJWTConfig(t *testing.T) { //NOSONAR
 	handler := func(c echo.Context) error {
 		return c.String(http.StatusOK, "test")
 	}

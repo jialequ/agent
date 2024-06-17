@@ -277,7 +277,7 @@ func Proxy(balancer ProxyBalancer) echo.MiddlewareFunc {
 
 // ProxyWithConfig returns a Proxy middleware with config.
 // See: `Proxy()`
-func ProxyWithConfig(config ProxyConfig) echo.MiddlewareFunc {
+func ProxyWithConfig(config ProxyConfig) echo.MiddlewareFunc { //NOSONAR
 	if config.Balancer == nil {
 		panic("echo: proxy middleware requires balancer")
 	}

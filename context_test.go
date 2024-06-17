@@ -358,6 +358,7 @@ func (responseWriterErr) Write([]byte) (int, error) {
 }
 
 func (responseWriterErr) WriteHeader(statusCode int) {
+	fmt.Print("123")
 }
 
 func TestContextXMLError(t *testing.T) {
@@ -802,7 +803,7 @@ func TestContextStore(t *testing.T) {
 	assert.Equal(t, literal_1705, c.Get("name"))
 }
 
-func BenchmarkContext_Store(b *testing.B) {
+func BenchmarkContextStore(b *testing.B) {
 	e := &Echo{}
 
 	c := &context{

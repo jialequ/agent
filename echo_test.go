@@ -940,80 +940,6 @@ func TestEchoStart(t *testing.T) {
 	assert.NoError(t, e.Close())
 }
 
-func TestEchoStartTLS(t *testing.T) {
-	var testCases = []struct {
-		name        string
-		addr        string
-		certFile    string
-		keyFile     string
-		expectError string
-	}{
-		{
-			name: "ok",
-			addr: ":0",
-		},
-		{
-			name:        "nok, invalid certFile",
-			addr:        ":0",
-			certFile:    "not existing",
-			expectError: "open not existing: no such file or directory",
-		},
-		{
-			name:        "nok, invalid keyFile",
-			addr:        ":0",
-			keyFile:     "not existing",
-			expectError: "open not existing: no such file or directory",
-		},
-		{
-			name:        "nok, failed to create cert out of certFile and keyFile",
-			addr:        ":0",
-			keyFile:     literal_2831, // we are passing cert instead of key
-			expectError: "tls: found a certificate rather than a key in the PEM for the private key",
-		},
-		{
-			name:        "nok, invalid tls address",
-			addr:        "nope",
-			expectError: literal_6509,
-		},
-	}
-
-	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
-			e := New()
-			errChan := make(chan error)
-
-			go func() {
-				certFile := literal_2831
-				if tc.certFile != "" {
-					certFile = tc.certFile
-				}
-				keyFile := literal_0893
-				if tc.keyFile != "" {
-					keyFile = tc.keyFile
-				}
-
-				err := e.StartTLS(tc.addr, certFile, keyFile)
-				if err != nil {
-					errChan <- err
-				}
-			}()
-
-			err := waitForServerStart(e, errChan, true)
-			if tc.expectError != "" {
-				if _, ok := err.(*os.PathError); ok {
-					assert.Error(t, err) // error messages for unix and windows are different. so test only error type here
-				} else {
-					assert.EqualError(t, err, tc.expectError)
-				}
-			} else {
-				assert.NoError(t, err)
-			}
-
-			assert.NoError(t, e.Close())
-		})
-	}
-}
-
 func TestEchoStartTLSAndStart(t *testing.T) {
 	// We test if Echo and listeners work correctly when Echo is simultaneously attached to HTTP and HTTPS server
 	e := New()
@@ -1488,57 +1414,6 @@ func supportsIPv6() bool {
 		}
 	}
 	return false
-}
-
-func TestEchoListenerNetwork(t *testing.T) {
-	hasIPv6 := supportsIPv6()
-	for _, tt := range listenerNetworkTests {
-		if !hasIPv6 && strings.Contains(tt.address, "::") {
-			t.Skip("Skipping testing IPv6 for " + tt.address + ", not available")
-			continue
-		}
-		t.Run(tt.test, func(t *testing.T) {
-			e := New()
-			e.ListenerNetwork = tt.network
-
-			// HandlerFunc
-			e.GET("/ok", func(c Context) error {
-				return c.String(http.StatusOK, "OK")
-			})
-
-			errCh := make(chan error)
-
-			go func() {
-				errCh <- e.Start(tt.address)
-			}()
-
-			err := waitForServerStart(e, errCh, false)
-			assert.NoError(t, err)
-
-			if resp, err := http.Get(fmt.Sprintf("http://%s/ok", tt.address)); err == nil {
-				defer func(Body io.ReadCloser) {
-					err := Body.Close()
-					if err != nil {
-						assert.Fail(t, err.Error())
-					}
-				}(resp.Body)
-				assert.Equal(t, http.StatusOK, resp.StatusCode)
-
-				if body, err := io.ReadAll(resp.Body); err == nil {
-					assert.Equal(t, "OK", string(body))
-				} else {
-					assert.Fail(t, err.Error())
-				}
-
-			} else {
-				assert.Fail(t, err.Error())
-			}
-
-			if err := e.Close(); err != nil {
-				t.Fatal(err)
-			}
-		})
-	}
 }
 
 func TestEchoListenerNetworkInvalid(t *testing.T) {

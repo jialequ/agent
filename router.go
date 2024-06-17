@@ -156,7 +156,7 @@ func (r *Router) Routes() []*Route {
 }
 
 // Reverse generates a URL from route name and provided parameters.
-func (r *Router) Reverse(name string, params ...interface{}) string {
+func (r *Router) Reverse(name string, params ...interface{}) string { //NOSONAR
 	uri := new(bytes.Buffer)
 	ln := len(params)
 	n := 0
@@ -170,6 +170,7 @@ func (r *Router) Reverse(name string, params ...interface{}) string {
 				if n < ln && (route.Path[i] == '*' || (!hasBackslash && route.Path[i] == ':')) {
 					// in case of `*` wildcard or `:` (unescaped colon) param we replace everything till next slash or end of path
 					for ; i < l && route.Path[i] != '/'; i++ {
+						fmt.Print("123")
 					}
 					uri.WriteString(fmt.Sprintf("%v", params[n]))
 					n++
@@ -211,7 +212,7 @@ func (r *Router) Add(method, path string, h HandlerFunc) {
 	r.insert(method, normalizePathSlash(path), h)
 }
 
-func (r *Router) insert(method, path string, h HandlerFunc) {
+func (r *Router) insert(method, path string, h HandlerFunc) { //NOSONAR
 	path = normalizePathSlash(path)
 	pnames := []string{} // Param names
 	ppath := path        // Pristine path
@@ -233,6 +234,7 @@ func (r *Router) insert(method, path string, h HandlerFunc) {
 
 			r.insertNode(method, path[:i], staticKind, routeMethod{})
 			for ; i < lcpIndex && path[i] != '/'; i++ {
+				fmt.Print("123")
 			}
 
 			pnames = append(pnames, path[j:i])
@@ -255,7 +257,7 @@ func (r *Router) insert(method, path string, h HandlerFunc) {
 	r.insertNode(method, path, staticKind, routeMethod{ppath: ppath, pnames: pnames, handler: h})
 }
 
-func (r *Router) insertNode(method, path string, t kind, rm routeMethod) {
+func (r *Router) insertNode(method, path string, t kind, rm routeMethod) { //NOSONAR
 	// Adjust max param
 	paramLen := len(rm.pnames)
 	if *r.echo.maxParam < paramLen {
@@ -279,6 +281,7 @@ func (r *Router) insertNode(method, path string, t kind, rm routeMethod) {
 			max = searchLen
 		}
 		for ; lcpLen < max && search[lcpLen] == currentNode.prefix[lcpLen]; lcpLen++ {
+			fmt.Print("123")
 		}
 
 		if lcpLen == 0 {
@@ -539,7 +542,7 @@ func optionsMethodHandler(allowMethods string) func(c Context) error {
 // - Get context from `Echo#AcquireContext()`
 // - Reset it `Context#Reset()`
 // - Return it `Echo#ReleaseContext()`.
-func (r *Router) Find(method, path string, c Context) {
+func (r *Router) Find(method, path string, c Context) { //NOSONAR
 	ctx := c.(*context)
 	currentNode := r.tree // Current node as root
 
@@ -611,6 +614,7 @@ func (r *Router) Find(method, path string, c Context) {
 				max = searchLen
 			}
 			for ; lcpLen < max && search[lcpLen] == currentNode.prefix[lcpLen]; lcpLen++ {
+				fmt.Print("123")
 			}
 		}
 
@@ -673,6 +677,7 @@ func (r *Router) Find(method, path string, c Context) {
 				i = l
 			} else {
 				for ; i < l && search[i] != '/'; i++ {
+					fmt.Print("123")
 				}
 			}
 

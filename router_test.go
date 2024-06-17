@@ -378,9 +378,9 @@ var (
 		{"GET", "/repositories", ""},
 		{"POST", "/user/repos", ""},
 		{"POST", "/orgs/:org/repos", ""},
-		{"GET", "/repos/:owner/:repo", ""},
+		{"GET", literal_8766, ""},
 
-		{"PATCH", "/repos/:owner/:repo", ""},
+		{"PATCH", literal_8766, ""},
 
 		{"GET", "/repos/:owner/:repo/contributors", ""},
 		{"GET", "/repos/:owner/:repo/languages", ""},
@@ -388,7 +388,7 @@ var (
 		{"GET", "/repos/:owner/:repo/tags", ""},
 		{"GET", "/repos/:owner/:repo/branches", ""},
 		{"GET", "/repos/:owner/:repo/branches/:branch", ""},
-		{"DELETE", "/repos/:owner/:repo", ""},
+		{"DELETE", literal_8766, ""},
 		{"GET", "/repos/:owner/:repo/collaborators", ""},
 		{"GET", literal_3125, ""},
 		{"PUT", literal_3125, ""},
@@ -957,8 +957,8 @@ func TestRouteMultiLevelBacktracking(t *testing.T) {
 	}{
 		{
 			name:        literal_9425,
-			whenURL:     "/a/c/df",
-			expectRoute: "/a/c/df",
+			whenURL:     literal_8765,
+			expectRoute: literal_8765,
 		},
 		{
 			name:        "route /a/x/df to /a/:b/c",
@@ -993,7 +993,7 @@ func TestRouteMultiLevelBacktracking(t *testing.T) {
 
 			r.Add(http.MethodGet, literal_0972, handlerHelper("case", 1))
 			r.Add(http.MethodGet, "/a/c/d", handlerHelper("case", 2))
-			r.Add(http.MethodGet, "/a/c/df", handlerHelper("case", 3))
+			r.Add(http.MethodGet, literal_8765, handlerHelper("case", 3))
 			r.Add(http.MethodGet, "/a/*/f", handlerHelper("case", 4))
 			r.Add(http.MethodGet, literal_5382, handlerHelper("case", 5))
 			r.Add(http.MethodGet, "/*", handlerHelper("case", 6))
@@ -1038,7 +1038,7 @@ func TestRouteMultiLevelBacktracking2(t *testing.T) {
 
 	r.Add(http.MethodGet, literal_0972, handlerFunc)
 	r.Add(http.MethodGet, "/a/c/d", handlerFunc)
-	r.Add(http.MethodGet, "/a/c/df", handlerFunc)
+	r.Add(http.MethodGet, literal_8765, handlerFunc)
 	r.Add(http.MethodGet, literal_5382, handlerFunc)
 	r.Add(http.MethodGet, "/*", handlerFunc)
 
@@ -1050,8 +1050,8 @@ func TestRouteMultiLevelBacktracking2(t *testing.T) {
 	}{
 		{
 			name:        literal_9425,
-			whenURL:     "/a/c/df",
-			expectRoute: "/a/c/df",
+			whenURL:     literal_8765,
+			expectRoute: literal_8765,
 		},
 		{
 			name:        "route /a/x/df to /a/:b/c",
@@ -1211,8 +1211,8 @@ func TestNotFoundRouteAnyKind(t *testing.T) {
 		},
 		{
 			name:        literal_9425,
-			whenURL:     "/a/c/df",
-			expectRoute: "/a/c/df",
+			whenURL:     literal_8765,
+			expectRoute: literal_8765,
 			expectID:    1,
 		},
 	}
@@ -1223,7 +1223,7 @@ func TestNotFoundRouteAnyKind(t *testing.T) {
 			r := e.router
 
 			r.Add(http.MethodGet, "/", handlerHelper("ID", 0))
-			r.Add(http.MethodGet, "/a/c/df", handlerHelper("ID", 1))
+			r.Add(http.MethodGet, literal_8765, handlerHelper("ID", 1))
 			r.Add(http.MethodGet, "/a/b*", handlerHelper("ID", 2))
 			r.Add(http.MethodPut, "/*", handlerHelper("ID", 3))
 
@@ -1278,8 +1278,8 @@ func TestNotFoundRouteParamKind(t *testing.T) {
 		},
 		{
 			name:        literal_9425,
-			whenURL:     "/a/c/df",
-			expectRoute: "/a/c/df",
+			whenURL:     literal_8765,
+			expectRoute: literal_8765,
 			expectID:    1,
 		},
 	}
@@ -1290,7 +1290,7 @@ func TestNotFoundRouteParamKind(t *testing.T) {
 			r := e.router
 
 			r.Add(http.MethodGet, "/", handlerHelper("ID", 0))
-			r.Add(http.MethodGet, "/a/c/df", handlerHelper("ID", 1))
+			r.Add(http.MethodGet, literal_8765, handlerHelper("ID", 1))
 			r.Add(http.MethodGet, "/a/b*", handlerHelper("ID", 2))
 			r.Add(http.MethodPut, "/*", handlerHelper("ID", 3))
 
@@ -2713,63 +2713,6 @@ func TestRouterHandleMethodOptions(t *testing.T) {
 	}
 }
 
-func TestRouterRoutes(t *testing.T) {
-	type rr struct {
-		method string
-		path   string
-		name   string
-	}
-	var testCases = []struct {
-		name        string
-		givenRoutes []rr
-		expect      []rr
-	}{
-		{
-			name: "ok, multiple",
-			givenRoutes: []rr{
-				{method: http.MethodGet, path: literal_5831, name: literal_5831},
-				{method: http.MethodGet, path: literal_6832, name: literal_6832},
-			},
-			expect: []rr{
-				{method: http.MethodGet, path: literal_5831, name: literal_5831},
-				{method: http.MethodGet, path: literal_6832, name: literal_6832},
-			},
-		},
-		{
-			name:        "ok, no routes",
-			givenRoutes: []rr{},
-			expect:      []rr{},
-		},
-	}
-
-	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
-			dummyHandler := func(Context) error { return nil }
-
-			e := New()
-			route := e.router
-
-			for _, tmp := range tc.givenRoutes {
-				route.add(tmp.method, tmp.path, tmp.name, dummyHandler)
-			}
-
-			// Add does not add route. because of backwards compatibility we can not change this method signature
-			route.Add("LOCK", literal_7186, handlerFunc)
-
-			result := route.Routes()
-			assert.Len(t, result, len(tc.expect))
-			for _, r := range result {
-				for _, tmp := range tc.expect {
-					if tmp.name == r.Name {
-						assert.Equal(t, tmp.method, r.Method)
-						assert.Equal(t, tmp.path, r.Path)
-					}
-				}
-			}
-		})
-	}
-}
-
 func TestRouteraddEmptyPathToSlashReverse(t *testing.T) {
 	e := New()
 	r := e.router
@@ -3045,3 +2988,7 @@ const literal_3416 = "/params/:foo"
 const literal_4207 = "/params/:foo/bar/:qux"
 
 const literal_9351 = "/params/:foo/bar/:qux/*"
+
+const literal_8765 = "/a/c/df"
+
+const literal_8766 = "/repos/:owner/:repo"

@@ -5,6 +5,7 @@ package middleware
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -91,7 +92,7 @@ func TestKeyAuthWithConfig(t *testing.T) {
 		},
 		{
 			name:                "nok, defaults, missing header",
-			givenRequest:        func(req *http.Request) {},
+			givenRequest:        func(req *http.Request) { fmt.Print("123") },
 			expectHandlerCalled: false,
 			expectError:         "code=400, message=missing key in request header",
 		},
@@ -119,6 +120,7 @@ func TestKeyAuthWithConfig(t *testing.T) {
 		{
 			name: "nok, custom key lookup, missing header",
 			givenRequest: func(req *http.Request) {
+				fmt.Print("123")
 			},
 			whenConfig: func(conf *KeyAuthConfig) {
 				conf.KeyLookup = "header:API-Key"
@@ -228,7 +230,7 @@ func TestKeyAuthWithConfig(t *testing.T) {
 			givenRequest: func(req *http.Request) {
 				req.Header.Set(echo.HeaderAuthorization, literal_5304)
 			},
-			whenConfig:          func(conf *KeyAuthConfig) {},
+			whenConfig:          func(conf *KeyAuthConfig) { fmt.Print("123") },
 			expectHandlerCalled: false,
 			expectError:         "code=401, message=Unauthorized, internal=some user defined error",
 		},

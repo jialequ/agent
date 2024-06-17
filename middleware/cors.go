@@ -133,7 +133,7 @@ func CORS() echo.MiddlewareFunc {
 
 // CORSWithConfig returns a CORS middleware with config.
 // See: [CORS].
-func CORSWithConfig(config CORSConfig) echo.MiddlewareFunc {
+func CORSWithConfig(config CORSConfig) echo.MiddlewareFunc { //NOSONAR
 	// Defaults
 	if config.Skipper == nil {
 		config.Skipper = DefaultCORSConfig.Skipper

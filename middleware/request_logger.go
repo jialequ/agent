@@ -248,7 +248,7 @@ func RequestLoggerWithConfig(config RequestLoggerConfig) echo.MiddlewareFunc {
 }
 
 // ToMiddleware converts RequestLoggerConfig into middleware or returns an error for invalid configuration.
-func (config RequestLoggerConfig) ToMiddleware() (echo.MiddlewareFunc, error) {
+func (config RequestLoggerConfig) ToMiddleware() (echo.MiddlewareFunc, error) { //NOSONAR
 	if config.Skipper == nil {
 		config.Skipper = DefaultSkipper
 	}

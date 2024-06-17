@@ -94,7 +94,7 @@ func Secure() echo.MiddlewareFunc {
 
 // SecureWithConfig returns a Secure middleware with config.
 // See: `Secure()`.
-func SecureWithConfig(config SecureConfig) echo.MiddlewareFunc {
+func SecureWithConfig(config SecureConfig) echo.MiddlewareFunc { //NOSONAR
 	// Defaults
 	if config.Skipper == nil {
 		config.Skipper = DefaultSecureConfig.Skipper
