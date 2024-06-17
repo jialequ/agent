@@ -310,9 +310,6 @@ func (r *Router) insertNode(method, path string, t kind, rm routeMethod) { //NOS
 				currentNode.originalPath,
 				currentNode.methods,
 				currentNode.paramsCount,
-				currentNode.paramChild,
-				currentNode.anyChild,
-				currentNode.notFoundHandler,
 			)
 			// Update parent path for all children to new node
 			for _, child := range currentNode.staticChildren {
@@ -352,7 +349,7 @@ func (r *Router) insertNode(method, path string, t kind, rm routeMethod) { //NOS
 				}
 			} else {
 				// Create child node
-				n = newNode(t, search[lcpLen:], currentNode, nil, "", new(routeMethods), 0, nil, nil, nil)
+				n = newNode(t, search[lcpLen:], currentNode, nil, "", new(routeMethods), 0)
 				if rm.handler != nil {
 					n.addMethod(method, &rm)
 					n.paramsCount = len(rm.pnames)
@@ -371,7 +368,7 @@ func (r *Router) insertNode(method, path string, t kind, rm routeMethod) { //NOS
 				continue
 			}
 			// Create child node
-			n := newNode(t, search, currentNode, nil, rm.ppath, new(routeMethods), 0, nil, nil, nil)
+			n := newNode(t, search, currentNode, nil, rm.ppath, new(routeMethods), 0)
 			if rm.handler != nil {
 				n.addMethod(method, &rm)
 				n.paramsCount = len(rm.pnames)
@@ -406,24 +403,18 @@ func newNode(
 	originalPath string,
 	methods *routeMethods,
 	paramsCount int,
-	paramChildren,
-	anyChildren *node,
-	notFoundHandler *routeMethod,
 ) *node {
 	return &node{
-		kind:            t,
-		label:           pre[0],
-		prefix:          pre,
-		parent:          p,
-		staticChildren:  sc,
-		originalPath:    originalPath,
-		methods:         methods,
-		paramsCount:     paramsCount,
-		paramChild:      paramChildren,
-		anyChild:        anyChildren,
-		isLeaf:          sc == nil && paramChildren == nil && anyChildren == nil,
-		isHandler:       methods.isHandler(),
-		notFoundHandler: notFoundHandler,
+		kind:           t,
+		label:          pre[0],
+		prefix:         pre,
+		parent:         p,
+		staticChildren: sc,
+		originalPath:   originalPath,
+		methods:        methods,
+		paramsCount:    paramsCount,
+		isLeaf:         sc == nil,
+		isHandler:      methods.isHandler(),
 	}
 }
 
