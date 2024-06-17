@@ -525,7 +525,7 @@ func TestContextReset(t *testing.T) {
 	assert.Len(t, c.store, 0)
 }
 
-func TestContext_JSON_CommitsCustomResponseCode(t *testing.T) {
+func TestContextJSONCommitsCustomResponseCode(t *testing.T) {
 	e := New()
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
@@ -539,7 +539,7 @@ func TestContext_JSON_CommitsCustomResponseCode(t *testing.T) {
 	}
 }
 
-func TestContext_JSON_DoesntCommitResponseCodePrematurely(t *testing.T) {
+func TestContextJSONDoesntCommitResponseCodePrematurely(t *testing.T) {
 	e := New()
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
@@ -596,7 +596,7 @@ func TestContextCookie(t *testing.T) {
 	assert.Contains(t, rec.Header().Get(HeaderSetCookie), "HttpOnly")
 }
 
-func TestContextPath(t *testing.T) {
+func TestContextPath1(t *testing.T) {
 	e := New()
 	r := e.Router()
 
@@ -833,7 +833,7 @@ func TestContextHandler(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func TestContext_SetHandler(t *testing.T) {
+func TestContextSetHandler(t *testing.T) {
 	var c Context = new(context)
 
 	assert.Nil(t, c.Handler())
@@ -844,7 +844,7 @@ func TestContext_SetHandler(t *testing.T) {
 	assert.NotNil(t, c.Handler())
 }
 
-func TestContext_Path(t *testing.T) {
+func TestContextPath(t *testing.T) {
 	path := "/pa/th"
 
 	var c Context = new(context)
@@ -859,7 +859,7 @@ func (*validator) Validate(i interface{}) error {
 	return nil
 }
 
-func TestContext_Validate(t *testing.T) {
+func TestContextValidate(t *testing.T) {
 	e := New()
 	c := e.NewContext(nil, nil)
 
@@ -869,7 +869,7 @@ func TestContext_Validate(t *testing.T) {
 	assert.NoError(t, c.Validate(struct{}{}))
 }
 
-func TestContext_QueryString(t *testing.T) {
+func TestContextQueryString(t *testing.T) {
 	e := New()
 
 	queryString := "query=string&var=val"
@@ -880,7 +880,7 @@ func TestContext_QueryString(t *testing.T) {
 	assert.Equal(t, queryString, c.QueryString())
 }
 
-func TestContext_Request(t *testing.T) {
+func TestContextRequest1(t *testing.T) {
 	var c Context = new(context)
 
 	assert.Nil(t, c.Request())
@@ -891,7 +891,7 @@ func TestContext_Request(t *testing.T) {
 	assert.Equal(t, req, c.Request())
 }
 
-func TestContext_Scheme(t *testing.T) {
+func TestContextScheme(t *testing.T) {
 	tests := []struct {
 		c Context
 		s string
@@ -949,7 +949,7 @@ func TestContext_Scheme(t *testing.T) {
 	}
 }
 
-func TestContext_IsWebSocket(t *testing.T) {
+func TestContextIsWebSocket(t *testing.T) {
 	tests := []struct {
 		c  Context
 		ws assert.BoolAssertionFunc
@@ -993,7 +993,7 @@ func TestContext_IsWebSocket(t *testing.T) {
 	}
 }
 
-func TestContext_Bind(t *testing.T) {
+func TestContextBind(t *testing.T) {
 	e := New()
 	req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(userJSON))
 	c := e.NewContext(req, nil)
@@ -1005,7 +1005,7 @@ func TestContext_Bind(t *testing.T) {
 	assert.Equal(t, &user{1, "Jon Snow"}, u)
 }
 
-func TestContext_Logger(t *testing.T) {
+func TestContextLogger(t *testing.T) {
 	e := New()
 	c := e.NewContext(nil, nil)
 
@@ -1021,7 +1021,7 @@ func TestContext_Logger(t *testing.T) {
 	assert.Equal(t, log1, c.Logger())
 }
 
-func TestContext_RealIP(t *testing.T) {
+func TestContextRealIP(t *testing.T) {
 	tests := []struct {
 		c Context
 		s string

@@ -42,7 +42,7 @@ func TestRequestID(t *testing.T) {
 	assert.True(t, calledHandler)
 }
 
-func TestRequestID_IDNotAltered(t *testing.T) {
+func TestRequestIDIDNotAltered(t *testing.T) {
 	e := echo.New()
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	req.Header.Add(echo.HeaderXRequestID, "<sample-request-id>")

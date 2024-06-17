@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCSRF_tokenExtractors(t *testing.T) {
+func TestCSRFtokenExtractors(t *testing.T) {
 	var testCases = []struct {
 		name              string
 		whenTokenLookup   string
@@ -318,7 +318,7 @@ func TestCSRFWithSameSiteModeNone(t *testing.T) {
 	assert.Regexp(t, "Secure", rec.Header()["Set-Cookie"])
 }
 
-func TestCSRFConfig_skipper(t *testing.T) {
+func TestCSRFConfigskipper(t *testing.T) {
 	var testCases = []struct {
 		name          string
 		whenSkip      bool

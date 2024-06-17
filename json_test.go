@@ -13,7 +13,7 @@ import (
 
 // Note this test is deliberately simple as there's not a lot to test.
 // Just need to ensure it writes JSONs. The heavy work is done by the context methods.
-func TestDefaultJSONCodec_Encode(t *testing.T) {
+func TestDefaultJSONCodecEncode(t *testing.T) {
 	e := New()
 	req := httptest.NewRequest(http.MethodPost, "/", nil)
 	rec := httptest.NewRecorder()
@@ -50,7 +50,7 @@ func TestDefaultJSONCodec_Encode(t *testing.T) {
 
 // Note this test is deliberately simple as there's not a lot to test.
 // Just need to ensure it writes JSONs. The heavy work is done by the context methods.
-func TestDefaultJSONCodec_Decode(t *testing.T) {
+func TestDefaultJSONCodecDecode(t *testing.T) {
 	e := New()
 	req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(userJSON))
 	rec := httptest.NewRecorder()

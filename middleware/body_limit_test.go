@@ -83,7 +83,7 @@ func TestBodyLimitReader(t *testing.T) {
 	assert.Equal(t, nil, err)
 }
 
-func TestBodyLimitWithConfig_Skipper(t *testing.T) {
+func TestBodyLimitWithConfigSkipper(t *testing.T) {
 	e := echo.New()
 	h := func(c echo.Context) error {
 		body, err := io.ReadAll(c.Request().Body)
@@ -164,7 +164,7 @@ func TestBodyLimitWithConfig(t *testing.T) {
 	}
 }
 
-func TestBodyLimit_panicOnInvalidLimit(t *testing.T) {
+func TestBodyLimitpanicOnInvalidLimit(t *testing.T) {
 	assert.PanicsWithError(
 		t,
 		"echo: invalid body-limit=",

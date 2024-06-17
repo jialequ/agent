@@ -314,7 +314,7 @@ func TestGzipWithStatic(t *testing.T) {
 	}
 }
 
-func TestGzipResponseWriter_CanUnwrap(t *testing.T) {
+func TestGzipResponseWriterCanUnwrap(t *testing.T) {
 	trwu := &testResponseWriterUnwrapper{rw: httptest.NewRecorder()}
 	bdrw := gzipResponseWriter{
 		ResponseWriter: trwu,
@@ -324,7 +324,7 @@ func TestGzipResponseWriter_CanUnwrap(t *testing.T) {
 	assert.Equal(t, trwu, result)
 }
 
-func TestGzipResponseWriter_CanHijack(t *testing.T) {
+func TestGzipResponseWriterCanHijack(t *testing.T) {
 	trwu := testResponseWriterUnwrapperHijack{testResponseWriterUnwrapper: testResponseWriterUnwrapper{rw: httptest.NewRecorder()}}
 	bdrw := gzipResponseWriter{
 		ResponseWriter: &trwu, // this RW supports hijacking through unwrapping
@@ -334,7 +334,7 @@ func TestGzipResponseWriter_CanHijack(t *testing.T) {
 	assert.EqualError(t, err, "can hijack")
 }
 
-func TestGzipResponseWriter_CanNotHijack(t *testing.T) {
+func TestGzipResponseWriterCanNotHijack(t *testing.T) {
 	trwu := testResponseWriterUnwrapper{rw: httptest.NewRecorder()}
 	bdrw := gzipResponseWriter{
 		ResponseWriter: &trwu, // this RW supports hijacking through unwrapping

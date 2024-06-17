@@ -12,7 +12,7 @@ import (
 	"testing"
 )
 
-func TestGroup_FileFS(t *testing.T) {
+func TestGroupFileFS(t *testing.T) {
 	var testCases = []struct {
 		name             string
 		whenPath         string
@@ -73,7 +73,7 @@ func TestGroup_FileFS(t *testing.T) {
 	}
 }
 
-func TestGroup_StaticPanic(t *testing.T) {
+func TestGroupStaticPanic(t *testing.T) {
 	var testCases = []struct {
 		name        string
 		givenRoot   string

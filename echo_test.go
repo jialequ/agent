@@ -808,7 +808,7 @@ func TestEchoNotFound(t *testing.T) {
 	assert.Equal(t, http.StatusNotFound, rec.Code)
 }
 
-func TestEcho_RouteNotFound(t *testing.T) {
+func TestEchoRouteNotFound(t *testing.T) {
 	var testCases = []struct {
 		name        string
 		whenURL     string
@@ -940,7 +940,7 @@ func TestEchoStart(t *testing.T) {
 	assert.NoError(t, e.Close())
 }
 
-func TestEcho_StartTLS(t *testing.T) {
+func TestEchoStartTLS(t *testing.T) {
 	var testCases = []struct {
 		name        string
 		addr        string
@@ -1136,7 +1136,7 @@ func TestEchoStartTLSByteString(t *testing.T) {
 	}
 }
 
-func TestEcho_StartAutoTLS(t *testing.T) {
+func TestEchoStartAutoTLS(t *testing.T) {
 	var testCases = []struct {
 		name        string
 		addr        string
@@ -1174,7 +1174,7 @@ func TestEcho_StartAutoTLS(t *testing.T) {
 	}
 }
 
-func TestEcho_StartH2CServer(t *testing.T) {
+func TestEchoStartH2CServer(t *testing.T) {
 	var testCases = []struct {
 		name        string
 		addr        string
@@ -1261,7 +1261,7 @@ func TestHTTPError(t *testing.T) {
 	})
 }
 
-func TestHTTPError_Unwrap(t *testing.T) {
+func TestHTTPErrorUnwrap(t *testing.T) {
 	t.Run("non-internal", func(t *testing.T) {
 		err := NewHTTPError(http.StatusBadRequest, map[string]interface{}{
 			"code": 12,
@@ -1553,7 +1553,7 @@ func TestEchoListenerNetworkInvalid(t *testing.T) {
 	assert.Equal(t, ErrInvalidListenerNetwork, e.Start(":1323"))
 }
 
-func TestEcho_OnAddRouteHandler(t *testing.T) {
+func TestEchoOnAddRouteHandler(t *testing.T) {
 	type rr struct {
 		host       string
 		route      Route
@@ -1717,7 +1717,7 @@ func TestEchoReverseHandleHostProperly(t *testing.T) {
 
 }
 
-func TestEcho_ListenerAddr(t *testing.T) {
+func TestEchoListenerAddr(t *testing.T) {
 	e := New()
 
 	addr := e.ListenerAddr()
@@ -1732,7 +1732,7 @@ func TestEcho_ListenerAddr(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func TestEcho_TLSListenerAddr(t *testing.T) {
+func TestEchoTLSListenerAddr(t *testing.T) {
 	cert, err := os.ReadFile("_fixture/certs/cert.pem")
 	require.NoError(t, err)
 	key, err := os.ReadFile("_fixture/certs/key.pem")
@@ -1752,7 +1752,7 @@ func TestEcho_TLSListenerAddr(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func TestEcho_StartServer(t *testing.T) {
+func TestEchoStartServer(t *testing.T) {
 	cert, err := os.ReadFile("_fixture/certs/cert.pem")
 	require.NoError(t, err)
 	key, err := os.ReadFile("_fixture/certs/key.pem")

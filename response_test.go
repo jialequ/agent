@@ -31,7 +31,7 @@ func TestResponse(t *testing.T) {
 	assert.Equal(t, "DENY", rec.Header().Get(HeaderXFrameOptions))
 }
 
-func TestResponse_Write_FallsBackToDefaultStatus(t *testing.T) {
+func TestResponseWriteFallsBackToDefaultStatus(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
 	res := &Response{echo: e, Writer: rec}
@@ -40,7 +40,7 @@ func TestResponse_Write_FallsBackToDefaultStatus(t *testing.T) {
 	assert.Equal(t, http.StatusOK, rec.Code)
 }
 
-func TestResponse_Write_UsesSetResponseCode(t *testing.T) {
+func TestResponseWriteUsesSetResponseCode(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
 	res := &Response{echo: e, Writer: rec}
@@ -50,7 +50,7 @@ func TestResponse_Write_UsesSetResponseCode(t *testing.T) {
 	assert.Equal(t, http.StatusBadRequest, rec.Code)
 }
 
-func TestResponse_Flush(t *testing.T) {
+func TestResponseFlush(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
 	res := &Response{echo: e, Writer: rec}
@@ -74,7 +74,7 @@ func (w *testResponseWriter) Header() http.Header {
 	return nil
 }
 
-func TestResponse_FlushPanics(t *testing.T) {
+func TestResponseFlushPanics(t *testing.T) {
 	e := New()
 	rw := new(testResponseWriter)
 	res := &Response{echo: e, Writer: rw}
@@ -85,7 +85,7 @@ func TestResponse_FlushPanics(t *testing.T) {
 	})
 }
 
-func TestResponse_ChangeStatusCodeBeforeWrite(t *testing.T) {
+func TestResponseChangeStatusCodeBeforeWrite(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
 	res := &Response{echo: e, Writer: rec}
@@ -101,7 +101,7 @@ func TestResponse_ChangeStatusCodeBeforeWrite(t *testing.T) {
 	assert.Equal(t, http.StatusOK, rec.Code)
 }
 
-func TestResponse_Unwrap(t *testing.T) {
+func TestResponseUnwrap(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
 	res := &Response{echo: e, Writer: rec}

@@ -19,7 +19,7 @@ func mustParseCIDR(s string) *net.IPNet {
 	return IPNet
 }
 
-func TestIPChecker_TrustOption(t *testing.T) {
+func TestIPCheckerTrustOption(t *testing.T) {
 	var testCases = []struct {
 		name         string
 		givenOptions []TrustOption

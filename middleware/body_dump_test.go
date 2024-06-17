@@ -91,7 +91,7 @@ func TestBodyDumpFails(t *testing.T) {
 	})
 }
 
-func TestBodyDumpResponseWriter_CanNotFlush(t *testing.T) {
+func TestBodyDumpResponseWriterCanNotFlush(t *testing.T) {
 	bdrw := bodyDumpResponseWriter{
 		ResponseWriter: new(testResponseWriterNoFlushHijack), // this RW does not support flush
 	}
@@ -101,7 +101,7 @@ func TestBodyDumpResponseWriter_CanNotFlush(t *testing.T) {
 	})
 }
 
-func TestBodyDumpResponseWriter_CanFlush(t *testing.T) {
+func TestBodyDumpResponseWriterCanFlush(t *testing.T) {
 	trwu := testResponseWriterUnwrapperHijack{testResponseWriterUnwrapper: testResponseWriterUnwrapper{rw: httptest.NewRecorder()}}
 	bdrw := bodyDumpResponseWriter{
 		ResponseWriter: &trwu,
@@ -111,7 +111,7 @@ func TestBodyDumpResponseWriter_CanFlush(t *testing.T) {
 	assert.Equal(t, 1, trwu.unwrapCalled)
 }
 
-func TestBodyDumpResponseWriter_CanUnwrap(t *testing.T) {
+func TestBodyDumpResponseWriterCanUnwrap(t *testing.T) {
 	trwu := &testResponseWriterUnwrapper{rw: httptest.NewRecorder()}
 	bdrw := bodyDumpResponseWriter{
 		ResponseWriter: trwu,
@@ -121,7 +121,7 @@ func TestBodyDumpResponseWriter_CanUnwrap(t *testing.T) {
 	assert.Equal(t, trwu, result)
 }
 
-func TestBodyDumpResponseWriter_CanHijack(t *testing.T) {
+func TestBodyDumpResponseWriterCanHijack(t *testing.T) {
 	trwu := testResponseWriterUnwrapperHijack{testResponseWriterUnwrapper: testResponseWriterUnwrapper{rw: httptest.NewRecorder()}}
 	bdrw := bodyDumpResponseWriter{
 		ResponseWriter: &trwu, // this RW supports hijacking through unwrapping
@@ -131,7 +131,7 @@ func TestBodyDumpResponseWriter_CanHijack(t *testing.T) {
 	assert.EqualError(t, err, "can hijack")
 }
 
-func TestBodyDumpResponseWriter_CanNotHijack(t *testing.T) {
+func TestBodyDumpResponseWriterCanNotHijack(t *testing.T) {
 	trwu := testResponseWriterUnwrapper{rw: httptest.NewRecorder()}
 	bdrw := bodyDumpResponseWriter{
 		ResponseWriter: &trwu, // this RW supports hijacking through unwrapping

@@ -438,7 +438,7 @@ func TestJWTwithKID(t *testing.T) {
 	}
 }
 
-func TestJWTConfig_skipper(t *testing.T) {
+func TestJWTConfigskipper(t *testing.T) {
 	e := echo.New()
 
 	e.Use(JWTWithConfig(JWTConfig{
@@ -462,7 +462,7 @@ func TestJWTConfig_skipper(t *testing.T) {
 	assert.True(t, isCalled)
 }
 
-func TestJWTConfig_BeforeFunc(t *testing.T) {
+func TestJWTConfigBeforeFunc(t *testing.T) {
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusTeapot, "test")
@@ -485,7 +485,7 @@ func TestJWTConfig_BeforeFunc(t *testing.T) {
 	assert.True(t, isCalled)
 }
 
-func TestJWTConfig_extractorErrorHandling(t *testing.T) {
+func TestJWTConfigextractorErrorHandling(t *testing.T) {
 	var testCases = []struct {
 		name             string
 		given            JWTConfig
@@ -531,7 +531,7 @@ func TestJWTConfig_extractorErrorHandling(t *testing.T) {
 	}
 }
 
-func TestJWTConfig_parseTokenErrorHandling(t *testing.T) {
+func TestJWTConfigparseTokenErrorHandling(t *testing.T) {
 	var testCases = []struct {
 		name      string
 		given     JWTConfig
@@ -588,7 +588,7 @@ func TestJWTConfig_parseTokenErrorHandling(t *testing.T) {
 	}
 }
 
-func TestJWTConfig_custom_ParseTokenFunc_Keyfunc(t *testing.T) {
+func TestJWTConfigcustomParseTokenFuncKeyfunc(t *testing.T) {
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusTeapot, "test")
@@ -629,7 +629,7 @@ func TestJWTConfig_custom_ParseTokenFunc_Keyfunc(t *testing.T) {
 	assert.Equal(t, http.StatusTeapot, res.Code)
 }
 
-func TestJWTConfig_TokenLookupFuncs(t *testing.T) {
+func TestJWTConfigTokenLookupFuncs(t *testing.T) {
 	e := echo.New()
 
 	e.GET("/", func(c echo.Context) error {
@@ -655,7 +655,7 @@ func TestJWTConfig_TokenLookupFuncs(t *testing.T) {
 	assert.Equal(t, `{"admin":true,"name":"John Doe","sub":"1234567890"}`+"\n", res.Body.String())
 }
 
-func TestJWTConfig_SuccessHandler(t *testing.T) {
+func TestJWTConfigSuccessHandler(t *testing.T) {
 	var testCases = []struct {
 		name         string
 		givenToken   string
@@ -705,7 +705,7 @@ func TestJWTConfig_SuccessHandler(t *testing.T) {
 	}
 }
 
-func TestJWTConfig_ContinueOnIgnoredError(t *testing.T) {
+func TestJWTConfigContinueOnIgnoredError(t *testing.T) {
 	var testCases = []struct {
 		name                       string
 		whenContinueOnIgnoredError bool

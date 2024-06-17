@@ -13,7 +13,7 @@ import (
 	"testing"
 )
 
-func TestEcho_StaticFS(t *testing.T) {
+func TestEchoStaticFS(t *testing.T) {
 	var testCases = []struct {
 		name                 string
 		givenPrefix          string
@@ -183,7 +183,7 @@ func TestEcho_StaticFS(t *testing.T) {
 	}
 }
 
-func TestEcho_FileFS(t *testing.T) {
+func TestEchoFileFS(t *testing.T) {
 	var testCases = []struct {
 		name             string
 		whenPath         string
@@ -243,7 +243,7 @@ func TestEcho_FileFS(t *testing.T) {
 	}
 }
 
-func TestEcho_StaticPanic(t *testing.T) {
+func TestEchoStaticPanic(t *testing.T) {
 	var testCases = []struct {
 		name        string
 		givenRoot   string

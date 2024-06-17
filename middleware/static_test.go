@@ -169,7 +169,7 @@ func TestStatic(t *testing.T) {
 	}
 }
 
-func TestStatic_GroupWithStatic(t *testing.T) {
+func TestStaticGroupWithStatic(t *testing.T) {
 	var testCases = []struct {
 		name                 string
 		givenGroup           string
@@ -322,7 +322,7 @@ func TestStatic_GroupWithStatic(t *testing.T) {
 	}
 }
 
-func TestStatic_CustomFS(t *testing.T) {
+func TestStaticCustomFS(t *testing.T) {
 	var testCases = []struct {
 		name           string
 		filesystem     fs.FS

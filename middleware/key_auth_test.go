@@ -272,7 +272,7 @@ func TestKeyAuthWithConfig(t *testing.T) {
 	}
 }
 
-func TestKeyAuthWithConfig_panicsOnInvalidLookup(t *testing.T) {
+func TestKeyAuthWithConfigpanicsOnInvalidLookup(t *testing.T) {
 	assert.PanicsWithError(
 		t,
 		"extractor source for lookup could not be split into needed parts: a",
@@ -288,7 +288,7 @@ func TestKeyAuthWithConfig_panicsOnInvalidLookup(t *testing.T) {
 	)
 }
 
-func TestKeyAuthWithConfig_panicsOnEmptyValidator(t *testing.T) {
+func TestKeyAuthWithConfigpanicsOnEmptyValidator(t *testing.T) {
 	assert.PanicsWithValue(
 		t,
 		"echo: key-auth middleware requires a validator function",
@@ -303,7 +303,7 @@ func TestKeyAuthWithConfig_panicsOnEmptyValidator(t *testing.T) {
 	)
 }
 
-func TestKeyAuthWithConfig_ContinueOnIgnoredError(t *testing.T) {
+func TestKeyAuthWithConfigContinueOnIgnoredError(t *testing.T) {
 	var testCases = []struct {
 		name                       string
 		whenContinueOnIgnoredError bool

@@ -253,7 +253,7 @@ func TestCORS(t *testing.T) {
 	}
 }
 
-func Test_allowOriginScheme(t *testing.T) {
+func TestallowOriginScheme(t *testing.T) {
 	tests := []struct {
 		domain, pattern string
 		expected        bool
@@ -300,7 +300,7 @@ func Test_allowOriginScheme(t *testing.T) {
 	}
 }
 
-func Test_allowOriginSubdomain(t *testing.T) {
+func TestallowOriginSubdomain(t *testing.T) {
 	tests := []struct {
 		domain, pattern string
 		expected        bool
@@ -391,7 +391,7 @@ func Test_allowOriginSubdomain(t *testing.T) {
 	}
 }
 
-func TestCORSWithConfig_AllowMethods(t *testing.T) {
+func TestCORSWithConfigAllowMethods(t *testing.T) {
 	var testCases = []struct {
 		name            string
 		allowOrigins    []string
@@ -626,7 +626,7 @@ func TestCorsHeaders(t *testing.T) {
 	}
 }
 
-func Test_allowOriginFunc(t *testing.T) {
+func TestallowOriginFunc(t *testing.T) {
 	returnTrue := func(origin string) (bool, error) {
 		return true, nil
 	}

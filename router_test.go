@@ -731,7 +731,7 @@ func TestRouterParam(t *testing.T) {
 	}
 }
 
-func TestRouter_addAndMatchAllSupportedMethods(t *testing.T) {
+func TestRouteraddAndMatchAllSupportedMethods(t *testing.T) {
 	var testCases = []struct {
 		name            string
 		givenNoAddRoute bool
@@ -1365,7 +1365,7 @@ func TestNotFoundRouteStaticKind(t *testing.T) {
 	}
 }
 
-func TestRouter_notFoundRouteWithNodeSplitting(t *testing.T) {
+func TestRouternotFoundRouteWithNodeSplitting(t *testing.T) {
 	e := New()
 	r := e.router
 
@@ -1449,7 +1449,7 @@ func TestRouterParamStaticConflict(t *testing.T) {
 	}
 }
 
-func TestRouterParam_escapeColon(t *testing.T) {
+func TestRouterParamescapeColon(t *testing.T) {
 	// to allow Google cloud API like route paths with colon in them
 	// i.e. https://service.name/v1/some/resource/name:customVerb <- that `:customVerb` is not path param. It is just a string
 	e := New()
@@ -2713,7 +2713,7 @@ func TestRouterHandleMethodOptions(t *testing.T) {
 	}
 }
 
-func TestRouter_Routes(t *testing.T) {
+func TestRouterRoutes(t *testing.T) {
 	type rr struct {
 		method string
 		path   string
@@ -2770,7 +2770,7 @@ func TestRouter_Routes(t *testing.T) {
 	}
 }
 
-func TestRouter_addEmptyPathToSlashReverse(t *testing.T) {
+func TestRouteraddEmptyPathToSlashReverse(t *testing.T) {
 	e := New()
 	r := e.router
 	r.add(http.MethodGet, "", "empty", handlerFunc) // emtpy path is normalized to `/`
@@ -2778,7 +2778,7 @@ func TestRouter_addEmptyPathToSlashReverse(t *testing.T) {
 	assert.Equal(t, "/", r.Reverse("empty"))
 }
 
-func TestRouter_ReverseNotFound(t *testing.T) {
+func TestRouterReverseNotFound(t *testing.T) {
 	e := New()
 	r := e.router
 	r.add(http.MethodGet, "", "empty", handlerFunc)
@@ -2786,7 +2786,7 @@ func TestRouter_ReverseNotFound(t *testing.T) {
 	assert.Equal(t, "", r.Reverse("not-existing"))
 }
 
-func TestRouter_Reverse(t *testing.T) {
+func TestRouterReverse(t *testing.T) {
 	e := New()
 	r := e.router
 	dummyHandler := func(Context) error { return nil }

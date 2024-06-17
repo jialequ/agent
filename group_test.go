@@ -123,7 +123,7 @@ func TestGroupRouteMiddlewareWithMatchAny(t *testing.T) {
 
 }
 
-func TestGroup_RouteNotFound(t *testing.T) {
+func TestGroupRouteNotFound(t *testing.T) {
 	var testCases = []struct {
 		name        string
 		whenURL     string
@@ -188,7 +188,7 @@ func TestGroup_RouteNotFound(t *testing.T) {
 	}
 }
 
-func TestGroup_RouteNotFoundWithMiddleware(t *testing.T) {
+func TestGroupRouteNotFoundWithMiddleware(t *testing.T) {
 	var testCases = []struct {
 		name           string
 		givenCustom404 bool
