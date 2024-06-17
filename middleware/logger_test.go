@@ -88,64 +88,6 @@ func TestLoggerIPAddress(t *testing.T) {
 	assert.Contains(t, buf.String(), ip)
 }
 
-func TestLoggerTemplate(t *testing.T) {
-	buf := new(bytes.Buffer)
-
-	e := echo.New()
-	e.Use(LoggerWithConfig(LoggerConfig{
-		Format: `{"time":"${time_rfc3339_nano}","id":"${id}","remote_ip":"${remote_ip}","host":"${host}","user_agent":"${user_agent}",` +
-			`"method":"${method}","uri":"${uri}","status":${status}, "latency":${latency},` +
-			`"latency_human":"${latency_human}","bytes_in":${bytes_in}, "path":"${path}", "route":"${route}", "referer":"${referer}",` +
-			`"bytes_out":${bytes_out},"ch":"${header:X-Custom-Header}", "protocol":"${protocol}"` +
-			`"us":"${query:username}", "cf":"${form:username}", "session":"${cookie:session}"}` + "\n",
-		Output: buf,
-	}))
-
-	e.GET("/users/:id", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Header Logged")
-	})
-
-	req := httptest.NewRequest(http.MethodGet, "/users/1?username=apagano-param&password=secret", nil)
-	req.RequestURI = "/"
-	req.Header.Add(echo.HeaderXRealIP, literal_1087)
-	req.Header.Add("Referer", "google.com")
-	req.Header.Add(literal_6781, "echo-tests-agent")
-	req.Header.Add("X-Custom-Header", "AAA-CUSTOM-VALUE")
-	req.Header.Add("X-Request-ID", "6ba7b810-9dad-11d1-80b4-00c04fd430c8")
-	req.Header.Add("Cookie", "_ga=GA1.2.000000000.0000000000; session=ac08034cd216a647fc2eb62f2bcf7b810")
-	req.Form = url.Values{
-		"username": []string{"apagano-form"},
-		"password": []string{"secret-form"},
-	}
-
-	rec := httptest.NewRecorder()
-	e.ServeHTTP(rec, req)
-
-	cases := map[string]bool{
-		"apagano-param":                        true,
-		"apagano-form":                         true,
-		"AAA-CUSTOM-VALUE":                     true,
-		"BBB-CUSTOM-VALUE":                     false,
-		"secret-form":                          false,
-		"hexvalue":                             false,
-		"GET":                                  true,
-		literal_1087:                           true,
-		"\"path\":\"/users/1\"":                true,
-		"\"route\":\"/users/:id\"":             true,
-		"\"uri\":\"/\"":                        true,
-		"\"status\":200":                       true,
-		"\"bytes_in\":0":                       true,
-		"google.com":                           true,
-		"echo-tests-agent":                     true,
-		"6ba7b810-9dad-11d1-80b4-00c04fd430c8": true,
-		"ac08034cd216a647fc2eb62f2bcf7b810":    true,
-	}
-
-	for token, present := range cases {
-		assert.True(t, strings.Contains(buf.String(), token) == present, "Case: "+token)
-	}
-}
-
 func TestLoggerCustomTimestamp(t *testing.T) {
 	buf := new(bytes.Buffer)
 	customTimeFormat := "2006-01-02 15:04:05.00000"

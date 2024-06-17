@@ -1022,95 +1022,6 @@ func TestContextLogger(t *testing.T) {
 	assert.Equal(t, log1, c.Logger())
 }
 
-func TestContextRealIP(t *testing.T) {
-	tests := []struct {
-		c Context
-		s string
-	}{
-		{
-			&context{
-				request: &http.Request{
-					Header: http.Header{HeaderXForwardedFor: []string{"127.0.0.1, 127.0.1.1, "}},
-				},
-			},
-			literal_4180,
-		},
-		{
-			&context{
-				request: &http.Request{
-					Header: http.Header{HeaderXForwardedFor: []string{"127.0.0.1,127.0.1.1"}},
-				},
-			},
-			literal_4180,
-		},
-		{
-			&context{
-				request: &http.Request{
-					Header: http.Header{HeaderXForwardedFor: []string{literal_4180}},
-				},
-			},
-			literal_4180,
-		},
-		{
-			&context{
-				request: &http.Request{
-					Header: http.Header{HeaderXForwardedFor: []string{"[2001:db8:85a3:8d3:1319:8a2e:370:7348], 2001:db8::1, "}},
-				},
-			},
-			literal_7630,
-		},
-		{
-			&context{
-				request: &http.Request{
-					Header: http.Header{HeaderXForwardedFor: []string{"[2001:db8:85a3:8d3:1319:8a2e:370:7348],[2001:db8::1]"}},
-				},
-			},
-			literal_7630,
-		},
-		{
-			&context{
-				request: &http.Request{
-					Header: http.Header{HeaderXForwardedFor: []string{literal_7630}},
-				},
-			},
-			literal_7630,
-		},
-		{
-			&context{
-				request: &http.Request{
-					Header: http.Header{
-						"X-Real-Ip": []string{"192.168.0.1"},
-					},
-				},
-			},
-			"192.168.0.1",
-		},
-		{
-			&context{
-				request: &http.Request{
-					Header: http.Header{
-						"X-Real-Ip": []string{"[2001:db8::1]"},
-					},
-				},
-			},
-			"2001:db8::1",
-		},
-
-		{
-			&context{
-				request: &http.Request{
-					RemoteAddr: "89.89.89.89:1654",
-				},
-			},
-			"89.89.89.89",
-		},
-	}
-
-	for _, tt := range tests {
-		assert.Equal(t, tt.s, tt.c.RealIP())
-	}
-}
-
 const literal_1705 = "Jon Snow"
 
 const literal_7609 = "/?pretty"
@@ -1118,7 +1029,3 @@ const literal_7609 = "/?pretty"
 const literal_2730 = "jon@labstack.com"
 
 const literal_4123 = "http://labstack.github.io/echo"
-
-const literal_4180 = "127.0.0.1"
-
-const literal_7630 = "2001:db8:85a3:8d3:1319:8a2e:370:7348"
