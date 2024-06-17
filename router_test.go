@@ -1152,13 +1152,13 @@ func TestRouterBacktrackingFromMultipleParamKinds(t *testing.T) {
 				"2": "second-new",
 			},
 		},
-		{ // FIXME: should match `/:1/:2` when backtracking in tree. this 1 level backtracking fails even with old implementation
+		{ // : should match `/:1/:2` when backtracking in tree. this 1 level backtracking fails even with old implementation
 			name:        "route /first/second/ to /:1/:2",
 			whenURL:     "/first/second/",
 			expectRoute: "/*",                                    // "/:1/:2",
 			expectParam: map[string]string{"*": "first/second/"}, // map[string]string{"1": "first", "2": "second/"},
 		},
-		{ // FIXME: should match `/:1/:2`. same backtracking problem. when backtracking is at `/:1/:2` during backtracking this node should be match as it has executable handler
+		{ // : should match `/:1/:2`. same backtracking problem. when backtracking is at `/:1/:2` during backtracking this node should be match as it has executable handler
 			name:        "route /first/second/third/fourth/fifth/nope to /:1/:2",
 			whenURL:     "/first/second/third/fourth/fifth/nope",
 			expectRoute: "/*",                                                           // "/:1/:2",

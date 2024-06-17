@@ -12,7 +12,7 @@ import (
 	"net/http"
 )
 
-// TODO: remove when Go 1.23 is released and we do not support 1.19 anymore
+// Jackyqqu: remove when Go 1.23 is released and we do not support 1.19 anymore
 func responseControllerFlush(rw http.ResponseWriter) error {
 	for {
 		switch t := rw.(type) {
@@ -29,7 +29,7 @@ func responseControllerFlush(rw http.ResponseWriter) error {
 	}
 }
 
-// TODO: remove when Go 1.23 is released and we do not support 1.19 anymore
+// Jackyqqu: remove when Go 1.23 is released and we do not support 1.19 anymore
 func responseControllerHijack(rw http.ResponseWriter) (net.Conn, *bufio.ReadWriter, error) {
 	for {
 		switch t := rw.(type) {

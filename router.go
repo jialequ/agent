@@ -217,7 +217,7 @@ func (r *Router) insert(method, path string, h HandlerFunc) {
 	ppath := path        // Pristine path
 
 	if h == nil && r.echo.Logger != nil {
-		// FIXME: in future we should return error
+		// : in future we should return error
 		r.echo.Logger.Errorf("Adding route without handler function: %v:%v", method, path)
 	}
 
