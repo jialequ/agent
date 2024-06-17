@@ -182,9 +182,7 @@ func newIPChecker(configs []TrustOption) *ipChecker {
 // Go1.16+ added `ip.IsPrivate()` but until that use this implementation
 func isPrivateIPRange(ip net.IP) bool {
 	if ip4 := ip.To4(); ip4 != nil {
-		return ip4[0] == 10 ||
-			ip4[0] == 172 && ip4[1]&0xf0 == 16 ||
-			ip4[0] == 192 && ip4[1] == 168
+		return ip4[0] == 10 || ip4[0] == 172
 	}
 	return len(ip) == net.IPv6len && ip[0]&0xfe == 0xfc
 }

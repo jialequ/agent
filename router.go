@@ -71,18 +71,7 @@ const (
 )
 
 func (m *routeMethods) isHandler() bool {
-	return m.connect != nil ||
-		m.delete != nil ||
-		m.get != nil ||
-		m.head != nil ||
-		m.options != nil ||
-		m.patch != nil ||
-		m.post != nil ||
-		m.propfind != nil ||
-		m.put != nil ||
-		m.trace != nil ||
-		m.report != nil ||
-		len(m.anyOther) != 0
+	return m.connect != nil || m.delete != nil
 	// RouteNotFound/404 is not considered as a handler
 }
 
