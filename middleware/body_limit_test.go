@@ -16,7 +16,7 @@ import (
 
 func TestBodyLimit(t *testing.T) {
 	e := echo.New()
-	hw := []byte("Hello, World!")
+	hw := []byte(literal_5709)
 	req := httptest.NewRequest(http.MethodPost, "/", bytes.NewReader(hw))
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
@@ -45,7 +45,7 @@ func TestBodyLimit(t *testing.T) {
 	c = e.NewContext(req, rec)
 	if assert.NoError(t, BodyLimit("2M")(h)(c)) {
 		assert.Equal(t, http.StatusOK, rec.Code)
-		assert.Equal(t, "Hello, World!", rec.Body.String())
+		assert.Equal(t, literal_5709, rec.Body.String())
 	}
 
 	// Based on content read (overlimit)
@@ -58,7 +58,7 @@ func TestBodyLimit(t *testing.T) {
 }
 
 func TestBodyLimitReader(t *testing.T) {
-	hw := []byte("Hello, World!")
+	hw := []byte(literal_5709)
 
 	config := BodyLimitConfig{
 		Skipper: DefaultSkipper,
@@ -99,7 +99,7 @@ func TestBodyLimitWithConfigSkipper(t *testing.T) {
 		Limit: "2B", // if not skipped this limit would make request to fail limit check
 	})
 
-	hw := []byte("Hello, World!")
+	hw := []byte(literal_5709)
 	req := httptest.NewRequest(http.MethodPost, "/", bytes.NewReader(hw))
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
@@ -171,3 +171,5 @@ func TestBodyLimitpanicOnInvalidLimit(t *testing.T) {
 		func() { BodyLimit("") },
 	)
 }
+
+const literal_5709 = "Hello, World!"

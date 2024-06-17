@@ -40,7 +40,7 @@ func TestCSRFtokenExtractors(t *testing.T) {
 		},
 		{
 			name:            "ok, token from POST form",
-			whenTokenLookup: "form:csrf",
+			whenTokenLookup: literal_2931,
 			givenCSRFCookie: "token",
 			givenMethod:     http.MethodPost,
 			givenFormTokens: map[string][]string{
@@ -49,7 +49,7 @@ func TestCSRFtokenExtractors(t *testing.T) {
 		},
 		{
 			name:            "ok, token from POST form, second token passes",
-			whenTokenLookup: "form:csrf",
+			whenTokenLookup: literal_2931,
 			givenCSRFCookie: "token",
 			givenMethod:     http.MethodPost,
 			givenFormTokens: map[string][]string{
@@ -58,17 +58,17 @@ func TestCSRFtokenExtractors(t *testing.T) {
 		},
 		{
 			name:            "nok, invalid token from POST form",
-			whenTokenLookup: "form:csrf",
+			whenTokenLookup: literal_2931,
 			givenCSRFCookie: "token",
 			givenMethod:     http.MethodPost,
 			givenFormTokens: map[string][]string{
 				"csrf": {"invalid_token"},
 			},
-			expectError: "code=403, message=invalid csrf token",
+			expectError: literal_5391,
 		},
 		{
 			name:            "nok, missing token from POST form",
-			whenTokenLookup: "form:csrf",
+			whenTokenLookup: literal_2931,
 			givenCSRFCookie: "token",
 			givenMethod:     http.MethodPost,
 			givenFormTokens: map[string][]string{},
@@ -85,7 +85,7 @@ func TestCSRFtokenExtractors(t *testing.T) {
 		},
 		{
 			name:            "ok, token from POST header, second token passes",
-			whenTokenLookup: "header:" + echo.HeaderXCSRFToken,
+			whenTokenLookup: literal_8562 + echo.HeaderXCSRFToken,
 			givenCSRFCookie: "token",
 			givenMethod:     http.MethodPost,
 			givenHeaderTokens: map[string][]string{
@@ -94,17 +94,17 @@ func TestCSRFtokenExtractors(t *testing.T) {
 		},
 		{
 			name:            "nok, invalid token from POST header",
-			whenTokenLookup: "header:" + echo.HeaderXCSRFToken,
+			whenTokenLookup: literal_8562 + echo.HeaderXCSRFToken,
 			givenCSRFCookie: "token",
 			givenMethod:     http.MethodPost,
 			givenHeaderTokens: map[string][]string{
 				echo.HeaderXCSRFToken: {"invalid_token"},
 			},
-			expectError: "code=403, message=invalid csrf token",
+			expectError: literal_5391,
 		},
 		{
 			name:              "nok, missing token from POST header",
-			whenTokenLookup:   "header:" + echo.HeaderXCSRFToken,
+			whenTokenLookup:   literal_8562 + echo.HeaderXCSRFToken,
 			givenCSRFCookie:   "token",
 			givenMethod:       http.MethodPost,
 			givenHeaderTokens: map[string][]string{},
@@ -121,7 +121,7 @@ func TestCSRFtokenExtractors(t *testing.T) {
 		},
 		{
 			name:            "ok, token from PUT query form, second token passes",
-			whenTokenLookup: "query:csrf",
+			whenTokenLookup: literal_6095,
 			givenCSRFCookie: "token",
 			givenMethod:     http.MethodPut,
 			givenQueryTokens: map[string][]string{
@@ -130,17 +130,17 @@ func TestCSRFtokenExtractors(t *testing.T) {
 		},
 		{
 			name:            "nok, invalid token from PUT query form",
-			whenTokenLookup: "query:csrf",
+			whenTokenLookup: literal_6095,
 			givenCSRFCookie: "token",
 			givenMethod:     http.MethodPut,
 			givenQueryTokens: map[string][]string{
 				"csrf": {"invalid_token"},
 			},
-			expectError: "code=403, message=invalid csrf token",
+			expectError: literal_5391,
 		},
 		{
 			name:             "nok, missing token from PUT query form",
-			whenTokenLookup:  "query:csrf",
+			whenTokenLookup:  literal_6095,
 			givenCSRFCookie:  "token",
 			givenMethod:      http.MethodPut,
 			givenQueryTokens: map[string][]string{},
@@ -259,7 +259,7 @@ func TestCSRFSetSameSiteMode(t *testing.T) {
 
 	r := h(c)
 	assert.NoError(t, r)
-	assert.Regexp(t, "SameSite=Strict", rec.Header()["Set-Cookie"])
+	assert.Regexp(t, "SameSite=Strict", rec.Header()[literal_1324])
 }
 
 func TestCSRFWithoutSameSiteMode(t *testing.T) {
@@ -276,7 +276,7 @@ func TestCSRFWithoutSameSiteMode(t *testing.T) {
 
 	r := h(c)
 	assert.NoError(t, r)
-	assert.NotRegexp(t, "SameSite=", rec.Header()["Set-Cookie"])
+	assert.NotRegexp(t, "SameSite=", rec.Header()[literal_1324])
 }
 
 func TestCSRFWithSameSiteDefaultMode(t *testing.T) {
@@ -295,7 +295,7 @@ func TestCSRFWithSameSiteDefaultMode(t *testing.T) {
 
 	r := h(c)
 	assert.NoError(t, r)
-	assert.NotRegexp(t, "SameSite=", rec.Header()["Set-Cookie"])
+	assert.NotRegexp(t, "SameSite=", rec.Header()[literal_1324])
 }
 
 func TestCSRFWithSameSiteModeNone(t *testing.T) {
@@ -314,8 +314,8 @@ func TestCSRFWithSameSiteModeNone(t *testing.T) {
 
 	r := h(c)
 	assert.NoError(t, r)
-	assert.Regexp(t, "SameSite=None", rec.Header()["Set-Cookie"])
-	assert.Regexp(t, "Secure", rec.Header()["Set-Cookie"])
+	assert.Regexp(t, "SameSite=None", rec.Header()[literal_1324])
+	assert.Regexp(t, "Secure", rec.Header()[literal_1324])
 }
 
 func TestCSRFConfigskipper(t *testing.T) {
@@ -355,7 +355,7 @@ func TestCSRFConfigskipper(t *testing.T) {
 
 			r := h(c)
 			assert.NoError(t, r)
-			cookie := rec.Header()["Set-Cookie"]
+			cookie := rec.Header()[literal_1324]
 			assert.Len(t, cookie, tc.expectCookies)
 		})
 	}
@@ -382,3 +382,13 @@ func TestCSRFErrorHandling(t *testing.T) {
 	assert.Equal(t, http.StatusTeapot, res.Code)
 	assert.Equal(t, "{\"message\":\"error_handler_executed\"}\n", res.Body.String())
 }
+
+const literal_2931 = "form:csrf"
+
+const literal_5391 = "code=403, message=invalid csrf token"
+
+const literal_8562 = "header:"
+
+const literal_6095 = "query:csrf"
+
+const literal_1324 = "Set-Cookie"

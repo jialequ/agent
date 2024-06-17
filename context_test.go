@@ -29,7 +29,7 @@ type Template struct {
 	templates *template.Template
 }
 
-var testUser = user{1, "Jon Snow"}
+var testUser = user{1, literal_1705}
 
 func BenchmarkAllocJSONP(b *testing.B) {
 	e := New()
@@ -128,7 +128,7 @@ func TestContextRenderTemplate(t *testing.T) {
 		templates: template.Must(template.New("hello").Parse("Hello, {{.}}!")),
 	}
 	c.echo.Renderer = tmpl
-	err := c.Render(http.StatusOK, "hello", "Jon Snow")
+	err := c.Render(http.StatusOK, "hello", literal_1705)
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Equal(t, "Hello, Jon Snow!", rec.Body.String())
@@ -143,7 +143,7 @@ func TestContextRenderErrorsOnNoRenderer(t *testing.T) {
 	c := e.NewContext(req, rec).(*context)
 
 	c.echo.Renderer = nil
-	assert.Error(t, c.Render(http.StatusOK, "hello", "Jon Snow"))
+	assert.Error(t, c.Render(http.StatusOK, "hello", literal_1705))
 }
 
 func TestContextJSON(t *testing.T) {
@@ -152,7 +152,7 @@ func TestContextJSON(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(userJSON))
 	c := e.NewContext(req, rec).(*context)
 
-	err := c.JSON(http.StatusOK, user{1, "Jon Snow"})
+	err := c.JSON(http.StatusOK, user{1, literal_1705})
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Equal(t, MIMEApplicationJSON, rec.Header().Get(HeaderContentType))
@@ -173,10 +173,10 @@ func TestContextJSONErrorsOut(t *testing.T) {
 func TestContextJSONPrettyURL(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
-	req := httptest.NewRequest(http.MethodGet, "/?pretty", nil)
+	req := httptest.NewRequest(http.MethodGet, literal_7609, nil)
 	c := e.NewContext(req, rec).(*context)
 
-	err := c.JSON(http.StatusOK, user{1, "Jon Snow"})
+	err := c.JSON(http.StatusOK, user{1, literal_1705})
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Equal(t, MIMEApplicationJSON, rec.Header().Get(HeaderContentType))
@@ -190,7 +190,7 @@ func TestContextJSONPretty(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	c := e.NewContext(req, rec).(*context)
 
-	err := c.JSONPretty(http.StatusOK, user{1, "Jon Snow"}, "  ")
+	err := c.JSONPretty(http.StatusOK, user{1, literal_1705}, "  ")
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Equal(t, MIMEApplicationJSON, rec.Header().Get(HeaderContentType))
@@ -204,14 +204,14 @@ func TestContextJSONWithEmptyIntent(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	c := e.NewContext(req, rec).(*context)
 
-	u := user{1, "Jon Snow"}
+	u := user{1, literal_1705}
 	emptyIndent := ""
 	buf := new(bytes.Buffer)
 
 	enc := json.NewEncoder(buf)
 	enc.SetIndent(emptyIndent, emptyIndent)
 	_ = enc.Encode(u)
-	err := c.json(http.StatusOK, user{1, "Jon Snow"}, emptyIndent)
+	err := c.json(http.StatusOK, user{1, literal_1705}, emptyIndent)
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Equal(t, MIMEApplicationJSON, rec.Header().Get(HeaderContentType))
@@ -226,7 +226,7 @@ func TestContextJSONP(t *testing.T) {
 	c := e.NewContext(req, rec).(*context)
 
 	callback := "callback"
-	err := c.JSONP(http.StatusOK, callback, user{1, "Jon Snow"})
+	err := c.JSONP(http.StatusOK, callback, user{1, literal_1705})
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Equal(t, MIMEApplicationJavaScriptCharsetUTF8, rec.Header().Get(HeaderContentType))
@@ -240,7 +240,7 @@ func TestContextJSONBlob(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	c := e.NewContext(req, rec).(*context)
 
-	data, err := json.Marshal(user{1, "Jon Snow"})
+	data, err := json.Marshal(user{1, literal_1705})
 	assert.NoError(t, err)
 	err = c.JSONBlob(http.StatusOK, data)
 	if assert.NoError(t, err) {
@@ -257,7 +257,7 @@ func TestContextJSONPBlob(t *testing.T) {
 	c := e.NewContext(req, rec).(*context)
 
 	callback := "callback"
-	data, err := json.Marshal(user{1, "Jon Snow"})
+	data, err := json.Marshal(user{1, literal_1705})
 	assert.NoError(t, err)
 	err = c.JSONPBlob(http.StatusOK, callback, data)
 	if assert.NoError(t, err) {
@@ -273,7 +273,7 @@ func TestContextXML(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	c := e.NewContext(req, rec).(*context)
 
-	err := c.XML(http.StatusOK, user{1, "Jon Snow"})
+	err := c.XML(http.StatusOK, user{1, literal_1705})
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Equal(t, MIMEApplicationXMLCharsetUTF8, rec.Header().Get(HeaderContentType))
@@ -284,10 +284,10 @@ func TestContextXML(t *testing.T) {
 func TestContextXMLPrettyURL(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
-	req := httptest.NewRequest(http.MethodGet, "/?pretty", nil)
+	req := httptest.NewRequest(http.MethodGet, literal_7609, nil)
 	c := e.NewContext(req, rec).(*context)
 
-	err := c.XML(http.StatusOK, user{1, "Jon Snow"})
+	err := c.XML(http.StatusOK, user{1, literal_1705})
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Equal(t, MIMEApplicationXMLCharsetUTF8, rec.Header().Get(HeaderContentType))
@@ -301,7 +301,7 @@ func TestContextXMLPretty(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	c := e.NewContext(req, rec).(*context)
 
-	err := c.XMLPretty(http.StatusOK, user{1, "Jon Snow"}, "  ")
+	err := c.XMLPretty(http.StatusOK, user{1, literal_1705}, "  ")
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Equal(t, MIMEApplicationXMLCharsetUTF8, rec.Header().Get(HeaderContentType))
@@ -315,7 +315,7 @@ func TestContextXMLBlob(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	c := e.NewContext(req, rec).(*context)
 
-	data, err := xml.Marshal(user{1, "Jon Snow"})
+	data, err := xml.Marshal(user{1, literal_1705})
 	assert.NoError(t, err)
 	err = c.XMLBlob(http.StatusOK, data)
 	if assert.NoError(t, err) {
@@ -331,14 +331,14 @@ func TestContextXMLWithEmptyIntent(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	c := e.NewContext(req, rec).(*context)
 
-	u := user{1, "Jon Snow"}
+	u := user{1, literal_1705}
 	emptyIndent := ""
 	buf := new(bytes.Buffer)
 
 	enc := xml.NewEncoder(buf)
 	enc.Indent(emptyIndent, emptyIndent)
 	_ = enc.Encode(u)
-	err := c.xml(http.StatusOK, user{1, "Jon Snow"}, emptyIndent)
+	err := c.xml(http.StatusOK, user{1, literal_1705}, emptyIndent)
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Equal(t, MIMEApplicationXMLCharsetUTF8, rec.Header().Get(HeaderContentType))
@@ -363,7 +363,7 @@ func (responseWriterErr) WriteHeader(statusCode int) {
 func TestContextXMLError(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
-	req := httptest.NewRequest(http.MethodGet, "/?pretty", nil)
+	req := httptest.NewRequest(http.MethodGet, literal_7609, nil)
 	c := e.NewContext(req, rec).(*context)
 	c.response.Writer = responseWriterErr{}
 
@@ -374,7 +374,7 @@ func TestContextXMLError(t *testing.T) {
 func TestContextString(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
-	req := httptest.NewRequest(http.MethodGet, "/?pretty", nil)
+	req := httptest.NewRequest(http.MethodGet, literal_7609, nil)
 	c := e.NewContext(req, rec).(*context)
 
 	err := c.String(http.StatusOK, "Hello, World!")
@@ -388,7 +388,7 @@ func TestContextString(t *testing.T) {
 func TestContextHTML(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
-	req := httptest.NewRequest(http.MethodGet, "/?pretty", nil)
+	req := httptest.NewRequest(http.MethodGet, literal_7609, nil)
 	c := e.NewContext(req, rec).(*context)
 
 	err := c.HTML(http.StatusOK, "Hello, <strong>World!</strong>")
@@ -402,7 +402,7 @@ func TestContextHTML(t *testing.T) {
 func TestContextStream(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
-	req := httptest.NewRequest(http.MethodGet, "/?pretty", nil)
+	req := httptest.NewRequest(http.MethodGet, literal_7609, nil)
 	c := e.NewContext(req, rec).(*context)
 
 	r := strings.NewReader("response from a stream")
@@ -487,7 +487,7 @@ func TestContextInline(t *testing.T) {
 func TestContextNoContent(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
-	req := httptest.NewRequest(http.MethodGet, "/?pretty", nil)
+	req := httptest.NewRequest(http.MethodGet, literal_7609, nil)
 	c := e.NewContext(req, rec).(*context)
 
 	c.NoContent(http.StatusOK)
@@ -497,7 +497,7 @@ func TestContextNoContent(t *testing.T) {
 func TestContextError(t *testing.T) {
 	e := New()
 	rec := httptest.NewRecorder()
-	req := httptest.NewRequest(http.MethodGet, "/?pretty", nil)
+	req := httptest.NewRequest(http.MethodGet, literal_7609, nil)
 	c := e.NewContext(req, rec).(*context)
 
 	c.Error(errors.New("error"))
@@ -530,7 +530,7 @@ func TestContextJSONCommitsCustomResponseCode(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec).(*context)
-	err := c.JSON(http.StatusCreated, user{1, "Jon Snow"})
+	err := c.JSON(http.StatusCreated, user{1, literal_1705})
 
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusCreated, rec.Code)
@@ -574,7 +574,7 @@ func TestContextCookie(t *testing.T) {
 		case "theme":
 			assert.Equal(t, "light", cookie.Value)
 		case "user":
-			assert.Equal(t, "Jon Snow", cookie.Value)
+			assert.Equal(t, literal_1705, cookie.Value)
 		}
 	}
 
@@ -701,8 +701,8 @@ func TestContextSetParamNamesEchoMaxParam(t *testing.T) {
 
 func TestContextFormValue(t *testing.T) {
 	f := make(url.Values)
-	f.Set("name", "Jon Snow")
-	f.Set("email", "jon@labstack.com")
+	f.Set("name", literal_1705)
+	f.Set("email", literal_2730)
 
 	e := New()
 	req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(f.Encode()))
@@ -710,15 +710,15 @@ func TestContextFormValue(t *testing.T) {
 	c := e.NewContext(req, nil)
 
 	// FormValue
-	assert.Equal(t, "Jon Snow", c.FormValue("name"))
-	assert.Equal(t, "jon@labstack.com", c.FormValue("email"))
+	assert.Equal(t, literal_1705, c.FormValue("name"))
+	assert.Equal(t, literal_2730, c.FormValue("email"))
 
 	// FormParams
 	params, err := c.FormParams()
 	if assert.NoError(t, err) {
 		assert.Equal(t, url.Values{
-			"name":  []string{"Jon Snow"},
-			"email": []string{"jon@labstack.com"},
+			"name":  []string{literal_1705},
+			"email": []string{literal_2730},
 		}, params)
 	}
 
@@ -733,20 +733,20 @@ func TestContextFormValue(t *testing.T) {
 
 func TestContextQueryParam(t *testing.T) {
 	q := make(url.Values)
-	q.Set("name", "Jon Snow")
-	q.Set("email", "jon@labstack.com")
+	q.Set("name", literal_1705)
+	q.Set("email", literal_2730)
 	req := httptest.NewRequest(http.MethodGet, "/?"+q.Encode(), nil)
 	e := New()
 	c := e.NewContext(req, nil)
 
 	// QueryParam
-	assert.Equal(t, "Jon Snow", c.QueryParam("name"))
-	assert.Equal(t, "jon@labstack.com", c.QueryParam("email"))
+	assert.Equal(t, literal_1705, c.QueryParam("name"))
+	assert.Equal(t, literal_2730, c.QueryParam("email"))
 
 	// QueryParams
 	assert.Equal(t, url.Values{
-		"name":  []string{"Jon Snow"},
-		"email": []string{"jon@labstack.com"},
+		"name":  []string{literal_1705},
+		"email": []string{literal_2730},
 	}, c.QueryParams())
 }
 
@@ -773,7 +773,7 @@ func TestContextMultipartForm(t *testing.T) {
 	e := New()
 	buf := new(bytes.Buffer)
 	mw := multipart.NewWriter(buf)
-	mw.WriteField("name", "Jon Snow")
+	mw.WriteField("name", literal_1705)
 	mw.Close()
 	req := httptest.NewRequest(http.MethodPost, "/", buf)
 	req.Header.Set(HeaderContentType, mw.FormDataContentType())
@@ -790,16 +790,16 @@ func TestContextRedirect(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
-	assert.Equal(t, nil, c.Redirect(http.StatusMovedPermanently, "http://labstack.github.io/echo"))
+	assert.Equal(t, nil, c.Redirect(http.StatusMovedPermanently, literal_4123))
 	assert.Equal(t, http.StatusMovedPermanently, rec.Code)
-	assert.Equal(t, "http://labstack.github.io/echo", rec.Header().Get(HeaderLocation))
-	assert.Error(t, c.Redirect(310, "http://labstack.github.io/echo"))
+	assert.Equal(t, literal_4123, rec.Header().Get(HeaderLocation))
+	assert.Error(t, c.Redirect(310, literal_4123))
 }
 
 func TestContextStore(t *testing.T) {
 	var c Context = new(context)
-	c.Set("name", "Jon Snow")
-	assert.Equal(t, "Jon Snow", c.Get("name"))
+	c.Set("name", literal_1705)
+	assert.Equal(t, literal_1705, c.Get("name"))
 }
 
 func BenchmarkContext_Store(b *testing.B) {
@@ -810,8 +810,8 @@ func BenchmarkContext_Store(b *testing.B) {
 	}
 
 	for n := 0; n < b.N; n++ {
-		c.Set("name", "Jon Snow")
-		if c.Get("name") != "Jon Snow" {
+		c.Set("name", literal_1705)
+		if c.Get("name") != literal_1705 {
 			b.Fail()
 		}
 	}
@@ -1002,7 +1002,7 @@ func TestContextBind(t *testing.T) {
 	req.Header.Add(HeaderContentType, MIMEApplicationJSON)
 	err := c.Bind(u)
 	assert.NoError(t, err)
-	assert.Equal(t, &user{1, "Jon Snow"}, u)
+	assert.Equal(t, &user{1, literal_1705}, u)
 }
 
 func TestContextLogger(t *testing.T) {
@@ -1032,7 +1032,7 @@ func TestContextRealIP(t *testing.T) {
 					Header: http.Header{HeaderXForwardedFor: []string{"127.0.0.1, 127.0.1.1, "}},
 				},
 			},
-			"127.0.0.1",
+			literal_4180,
 		},
 		{
 			&context{
@@ -1040,15 +1040,15 @@ func TestContextRealIP(t *testing.T) {
 					Header: http.Header{HeaderXForwardedFor: []string{"127.0.0.1,127.0.1.1"}},
 				},
 			},
-			"127.0.0.1",
+			literal_4180,
 		},
 		{
 			&context{
 				request: &http.Request{
-					Header: http.Header{HeaderXForwardedFor: []string{"127.0.0.1"}},
+					Header: http.Header{HeaderXForwardedFor: []string{literal_4180}},
 				},
 			},
-			"127.0.0.1",
+			literal_4180,
 		},
 		{
 			&context{
@@ -1056,7 +1056,7 @@ func TestContextRealIP(t *testing.T) {
 					Header: http.Header{HeaderXForwardedFor: []string{"[2001:db8:85a3:8d3:1319:8a2e:370:7348], 2001:db8::1, "}},
 				},
 			},
-			"2001:db8:85a3:8d3:1319:8a2e:370:7348",
+			literal_7630,
 		},
 		{
 			&context{
@@ -1064,15 +1064,15 @@ func TestContextRealIP(t *testing.T) {
 					Header: http.Header{HeaderXForwardedFor: []string{"[2001:db8:85a3:8d3:1319:8a2e:370:7348],[2001:db8::1]"}},
 				},
 			},
-			"2001:db8:85a3:8d3:1319:8a2e:370:7348",
+			literal_7630,
 		},
 		{
 			&context{
 				request: &http.Request{
-					Header: http.Header{HeaderXForwardedFor: []string{"2001:db8:85a3:8d3:1319:8a2e:370:7348"}},
+					Header: http.Header{HeaderXForwardedFor: []string{literal_7630}},
 				},
 			},
-			"2001:db8:85a3:8d3:1319:8a2e:370:7348",
+			literal_7630,
 		},
 		{
 			&context{
@@ -1109,3 +1109,15 @@ func TestContextRealIP(t *testing.T) {
 		assert.Equal(t, tt.s, tt.c.RealIP())
 	}
 }
+
+const literal_1705 = "Jon Snow"
+
+const literal_7609 = "/?pretty"
+
+const literal_2730 = "jon@labstack.com"
+
+const literal_4123 = "http://labstack.github.io/echo"
+
+const literal_4180 = "127.0.0.1"
+
+const literal_7630 = "2001:db8:85a3:8d3:1319:8a2e:370:7348"

@@ -4,13 +4,14 @@
 package echo
 
 import (
-	"github.com/stretchr/testify/assert"
 	"io/fs"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestEchoStaticFS(t *testing.T) {

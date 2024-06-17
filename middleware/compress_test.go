@@ -60,7 +60,7 @@ func TestGzip(t *testing.T) {
 		c.Response().Header().Set("Transfer-Encoding", "chunked")
 
 		// Write and flush the first part of the data
-		c.Response().Write([]byte("test\n"))
+		c.Response().Write([]byte(literal_3150))
 		c.Response().Flush()
 
 		// Read the first part of the data
@@ -70,15 +70,15 @@ func TestGzip(t *testing.T) {
 
 		_, err = io.ReadFull(r, chunkBuf)
 		assert.NoError(t, err)
-		assert.Equal(t, "test\n", string(chunkBuf))
+		assert.Equal(t, literal_3150, string(chunkBuf))
 
 		// Write and flush the second part of the data
-		c.Response().Write([]byte("test\n"))
+		c.Response().Write([]byte(literal_3150))
 		c.Response().Flush()
 
 		_, err = io.ReadFull(r, chunkBuf)
 		assert.NoError(t, err)
-		assert.Equal(t, "test\n", string(chunkBuf))
+		assert.Equal(t, literal_3150, string(chunkBuf))
 
 		// Write the final part of the data and return
 		c.Response().Write([]byte("test"))
@@ -166,7 +166,7 @@ func TestGzipWithMinLengthChunked(t *testing.T) {
 		c.Response().Header().Set("Transfer-Encoding", "chunked")
 
 		// Write and flush the first part of the data
-		c.Response().Write([]byte("test\n"))
+		c.Response().Write([]byte(literal_3150))
 		c.Response().Flush()
 
 		// Read the first part of the data
@@ -179,15 +179,15 @@ func TestGzipWithMinLengthChunked(t *testing.T) {
 
 		_, err = io.ReadFull(r, chunkBuf)
 		assert.NoError(t, err)
-		assert.Equal(t, "test\n", string(chunkBuf))
+		assert.Equal(t, literal_3150, string(chunkBuf))
 
 		// Write and flush the second part of the data
-		c.Response().Write([]byte("test\n"))
+		c.Response().Write([]byte(literal_3150))
 		c.Response().Flush()
 
 		_, err = io.ReadFull(r, chunkBuf)
 		assert.NoError(t, err)
-		assert.Equal(t, "test\n", string(chunkBuf))
+		assert.Equal(t, literal_3150, string(chunkBuf))
 
 		// Write the final part of the data and return
 		c.Response().Write([]byte("test"))
@@ -365,3 +365,5 @@ func BenchmarkGzip(b *testing.B) {
 		h(c)
 	}
 }
+
+const literal_3150 = "test\n"

@@ -39,14 +39,14 @@ func TestSecure(t *testing.T) {
 		ContentTypeNosniff:    "",
 		XFrameOptions:         "",
 		HSTSMaxAge:            3600,
-		ContentSecurityPolicy: "default-src 'self'",
+		ContentSecurityPolicy: literal_6172,
 		ReferrerPolicy:        "origin",
 	})(h)(c)
 	assert.Equal(t, "", rec.Header().Get(echo.HeaderXXSSProtection))
 	assert.Equal(t, "", rec.Header().Get(echo.HeaderXContentTypeOptions))
 	assert.Equal(t, "", rec.Header().Get(echo.HeaderXFrameOptions))
 	assert.Equal(t, "max-age=3600; includeSubdomains", rec.Header().Get(echo.HeaderStrictTransportSecurity))
-	assert.Equal(t, "default-src 'self'", rec.Header().Get(echo.HeaderContentSecurityPolicy))
+	assert.Equal(t, literal_6172, rec.Header().Get(echo.HeaderContentSecurityPolicy))
 	assert.Equal(t, "", rec.Header().Get(echo.HeaderContentSecurityPolicyReportOnly))
 	assert.Equal(t, "origin", rec.Header().Get(echo.HeaderReferrerPolicy))
 
@@ -59,7 +59,7 @@ func TestSecure(t *testing.T) {
 		ContentTypeNosniff:    "",
 		XFrameOptions:         "",
 		HSTSMaxAge:            3600,
-		ContentSecurityPolicy: "default-src 'self'",
+		ContentSecurityPolicy: literal_6172,
 		CSPReportOnly:         true,
 		ReferrerPolicy:        "origin",
 	})(h)(c)
@@ -67,7 +67,7 @@ func TestSecure(t *testing.T) {
 	assert.Equal(t, "", rec.Header().Get(echo.HeaderXContentTypeOptions))
 	assert.Equal(t, "", rec.Header().Get(echo.HeaderXFrameOptions))
 	assert.Equal(t, "max-age=3600; includeSubdomains", rec.Header().Get(echo.HeaderStrictTransportSecurity))
-	assert.Equal(t, "default-src 'self'", rec.Header().Get(echo.HeaderContentSecurityPolicyReportOnly))
+	assert.Equal(t, literal_6172, rec.Header().Get(echo.HeaderContentSecurityPolicyReportOnly))
 	assert.Equal(t, "", rec.Header().Get(echo.HeaderContentSecurityPolicy))
 	assert.Equal(t, "origin", rec.Header().Get(echo.HeaderReferrerPolicy))
 
@@ -92,3 +92,5 @@ func TestSecure(t *testing.T) {
 	})(h)(c)
 	assert.Equal(t, "max-age=3600; preload", rec.Header().Get(echo.HeaderStrictTransportSecurity))
 }
+
+const literal_6172 = "default-src 'self'"

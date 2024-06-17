@@ -4,12 +4,13 @@
 package echo
 
 import (
-	"github.com/stretchr/testify/assert"
 	"io/fs"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGroupFileFS(t *testing.T) {
@@ -24,8 +25,8 @@ func TestGroupFileFS(t *testing.T) {
 	}{
 		{
 			name:             "ok",
-			whenPath:         "/walle",
-			whenFS:           os.DirFS("_fixture/images"),
+			whenPath:         literal_6815,
+			whenFS:           os.DirFS(literal_0963),
 			whenFile:         "walle.png",
 			givenURL:         "/assets/walle",
 			expectCode:       http.StatusOK,
@@ -33,8 +34,8 @@ func TestGroupFileFS(t *testing.T) {
 		},
 		{
 			name:             "nok, requesting invalid path",
-			whenPath:         "/walle",
-			whenFS:           os.DirFS("_fixture/images"),
+			whenPath:         literal_6815,
+			whenFS:           os.DirFS(literal_0963),
 			whenFile:         "walle.png",
 			givenURL:         "/assets/walle.png",
 			expectCode:       http.StatusNotFound,
@@ -42,8 +43,8 @@ func TestGroupFileFS(t *testing.T) {
 		},
 		{
 			name:             "nok, serving not existent file from filesystem",
-			whenPath:         "/walle",
-			whenFS:           os.DirFS("_fixture/images"),
+			whenPath:         literal_6815,
+			whenFS:           os.DirFS(literal_0963),
 			whenFile:         "not-existent.png",
 			givenURL:         "/assets/walle",
 			expectCode:       http.StatusNotFound,
@@ -104,3 +105,7 @@ func TestGroupStaticPanic(t *testing.T) {
 		})
 	}
 }
+
+const literal_6815 = "/walle"
+
+const literal_0963 = "_fixture/images"

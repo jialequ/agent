@@ -176,13 +176,13 @@ var (
 	gitHubAPI = []*Route{
 		// OAuth Authorizations
 		{"GET", "/authorizations", ""},
-		{"GET", "/authorizations/:id", ""},
+		{"GET", literal_4602, ""},
 		{"POST", "/authorizations", ""},
 
 		{"PUT", "/authorizations/clients/:client_id", ""},
-		{"PATCH", "/authorizations/:id", ""},
+		{"PATCH", literal_4602, ""},
 
-		{"DELETE", "/authorizations/:id", ""},
+		{"DELETE", literal_4602, ""},
 		{"GET", "/applications/:client_id/tokens/:access_token", ""},
 		{"DELETE", "/applications/:client_id/tokens", ""},
 		{"DELETE", "/applications/:client_id/tokens/:access_token", ""},
@@ -206,24 +206,24 @@ var (
 
 		{"PATCH", "/notifications/threads/:id", ""},
 
-		{"GET", "/notifications/threads/:id/subscription", ""},
-		{"PUT", "/notifications/threads/:id/subscription", ""},
-		{"DELETE", "/notifications/threads/:id/subscription", ""},
+		{"GET", literal_7620, ""},
+		{"PUT", literal_7620, ""},
+		{"DELETE", literal_7620, ""},
 		{"GET", "/repos/:owner/:repo/stargazers", ""},
 		{"GET", "/users/:user/starred", ""},
 		{"GET", "/user/starred", ""},
-		{"GET", "/user/starred/:owner/:repo", ""},
-		{"PUT", "/user/starred/:owner/:repo", ""},
-		{"DELETE", "/user/starred/:owner/:repo", ""},
+		{"GET", literal_5690, ""},
+		{"PUT", literal_5690, ""},
+		{"DELETE", literal_5690, ""},
 		{"GET", "/repos/:owner/:repo/subscribers", ""},
 		{"GET", "/users/:user/subscriptions", ""},
 		{"GET", "/user/subscriptions", ""},
-		{"GET", "/repos/:owner/:repo/subscription", ""},
-		{"PUT", "/repos/:owner/:repo/subscription", ""},
-		{"DELETE", "/repos/:owner/:repo/subscription", ""},
-		{"GET", "/user/subscriptions/:owner/:repo", ""},
-		{"PUT", "/user/subscriptions/:owner/:repo", ""},
-		{"DELETE", "/user/subscriptions/:owner/:repo", ""},
+		{"GET", literal_3975, ""},
+		{"PUT", literal_3975, ""},
+		{"DELETE", literal_3975, ""},
+		{"GET", literal_3691, ""},
+		{"PUT", literal_3691, ""},
+		{"DELETE", literal_3691, ""},
 
 		// Gists
 		{"GET", "/users/:user/gists", ""},
@@ -232,16 +232,16 @@ var (
 		{"GET", "/gists/public", ""},
 		{"GET", "/gists/starred", ""},
 
-		{"GET", "/gists/:id", ""},
+		{"GET", literal_3801, ""},
 		{"POST", "/gists", ""},
 
-		{"PATCH", "/gists/:id", ""},
+		{"PATCH", literal_3801, ""},
 
-		{"PUT", "/gists/:id/star", ""},
-		{"DELETE", "/gists/:id/star", ""},
-		{"GET", "/gists/:id/star", ""},
+		{"PUT", literal_3672, ""},
+		{"DELETE", literal_3672, ""},
+		{"GET", literal_3672, ""},
 		{"POST", "/gists/:id/forks", ""},
-		{"DELETE", "/gists/:id", ""},
+		{"DELETE", literal_3801, ""},
 
 		// Git Data
 		{"GET", "/repos/:owner/:repo/git/blobs/:sha", ""},
@@ -249,13 +249,13 @@ var (
 		{"GET", "/repos/:owner/:repo/git/commits/:sha", ""},
 		{"POST", "/repos/:owner/:repo/git/commits", ""},
 
-		{"GET", "/repos/:owner/:repo/git/refs/*ref", ""},
+		{"GET", literal_2893, ""},
 
 		{"GET", "/repos/:owner/:repo/git/refs", ""},
 		{"POST", "/repos/:owner/:repo/git/refs", ""},
 
-		{"PATCH", "/repos/:owner/:repo/git/refs/*ref", ""},
-		{"DELETE", "/repos/:owner/:repo/git/refs/*ref", ""},
+		{"PATCH", literal_2893, ""},
+		{"DELETE", literal_2893, ""},
 
 		{"GET", "/repos/:owner/:repo/git/tags/:sha", ""},
 		{"POST", "/repos/:owner/:repo/git/tags", ""},
@@ -277,12 +277,12 @@ var (
 		{"GET", "/repos/:owner/:repo/issues/:number/comments", ""},
 
 		{"GET", "/repos/:owner/:repo/issues/comments", ""},
-		{"GET", "/repos/:owner/:repo/issues/comments/:id", ""},
+		{"GET", literal_7382, ""},
 
 		{"POST", "/repos/:owner/:repo/issues/:number/comments", ""},
 
-		{"PATCH", "/repos/:owner/:repo/issues/comments/:id", ""},
-		{"DELETE", "/repos/:owner/:repo/issues/comments/:id", ""},
+		{"PATCH", literal_7382, ""},
+		{"DELETE", literal_7382, ""},
 
 		{"GET", "/repos/:owner/:repo/issues/:number/events", ""},
 
@@ -290,25 +290,25 @@ var (
 		{"GET", "/repos/:owner/:repo/issues/events/:id", ""},
 
 		{"GET", "/repos/:owner/:repo/labels", ""},
-		{"GET", "/repos/:owner/:repo/labels/:name", ""},
+		{"GET", literal_5602, ""},
 		{"POST", "/repos/:owner/:repo/labels", ""},
 
-		{"PATCH", "/repos/:owner/:repo/labels/:name", ""},
+		{"PATCH", literal_5602, ""},
 
-		{"DELETE", "/repos/:owner/:repo/labels/:name", ""},
-		{"GET", "/repos/:owner/:repo/issues/:number/labels", ""},
-		{"POST", "/repos/:owner/:repo/issues/:number/labels", ""},
+		{"DELETE", literal_5602, ""},
+		{"GET", literal_8274, ""},
+		{"POST", literal_8274, ""},
 		{"DELETE", "/repos/:owner/:repo/issues/:number/labels/:name", ""},
-		{"PUT", "/repos/:owner/:repo/issues/:number/labels", ""},
-		{"DELETE", "/repos/:owner/:repo/issues/:number/labels", ""},
+		{"PUT", literal_8274, ""},
+		{"DELETE", literal_8274, ""},
 		{"GET", "/repos/:owner/:repo/milestones/:number/labels", ""},
 		{"GET", "/repos/:owner/:repo/milestones", ""},
-		{"GET", "/repos/:owner/:repo/milestones/:number", ""},
+		{"GET", literal_4896, ""},
 		{"POST", "/repos/:owner/:repo/milestones", ""},
 
-		{"PATCH", "/repos/:owner/:repo/milestones/:number", ""},
+		{"PATCH", literal_4896, ""},
 
-		{"DELETE", "/repos/:owner/:repo/milestones/:number", ""},
+		{"DELETE", literal_4896, ""},
 
 		// Miscellaneous
 		{"GET", "/emojis", ""},
@@ -330,24 +330,24 @@ var (
 		{"GET", "/orgs/:org/members/:user", ""},
 		{"DELETE", "/orgs/:org/members/:user", ""},
 		{"GET", "/orgs/:org/public_members", ""},
-		{"GET", "/orgs/:org/public_members/:user", ""},
-		{"PUT", "/orgs/:org/public_members/:user", ""},
-		{"DELETE", "/orgs/:org/public_members/:user", ""},
+		{"GET", literal_6792, ""},
+		{"PUT", literal_6792, ""},
+		{"DELETE", literal_6792, ""},
 		{"GET", "/orgs/:org/teams", ""},
-		{"GET", "/teams/:id", ""},
+		{"GET", literal_5497, ""},
 		{"POST", "/orgs/:org/teams", ""},
 
-		{"PATCH", "/teams/:id", ""},
+		{"PATCH", literal_5497, ""},
 
-		{"DELETE", "/teams/:id", ""},
+		{"DELETE", literal_5497, ""},
 		{"GET", "/teams/:id/members", ""},
-		{"GET", "/teams/:id/members/:user", ""},
-		{"PUT", "/teams/:id/members/:user", ""},
-		{"DELETE", "/teams/:id/members/:user", ""},
+		{"GET", literal_3908, ""},
+		{"PUT", literal_3908, ""},
+		{"DELETE", literal_3908, ""},
 		{"GET", "/teams/:id/repos", ""},
-		{"GET", "/teams/:id/repos/:owner/:repo", ""},
-		{"PUT", "/teams/:id/repos/:owner/:repo", ""},
-		{"DELETE", "/teams/:id/repos/:owner/:repo", ""},
+		{"GET", literal_5761, ""},
+		{"PUT", literal_5761, ""},
+		{"DELETE", literal_5761, ""},
 		{"GET", "/user/teams", ""},
 
 		// Pull Requests
@@ -364,12 +364,12 @@ var (
 		{"GET", "/repos/:owner/:repo/pulls/:number/comments", ""},
 
 		{"GET", "/repos/:owner/:repo/pulls/comments", ""},
-		{"GET", "/repos/:owner/:repo/pulls/comments/:number", ""},
+		{"GET", literal_1928, ""},
 
 		{"PUT", "/repos/:owner/:repo/pulls/:number/comments", ""},
 
-		{"PATCH", "/repos/:owner/:repo/pulls/comments/:number", ""},
-		{"DELETE", "/repos/:owner/:repo/pulls/comments/:number", ""},
+		{"PATCH", literal_1928, ""},
+		{"DELETE", literal_1928, ""},
 
 		// Repositories
 		{"GET", "/user/repos", ""},
@@ -390,17 +390,17 @@ var (
 		{"GET", "/repos/:owner/:repo/branches/:branch", ""},
 		{"DELETE", "/repos/:owner/:repo", ""},
 		{"GET", "/repos/:owner/:repo/collaborators", ""},
-		{"GET", "/repos/:owner/:repo/collaborators/:user", ""},
-		{"PUT", "/repos/:owner/:repo/collaborators/:user", ""},
-		{"DELETE", "/repos/:owner/:repo/collaborators/:user", ""},
+		{"GET", literal_3125, ""},
+		{"PUT", literal_3125, ""},
+		{"DELETE", literal_3125, ""},
 		{"GET", "/repos/:owner/:repo/comments", ""},
 		{"GET", "/repos/:owner/:repo/commits/:sha/comments", ""},
 		{"POST", "/repos/:owner/:repo/commits/:sha/comments", ""},
-		{"GET", "/repos/:owner/:repo/comments/:id", ""},
+		{"GET", literal_1385, ""},
 
-		{"PATCH", "/repos/:owner/:repo/comments/:id", ""},
+		{"PATCH", literal_1385, ""},
 
-		{"DELETE", "/repos/:owner/:repo/comments/:id", ""},
+		{"DELETE", literal_1385, ""},
 		{"GET", "/repos/:owner/:repo/commits", ""},
 		{"GET", "/repos/:owner/:repo/commits/:sha", ""},
 		{"GET", "/repos/:owner/:repo/readme", ""},
@@ -412,33 +412,33 @@ var (
 		{"GET", "/repos/:owner/:repo/:archive_format/:ref", ""},
 
 		{"GET", "/repos/:owner/:repo/keys", ""},
-		{"GET", "/repos/:owner/:repo/keys/:id", ""},
+		{"GET", literal_0735, ""},
 		{"POST", "/repos/:owner/:repo/keys", ""},
 
-		{"PATCH", "/repos/:owner/:repo/keys/:id", ""},
+		{"PATCH", literal_0735, ""},
 
-		{"DELETE", "/repos/:owner/:repo/keys/:id", ""},
+		{"DELETE", literal_0735, ""},
 		{"GET", "/repos/:owner/:repo/downloads", ""},
 		{"GET", "/repos/:owner/:repo/downloads/:id", ""},
 		{"DELETE", "/repos/:owner/:repo/downloads/:id", ""},
 		{"GET", "/repos/:owner/:repo/forks", ""},
 		{"POST", "/repos/:owner/:repo/forks", ""},
 		{"GET", "/repos/:owner/:repo/hooks", ""},
-		{"GET", "/repos/:owner/:repo/hooks/:id", ""},
+		{"GET", literal_1408, ""},
 		{"POST", "/repos/:owner/:repo/hooks", ""},
 
-		{"PATCH", "/repos/:owner/:repo/hooks/:id", ""},
+		{"PATCH", literal_1408, ""},
 
 		{"POST", "/repos/:owner/:repo/hooks/:id/tests", ""},
-		{"DELETE", "/repos/:owner/:repo/hooks/:id", ""},
+		{"DELETE", literal_1408, ""},
 		{"POST", "/repos/:owner/:repo/merges", ""},
 		{"GET", "/repos/:owner/:repo/releases", ""},
-		{"GET", "/repos/:owner/:repo/releases/:id", ""},
+		{"GET", literal_3521, ""},
 		{"POST", "/repos/:owner/:repo/releases", ""},
 
-		{"PATCH", "/repos/:owner/:repo/releases/:id", ""},
+		{"PATCH", literal_3521, ""},
 
-		{"DELETE", "/repos/:owner/:repo/releases/:id", ""},
+		{"DELETE", literal_3521, ""},
 		{"GET", "/repos/:owner/:repo/releases/:id/assets", ""},
 		{"GET", "/repos/:owner/:repo/stats/contributors", ""},
 		{"GET", "/repos/:owner/:repo/stats/commit_activity", ""},
@@ -464,51 +464,51 @@ var (
 
 		{"PATCH", "/user", ""},
 
-		{"GET", "/users", ""},
-		{"GET", "/user/emails", ""},
-		{"POST", "/user/emails", ""},
-		{"DELETE", "/user/emails", ""},
+		{"GET", literal_7186, ""},
+		{"GET", literal_3017, ""},
+		{"POST", literal_3017, ""},
+		{"DELETE", literal_3017, ""},
 		{"GET", "/users/:user/followers", ""},
 		{"GET", "/user/followers", ""},
 		{"GET", "/users/:user/following", ""},
 		{"GET", "/user/following", ""},
-		{"GET", "/user/following/:user", ""},
+		{"GET", literal_5296, ""},
 		{"GET", "/users/:user/following/:target_user", ""},
-		{"PUT", "/user/following/:user", ""},
-		{"DELETE", "/user/following/:user", ""},
+		{"PUT", literal_5296, ""},
+		{"DELETE", literal_5296, ""},
 		{"GET", "/users/:user/keys", ""},
 		{"GET", "/user/keys", ""},
-		{"GET", "/user/keys/:id", ""},
+		{"GET", literal_2071, ""},
 		{"POST", "/user/keys", ""},
 
-		{"PATCH", "/user/keys/:id", ""},
+		{"PATCH", literal_2071, ""},
 
-		{"DELETE", "/user/keys/:id", ""},
+		{"DELETE", literal_2071, ""},
 	}
 
 	parseAPI = []*Route{
 		// Objects
 		{"POST", "/1/classes/:className", ""},
-		{"GET", "/1/classes/:className/:objectId", ""},
-		{"PUT", "/1/classes/:className/:objectId", ""},
+		{"GET", literal_3671, ""},
+		{"PUT", literal_3671, ""},
 		{"GET", "/1/classes/:className", ""},
-		{"DELETE", "/1/classes/:className/:objectId", ""},
+		{"DELETE", literal_3671, ""},
 
 		// Users
 		{"POST", "/1/users", ""},
 		{"GET", "/1/login", ""},
-		{"GET", "/1/users/:objectId", ""},
-		{"PUT", "/1/users/:objectId", ""},
+		{"GET", literal_2043, ""},
+		{"PUT", literal_2043, ""},
 		{"GET", "/1/users", ""},
-		{"DELETE", "/1/users/:objectId", ""},
+		{"DELETE", literal_2043, ""},
 		{"POST", "/1/requestPasswordReset", ""},
 
 		// Roles
 		{"POST", "/1/roles", ""},
-		{"GET", "/1/roles/:objectId", ""},
-		{"PUT", "/1/roles/:objectId", ""},
+		{"GET", literal_9741, ""},
+		{"PUT", literal_9741, ""},
 		{"GET", "/1/roles", ""},
-		{"DELETE", "/1/roles/:objectId", ""},
+		{"DELETE", literal_9741, ""},
 
 		// Files
 		{"POST", "/1/files/:fileName", ""},
@@ -521,10 +521,10 @@ var (
 
 		// Installations
 		{"POST", "/1/installations", ""},
-		{"GET", "/1/installations/:objectId", ""},
-		{"PUT", "/1/installations/:objectId", ""},
+		{"GET", literal_7512, ""},
+		{"PUT", literal_7512, ""},
 		{"GET", "/1/installations", ""},
-		{"DELETE", "/1/installations/:objectId", ""},
+		{"DELETE", literal_7512, ""},
 
 		// Cloud Functions
 		{"POST", "/1/functions", ""},
@@ -554,85 +554,85 @@ var (
 	}
 
 	paramAndAnyAPI = []*Route{
-		{"GET", "/root/:first/foo/*", ""},
-		{"GET", "/root/:first/:second/*", ""},
-		{"GET", "/root/:first/bar/:second/*", ""},
-		{"GET", "/root/:first/qux/:second/:third/:fourth", ""},
-		{"GET", "/root/:first/qux/:second/:third/:fourth/*", ""},
-		{"GET", "/root/*", ""},
+		{"GET", literal_8639, ""},
+		{"GET", literal_2618, ""},
+		{"GET", literal_4350, ""},
+		{"GET", literal_2693, ""},
+		{"GET", literal_3596, ""},
+		{"GET", literal_0413, ""},
 
-		{"POST", "/root/:first/foo/*", ""},
-		{"POST", "/root/:first/:second/*", ""},
-		{"POST", "/root/:first/bar/:second/*", ""},
-		{"POST", "/root/:first/qux/:second/:third/:fourth", ""},
-		{"POST", "/root/:first/qux/:second/:third/:fourth/*", ""},
-		{"POST", "/root/*", ""},
+		{"POST", literal_8639, ""},
+		{"POST", literal_2618, ""},
+		{"POST", literal_4350, ""},
+		{"POST", literal_2693, ""},
+		{"POST", literal_3596, ""},
+		{"POST", literal_0413, ""},
 
-		{"PUT", "/root/:first/foo/*", ""},
-		{"PUT", "/root/:first/:second/*", ""},
-		{"PUT", "/root/:first/bar/:second/*", ""},
-		{"PUT", "/root/:first/qux/:second/:third/:fourth", ""},
-		{"PUT", "/root/:first/qux/:second/:third/:fourth/*", ""},
-		{"PUT", "/root/*", ""},
+		{"PUT", literal_8639, ""},
+		{"PUT", literal_2618, ""},
+		{"PUT", literal_4350, ""},
+		{"PUT", literal_2693, ""},
+		{"PUT", literal_3596, ""},
+		{"PUT", literal_0413, ""},
 
-		{"DELETE", "/root/:first/foo/*", ""},
-		{"DELETE", "/root/:first/:second/*", ""},
-		{"DELETE", "/root/:first/bar/:second/*", ""},
-		{"DELETE", "/root/:first/qux/:second/:third/:fourth", ""},
-		{"DELETE", "/root/:first/qux/:second/:third/:fourth/*", ""},
-		{"DELETE", "/root/*", ""},
+		{"DELETE", literal_8639, ""},
+		{"DELETE", literal_2618, ""},
+		{"DELETE", literal_4350, ""},
+		{"DELETE", literal_2693, ""},
+		{"DELETE", literal_3596, ""},
+		{"DELETE", literal_0413, ""},
 	}
 
 	paramAndAnyAPIToFind = []*Route{
-		{"GET", "/root/one/foo/after/the/asterisk", ""},
-		{"GET", "/root/one/foo/path/after/the/asterisk", ""},
-		{"GET", "/root/one/two/path/after/the/asterisk", ""},
-		{"GET", "/root/one/bar/two/after/the/asterisk", ""},
-		{"GET", "/root/one/qux/two/three/four", ""},
-		{"GET", "/root/one/qux/two/three/four/after/the/asterisk", ""},
+		{"GET", literal_8675, ""},
+		{"GET", literal_3472, ""},
+		{"GET", literal_7230, ""},
+		{"GET", literal_9437, ""},
+		{"GET", literal_3276, ""},
+		{"GET", literal_3476, ""},
 
-		{"POST", "/root/one/foo/after/the/asterisk", ""},
-		{"POST", "/root/one/foo/path/after/the/asterisk", ""},
-		{"POST", "/root/one/two/path/after/the/asterisk", ""},
-		{"POST", "/root/one/bar/two/after/the/asterisk", ""},
-		{"POST", "/root/one/qux/two/three/four", ""},
-		{"POST", "/root/one/qux/two/three/four/after/the/asterisk", ""},
+		{"POST", literal_8675, ""},
+		{"POST", literal_3472, ""},
+		{"POST", literal_7230, ""},
+		{"POST", literal_9437, ""},
+		{"POST", literal_3276, ""},
+		{"POST", literal_3476, ""},
 
-		{"PUT", "/root/one/foo/after/the/asterisk", ""},
-		{"PUT", "/root/one/foo/path/after/the/asterisk", ""},
-		{"PUT", "/root/one/two/path/after/the/asterisk", ""},
-		{"PUT", "/root/one/bar/two/after/the/asterisk", ""},
-		{"PUT", "/root/one/qux/two/three/four", ""},
-		{"PUT", "/root/one/qux/two/three/four/after/the/asterisk", ""},
+		{"PUT", literal_8675, ""},
+		{"PUT", literal_3472, ""},
+		{"PUT", literal_7230, ""},
+		{"PUT", literal_9437, ""},
+		{"PUT", literal_3276, ""},
+		{"PUT", literal_3476, ""},
 
-		{"DELETE", "/root/one/foo/after/the/asterisk", ""},
-		{"DELETE", "/root/one/foo/path/after/the/asterisk", ""},
-		{"DELETE", "/root/one/two/path/after/the/asterisk", ""},
-		{"DELETE", "/root/one/bar/two/after/the/asterisk", ""},
-		{"DELETE", "/root/one/qux/two/three/four", ""},
-		{"DELETE", "/root/one/qux/two/three/four/after/the/asterisk", ""},
+		{"DELETE", literal_8675, ""},
+		{"DELETE", literal_3472, ""},
+		{"DELETE", literal_7230, ""},
+		{"DELETE", literal_9437, ""},
+		{"DELETE", literal_3276, ""},
+		{"DELETE", literal_3476, ""},
 	}
 
 	missesAPI = []*Route{
-		{"GET", "/missOne", ""},
-		{"GET", "/miss/two", ""},
-		{"GET", "/miss/three/levels", ""},
-		{"GET", "/miss/four/levels/nooo", ""},
+		{"GET", literal_4371, ""},
+		{"GET", literal_1794, ""},
+		{"GET", literal_7945, ""},
+		{"GET", literal_1064, ""},
 
-		{"POST", "/missOne", ""},
-		{"POST", "/miss/two", ""},
-		{"POST", "/miss/three/levels", ""},
-		{"POST", "/miss/four/levels/nooo", ""},
+		{"POST", literal_4371, ""},
+		{"POST", literal_1794, ""},
+		{"POST", literal_7945, ""},
+		{"POST", literal_1064, ""},
 
-		{"PUT", "/missOne", ""},
-		{"PUT", "/miss/two", ""},
-		{"PUT", "/miss/three/levels", ""},
-		{"PUT", "/miss/four/levels/nooo", ""},
+		{"PUT", literal_4371, ""},
+		{"PUT", literal_1794, ""},
+		{"PUT", literal_7945, ""},
+		{"PUT", literal_1064, ""},
 
-		{"DELETE", "/missOne", ""},
-		{"DELETE", "/miss/two", ""},
-		{"DELETE", "/miss/three/levels", ""},
-		{"DELETE", "/miss/four/levels/nooo", ""},
+		{"DELETE", literal_4371, ""},
+		{"DELETE", literal_1794, ""},
+		{"DELETE", literal_7945, ""},
+		{"DELETE", literal_1064, ""},
 	}
 
 	// handlerHelper created a function that will set a context key for assertion
@@ -693,7 +693,7 @@ func TestRouterParam(t *testing.T) {
 	e := New()
 	r := e.router
 
-	r.Add(http.MethodGet, "/users/:id", handlerFunc)
+	r.Add(http.MethodGet, literal_8032, handlerFunc)
 
 	var testCases = []struct {
 		name        string
@@ -703,14 +703,14 @@ func TestRouterParam(t *testing.T) {
 	}{
 		{
 			name:        "route /users/1 to /users/:id",
-			whenURL:     "/users/1",
-			expectRoute: "/users/:id",
+			whenURL:     literal_0618,
+			expectRoute: literal_8032,
 			expectParam: map[string]string{"id": "1"},
 		},
 		{
 			name:        "route /users/1/ to /users/:id",
 			whenURL:     "/users/1/",
-			expectRoute: "/users/:id",
+			expectRoute: literal_8032,
 			expectParam: map[string]string{"id": "1/"},
 		},
 	}
@@ -798,7 +798,7 @@ func TestMethodNotAllowedAndNotFound(t *testing.T) {
 
 	// Routes
 	r.Add(http.MethodGet, "/*", handlerFunc)
-	r.Add(http.MethodPost, "/users/:id", handlerFunc)
+	r.Add(http.MethodPost, literal_8032, handlerFunc)
 
 	var testCases = []struct {
 		name              string
@@ -812,14 +812,14 @@ func TestMethodNotAllowedAndNotFound(t *testing.T) {
 		{
 			name:        "exact match for route+method",
 			whenMethod:  http.MethodPost,
-			whenURL:     "/users/1",
-			expectRoute: "/users/:id",
+			whenURL:     literal_0618,
+			expectRoute: literal_8032,
 			expectParam: map[string]string{"id": "1"},
 		},
 		{
 			name:              "matches node but not method. sends 405 from best match node",
 			whenMethod:        http.MethodPut,
-			whenURL:           "/users/1",
+			whenURL:           literal_0618,
 			expectRoute:       nil,
 			expectError:       ErrMethodNotAllowed,
 			expectAllowHeader: "OPTIONS, POST",
@@ -827,7 +827,7 @@ func TestMethodNotAllowedAndNotFound(t *testing.T) {
 		{
 			name:        "best match is any route up in tree",
 			whenMethod:  http.MethodGet,
-			whenURL:     "/users/1",
+			whenURL:     literal_0618,
 			expectRoute: "/*",
 			expectParam: map[string]string{"*": "users/1"},
 		},
@@ -888,7 +888,7 @@ func TestRouterOptionsMethodHandler(t *testing.T) {
 func TestRouterTwoParam(t *testing.T) {
 	e := New()
 	r := e.router
-	r.Add(http.MethodGet, "/users/:uid/files/:fid", handlerFunc)
+	r.Add(http.MethodGet, literal_8670, handlerFunc)
 	c := e.NewContext(nil, nil).(*context)
 
 	r.Find(http.MethodGet, "/users/1/files/1", c)
@@ -927,7 +927,7 @@ func TestRouterParamWithSlash(t *testing.T) {
 // 6) /*
 //
 // Searching route for "/a/c/f" should match "/a/*/f"
-// When route `4) /a/*/f` is not added then request for "/a/c/f" should match "/:e/c/f"
+// When route `4) /a/*/f` is not added then request for "/a/c/f" should match literal_5382
 //
 //	              +----------+
 //	        +-----+ "/" root +--------------------+--------------------------+
@@ -956,14 +956,14 @@ func TestRouteMultiLevelBacktracking(t *testing.T) {
 		expectParam map[string]string
 	}{
 		{
-			name:        "route /a/c/df to /a/c/df",
+			name:        literal_9425,
 			whenURL:     "/a/c/df",
 			expectRoute: "/a/c/df",
 		},
 		{
 			name:        "route /a/x/df to /a/:b/c",
 			whenURL:     "/a/x/c",
-			expectRoute: "/a/:b/c",
+			expectRoute: literal_0972,
 			expectParam: map[string]string{"b": "x"},
 		},
 		{
@@ -975,7 +975,7 @@ func TestRouteMultiLevelBacktracking(t *testing.T) {
 		{
 			name:        "route /b/c/f to /:e/c/f",
 			whenURL:     "/b/c/f",
-			expectRoute: "/:e/c/f",
+			expectRoute: literal_5382,
 			expectParam: map[string]string{"e": "b"},
 		},
 		{
@@ -991,11 +991,11 @@ func TestRouteMultiLevelBacktracking(t *testing.T) {
 			e := New()
 			r := e.router
 
-			r.Add(http.MethodGet, "/a/:b/c", handlerHelper("case", 1))
+			r.Add(http.MethodGet, literal_0972, handlerHelper("case", 1))
 			r.Add(http.MethodGet, "/a/c/d", handlerHelper("case", 2))
 			r.Add(http.MethodGet, "/a/c/df", handlerHelper("case", 3))
 			r.Add(http.MethodGet, "/a/*/f", handlerHelper("case", 4))
-			r.Add(http.MethodGet, "/:e/c/f", handlerHelper("case", 5))
+			r.Add(http.MethodGet, literal_5382, handlerHelper("case", 5))
 			r.Add(http.MethodGet, "/*", handlerHelper("case", 6))
 
 			c := e.NewContext(nil, nil).(*context)
@@ -1014,7 +1014,7 @@ func TestRouteMultiLevelBacktracking(t *testing.T) {
 // Issue #1754 - router needs to backtrack multiple levels upwards in tree to find the matching route
 // route evaluation order
 //
-// Request for "/a/c/f" should match "/:e/c/f"
+// Request for "/a/c/f" should match literal_5382
 //
 //	                       +-0,7--------+
 //	                       | "/" (root) |----------------------------------+
@@ -1036,10 +1036,10 @@ func TestRouteMultiLevelBacktracking2(t *testing.T) {
 	e := New()
 	r := e.router
 
-	r.Add(http.MethodGet, "/a/:b/c", handlerFunc)
+	r.Add(http.MethodGet, literal_0972, handlerFunc)
 	r.Add(http.MethodGet, "/a/c/d", handlerFunc)
 	r.Add(http.MethodGet, "/a/c/df", handlerFunc)
-	r.Add(http.MethodGet, "/:e/c/f", handlerFunc)
+	r.Add(http.MethodGet, literal_5382, handlerFunc)
 	r.Add(http.MethodGet, "/*", handlerFunc)
 
 	var testCases = []struct {
@@ -1049,26 +1049,26 @@ func TestRouteMultiLevelBacktracking2(t *testing.T) {
 		expectParam map[string]string
 	}{
 		{
-			name:        "route /a/c/df to /a/c/df",
+			name:        literal_9425,
 			whenURL:     "/a/c/df",
 			expectRoute: "/a/c/df",
 		},
 		{
 			name:        "route /a/x/df to /a/:b/c",
 			whenURL:     "/a/x/c",
-			expectRoute: "/a/:b/c",
+			expectRoute: literal_0972,
 			expectParam: map[string]string{"b": "x"},
 		},
 		{
 			name:        "route /a/c/f to /:e/c/f",
 			whenURL:     "/a/c/f",
-			expectRoute: "/:e/c/f",
+			expectRoute: literal_5382,
 			expectParam: map[string]string{"e": "a"},
 		},
 		{
 			name:        "route /b/c/f to /:e/c/f",
 			whenURL:     "/b/c/f",
-			expectRoute: "/:e/c/f",
+			expectRoute: literal_5382,
 			expectParam: map[string]string{"e": "b"},
 		},
 		{
@@ -1210,7 +1210,7 @@ func TestNotFoundRouteAnyKind(t *testing.T) {
 			expectParam: map[string]string{"*": "xxx"},
 		},
 		{
-			name:        "route /a/c/df to /a/c/df",
+			name:        literal_9425,
 			whenURL:     "/a/c/df",
 			expectRoute: "/a/c/df",
 			expectID:    1,
@@ -1277,7 +1277,7 @@ func TestNotFoundRouteParamKind(t *testing.T) {
 			expectParam: map[string]string{"file": "xxx"},
 		},
 		{
-			name:        "route /a/c/df to /a/c/df",
+			name:        literal_9425,
 			whenURL:     "/a/c/df",
 			expectRoute: "/a/c/df",
 			expectID:    1,
@@ -1520,7 +1520,7 @@ func TestRouterMatchAny(t *testing.T) {
 	// Routes
 	r.Add(http.MethodGet, "/", handlerFunc)
 	r.Add(http.MethodGet, "/*", handlerFunc)
-	r.Add(http.MethodGet, "/users/*", handlerFunc)
+	r.Add(http.MethodGet, literal_3792, handlerFunc)
 
 	var testCases = []struct {
 		whenURL     string
@@ -1539,7 +1539,7 @@ func TestRouterMatchAny(t *testing.T) {
 		},
 		{
 			whenURL:     "/users/joe",
-			expectRoute: "/users/*",
+			expectRoute: literal_3792,
 			expectParam: map[string]string{"*": "joe"},
 		},
 	}
@@ -1569,7 +1569,7 @@ func TestRouterAnyMatchesLastAddedAnyRoute(t *testing.T) {
 	e := New()
 	r := e.router
 
-	r.Add(http.MethodGet, "/users/*", handlerHelper("case", 1))
+	r.Add(http.MethodGet, literal_3792, handlerHelper("case", 1))
 	r.Add(http.MethodGet, "/users/*/action*", handlerHelper("case", 2))
 
 	c := e.NewContext(nil, nil).(*context)
@@ -1598,7 +1598,7 @@ func TestRouterMatchAnyPrefixIssue(t *testing.T) {
 		c.Set("path", c.Path())
 		return nil
 	})
-	r.Add(http.MethodGet, "/users/*", func(c Context) error {
+	r.Add(http.MethodGet, literal_3792, func(c Context) error {
 		c.Set("path", c.Path())
 		return nil
 	})
@@ -1614,13 +1614,13 @@ func TestRouterMatchAnyPrefixIssue(t *testing.T) {
 			expectParam: map[string]string{"*": ""},
 		},
 		{
-			whenURL:     "/users",
+			whenURL:     literal_7186,
 			expectRoute: "/*",
 			expectParam: map[string]string{"*": "users"},
 		},
 		{
 			whenURL:     "/users/",
-			expectRoute: "/users/*",
+			expectRoute: literal_3792,
 			expectParam: map[string]string{"*": ""},
 		},
 		{
@@ -1658,11 +1658,11 @@ func TestRouterMatchAnySlash(t *testing.T) {
 	r := e.router
 
 	// Routes
-	r.Add(http.MethodGet, "/users", handlerFunc)
-	r.Add(http.MethodGet, "/users/*", handlerFunc)
+	r.Add(http.MethodGet, literal_7186, handlerFunc)
+	r.Add(http.MethodGet, literal_3792, handlerFunc)
 	r.Add(http.MethodGet, "/img/*", handlerFunc)
-	r.Add(http.MethodGet, "/img/load", handlerFunc)
-	r.Add(http.MethodGet, "/img/load/*", handlerFunc)
+	r.Add(http.MethodGet, literal_7419, handlerFunc)
+	r.Add(http.MethodGet, literal_7503, handlerFunc)
 	r.Add(http.MethodGet, "/assets/*", handlerFunc)
 
 	var testCases = []struct {
@@ -1679,28 +1679,28 @@ func TestRouterMatchAnySlash(t *testing.T) {
 		},
 		{ // Test trailing slash request for simple any route (see #1526)
 			whenURL:     "/users/",
-			expectRoute: "/users/*",
+			expectRoute: literal_3792,
 			expectParam: map[string]string{"*": ""},
 		},
 		{
 			whenURL:     "/users/joe",
-			expectRoute: "/users/*",
+			expectRoute: literal_3792,
 			expectParam: map[string]string{"*": "joe"},
 		},
 		// Test trailing slash request for nested any route (see #1526)
 		{
-			whenURL:     "/img/load",
-			expectRoute: "/img/load",
+			whenURL:     literal_7419,
+			expectRoute: literal_7419,
 			expectParam: map[string]string{"*": ""},
 		},
 		{
 			whenURL:     "/img/load/",
-			expectRoute: "/img/load/*",
+			expectRoute: literal_7503,
 			expectParam: map[string]string{"*": ""},
 		},
 		{
 			whenURL:     "/img/load/ben",
-			expectRoute: "/img/load/*",
+			expectRoute: literal_7503,
 			expectParam: map[string]string{"*": "ben"},
 		},
 		// Test /assets/* any route
@@ -1743,10 +1743,10 @@ func TestRouterMatchAnyMultiLevel(t *testing.T) {
 	r := e.router
 
 	// Routes
-	r.Add(http.MethodGet, "/api/users/jack", handlerFunc)
-	r.Add(http.MethodGet, "/api/users/jill", handlerFunc)
+	r.Add(http.MethodGet, literal_7302, handlerFunc)
+	r.Add(http.MethodGet, literal_5480, handlerFunc)
 	r.Add(http.MethodGet, "/api/users/*", handlerFunc)
-	r.Add(http.MethodGet, "/api/*", handlerFunc)
+	r.Add(http.MethodGet, literal_9012, handlerFunc)
 	r.Add(http.MethodGet, "/other/*", handlerFunc)
 	r.Add(http.MethodGet, "/*", handlerFunc)
 
@@ -1757,13 +1757,13 @@ func TestRouterMatchAnyMultiLevel(t *testing.T) {
 		expectError error
 	}{
 		{
-			whenURL:     "/api/users/jack",
-			expectRoute: "/api/users/jack",
+			whenURL:     literal_7302,
+			expectRoute: literal_7302,
 			expectParam: map[string]string{"*": ""},
 		},
 		{
-			whenURL:     "/api/users/jill",
-			expectRoute: "/api/users/jill",
+			whenURL:     literal_5480,
+			expectRoute: literal_5480,
 			expectParam: map[string]string{"*": ""},
 		},
 		{
@@ -1773,17 +1773,17 @@ func TestRouterMatchAnyMultiLevel(t *testing.T) {
 		},
 		{
 			whenURL:     "/api/nousers/joe",
-			expectRoute: "/api/*",
+			expectRoute: literal_9012,
 			expectParam: map[string]string{"*": "nousers/joe"},
 		},
 		{
 			whenURL:     "/api/none",
-			expectRoute: "/api/*",
+			expectRoute: literal_9012,
 			expectParam: map[string]string{"*": "none"},
 		},
 		{
 			whenURL:     "/api/none",
-			expectRoute: "/api/*",
+			expectRoute: literal_9012,
 			expectParam: map[string]string{"*": "none"},
 		},
 		{
@@ -1817,9 +1817,9 @@ func TestRouterMatchAnyMultiLevelWithPost(t *testing.T) {
 	r := e.router
 
 	// Routes
-	e.POST("/api/auth/login", handlerFunc)
+	e.POST(literal_3906, handlerFunc)
 	e.POST("/api/auth/forgotPassword", handlerFunc)
-	e.Any("/api/*", handlerFunc)
+	e.Any(literal_9012, handlerFunc)
 	e.Any("/*", handlerFunc)
 
 	var testCases = []struct {
@@ -1830,27 +1830,27 @@ func TestRouterMatchAnyMultiLevelWithPost(t *testing.T) {
 		expectError error
 	}{
 		{ // POST /api/auth/login shall choose login method
-			whenURL:     "/api/auth/login",
+			whenURL:     literal_3906,
 			whenMethod:  http.MethodPost,
-			expectRoute: "/api/auth/login",
+			expectRoute: literal_3906,
 			expectParam: map[string]string{"*": ""},
 		},
 		{ // POST /api/auth/logout shall choose nearest any route
 			whenURL:     "/api/auth/logout",
 			whenMethod:  http.MethodPost,
-			expectRoute: "/api/*",
+			expectRoute: literal_9012,
 			expectParam: map[string]string{"*": "auth/logout"},
 		},
 		{ // POST to /api/other/test shall choose nearest any route
 			whenURL:     "/api/other/test",
 			whenMethod:  http.MethodPost,
-			expectRoute: "/api/*",
+			expectRoute: literal_9012,
 			expectParam: map[string]string{"*": "other/test"},
 		},
 		{ // GET to /api/other/test shall choose nearest any route
 			whenURL:     "/api/other/test",
 			whenMethod:  http.MethodGet,
-			expectRoute: "/api/*",
+			expectRoute: literal_9012,
 			expectParam: map[string]string{"*": "other/test"},
 		},
 	}
@@ -1912,8 +1912,8 @@ func TestRouterMultiRoute(t *testing.T) {
 	r := e.router
 
 	// Routes
-	r.Add(http.MethodGet, "/users", handlerFunc)
-	r.Add(http.MethodGet, "/users/:id", handlerFunc)
+	r.Add(http.MethodGet, literal_7186, handlerFunc)
+	r.Add(http.MethodGet, literal_8032, handlerFunc)
 
 	var testCases = []struct {
 		whenMethod  string
@@ -1923,13 +1923,13 @@ func TestRouterMultiRoute(t *testing.T) {
 		expectError error
 	}{
 		{
-			whenURL:     "/users",
-			expectRoute: "/users",
+			whenURL:     literal_7186,
+			expectRoute: literal_7186,
 			expectParam: map[string]string{"*": ""},
 		},
 		{
-			whenURL:     "/users/1",
-			expectRoute: "/users/:id",
+			whenURL:     literal_0618,
+			expectRoute: literal_8032,
 			expectParam: map[string]string{"id": "1"},
 		},
 		{
@@ -1969,13 +1969,13 @@ func TestRouterPriority(t *testing.T) {
 	r := e.router
 
 	// Routes
-	r.Add(http.MethodGet, "/users", handlerFunc)
-	r.Add(http.MethodGet, "/users/new", handlerFunc)
-	r.Add(http.MethodGet, "/users/:id", handlerFunc)
-	r.Add(http.MethodGet, "/users/dew", handlerFunc)
+	r.Add(http.MethodGet, literal_7186, handlerFunc)
+	r.Add(http.MethodGet, literal_7916, handlerFunc)
+	r.Add(http.MethodGet, literal_8032, handlerFunc)
+	r.Add(http.MethodGet, literal_6139, handlerFunc)
 	r.Add(http.MethodGet, "/users/:id/files", handlerFunc)
-	r.Add(http.MethodGet, "/users/newsee", handlerFunc)
-	r.Add(http.MethodGet, "/users/*", handlerFunc)
+	r.Add(http.MethodGet, literal_3245, handlerFunc)
+	r.Add(http.MethodGet, literal_3792, handlerFunc)
 	r.Add(http.MethodGet, "/users/new/*", handlerFunc)
 	r.Add(http.MethodGet, "/*", handlerFunc)
 
@@ -1987,21 +1987,21 @@ func TestRouterPriority(t *testing.T) {
 		expectError error
 	}{
 		{
-			whenURL:     "/users",
-			expectRoute: "/users",
+			whenURL:     literal_7186,
+			expectRoute: literal_7186,
 		},
 		{
-			whenURL:     "/users/new",
-			expectRoute: "/users/new",
+			whenURL:     literal_7916,
+			expectRoute: literal_7916,
 		},
 		{
-			whenURL:     "/users/1",
-			expectRoute: "/users/:id",
+			whenURL:     literal_0618,
+			expectRoute: literal_8032,
 			expectParam: map[string]string{"id": "1"},
 		},
 		{
-			whenURL:     "/users/dew",
-			expectRoute: "/users/dew",
+			whenURL:     literal_6139,
+			expectRoute: literal_6139,
 		},
 		{
 			whenURL:     "/users/1/files",
@@ -2009,21 +2009,21 @@ func TestRouterPriority(t *testing.T) {
 			expectParam: map[string]string{"id": "1"},
 		},
 		{
-			whenURL:     "/users/new",
-			expectRoute: "/users/new",
+			whenURL:     literal_7916,
+			expectRoute: literal_7916,
 		},
 		{
 			whenURL:     "/users/news",
-			expectRoute: "/users/:id",
+			expectRoute: literal_8032,
 			expectParam: map[string]string{"id": "news"},
 		},
 		{
-			whenURL:     "/users/newsee",
-			expectRoute: "/users/newsee",
+			whenURL:     literal_3245,
+			expectRoute: literal_3245,
 		},
 		{
 			whenURL:     "/users/joe/books",
-			expectRoute: "/users/*",
+			expectRoute: literal_3792,
 			expectParam: map[string]string{"*": "joe/books"},
 		},
 		{
@@ -2033,12 +2033,12 @@ func TestRouterPriority(t *testing.T) {
 		},
 		{
 			whenURL:     "/users/dew/someone",
-			expectRoute: "/users/*",
+			expectRoute: literal_3792,
 			expectParam: map[string]string{"*": "dew/someone"},
 		},
 		{ // Route > /users/* should be matched although /users/dew exists
 			whenURL:     "/users/notexists/someone",
-			expectRoute: "/users/*",
+			expectRoute: literal_3792,
 			expectParam: map[string]string{"*": "notexists/someone"},
 		},
 		{
@@ -2095,8 +2095,8 @@ func TestRouterPriorityNotFound(t *testing.T) {
 	r := e.router
 
 	// Add
-	r.Add(http.MethodGet, "/a/foo", handlerFunc)
-	r.Add(http.MethodGet, "/a/bar", handlerFunc)
+	r.Add(http.MethodGet, literal_0341, handlerFunc)
+	r.Add(http.MethodGet, literal_1489, handlerFunc)
 
 	var testCases = []struct {
 		whenMethod  string
@@ -2106,12 +2106,12 @@ func TestRouterPriorityNotFound(t *testing.T) {
 		expectError error
 	}{
 		{
-			whenURL:     "/a/foo",
-			expectRoute: "/a/foo",
+			whenURL:     literal_0341,
+			expectRoute: literal_0341,
 		},
 		{
-			whenURL:     "/a/bar",
-			expectRoute: "/a/bar",
+			whenURL:     literal_1489,
+			expectRoute: literal_1489,
 		},
 		{
 			whenURL:     "/abc/def",
@@ -2149,9 +2149,9 @@ func TestRouterParamNames(t *testing.T) {
 	r := e.router
 
 	// Routes
-	r.Add(http.MethodGet, "/users", handlerFunc)
-	r.Add(http.MethodGet, "/users/:id", handlerFunc)
-	r.Add(http.MethodGet, "/users/:uid/files/:fid", handlerFunc)
+	r.Add(http.MethodGet, literal_7186, handlerFunc)
+	r.Add(http.MethodGet, literal_8032, handlerFunc)
+	r.Add(http.MethodGet, literal_8670, handlerFunc)
 
 	var testCases = []struct {
 		whenMethod  string
@@ -2161,17 +2161,17 @@ func TestRouterParamNames(t *testing.T) {
 		expectError error
 	}{
 		{
-			whenURL:     "/users",
-			expectRoute: "/users",
+			whenURL:     literal_7186,
+			expectRoute: literal_7186,
 		},
 		{
-			whenURL:     "/users/1",
-			expectRoute: "/users/:id",
+			whenURL:     literal_0618,
+			expectRoute: literal_8032,
 			expectParam: map[string]string{"id": "1"},
 		},
 		{
 			whenURL:     "/users/1/files/1",
-			expectRoute: "/users/:uid/files/:fid",
+			expectRoute: literal_8670,
 			expectParam: map[string]string{
 				"uid": "1",
 				"fid": "1",
@@ -2208,11 +2208,11 @@ func TestRouterStaticDynamicConflict(t *testing.T) {
 	e := New()
 	r := e.router
 
-	r.Add(http.MethodGet, "/dictionary/skills", handlerHelper("a", 1))
-	r.Add(http.MethodGet, "/dictionary/:name", handlerHelper("b", 2))
-	r.Add(http.MethodGet, "/users/new", handlerHelper("d", 4))
+	r.Add(http.MethodGet, literal_1850, handlerHelper("a", 1))
+	r.Add(http.MethodGet, literal_3028, handlerHelper("b", 2))
+	r.Add(http.MethodGet, literal_7916, handlerHelper("d", 4))
 	r.Add(http.MethodGet, "/users/:name", handlerHelper("e", 5))
-	r.Add(http.MethodGet, "/server", handlerHelper("c", 3))
+	r.Add(http.MethodGet, literal_6954, handlerHelper("c", 3))
 	r.Add(http.MethodGet, "/", handlerHelper("f", 6))
 
 	var testCases = []struct {
@@ -2223,27 +2223,27 @@ func TestRouterStaticDynamicConflict(t *testing.T) {
 		expectError error
 	}{
 		{
-			whenURL:     "/dictionary/skills",
-			expectRoute: "/dictionary/skills",
+			whenURL:     literal_1850,
+			expectRoute: literal_1850,
 			expectParam: map[string]string{"*": ""},
 		},
 		{
 			whenURL:     "/dictionary/skillsnot",
-			expectRoute: "/dictionary/:name",
+			expectRoute: literal_3028,
 			expectParam: map[string]string{"name": "skillsnot"},
 		},
 		{
 			whenURL:     "/dictionary/type",
-			expectRoute: "/dictionary/:name",
+			expectRoute: literal_3028,
 			expectParam: map[string]string{"name": "type"},
 		},
 		{
-			whenURL:     "/server",
-			expectRoute: "/server",
+			whenURL:     literal_6954,
+			expectRoute: literal_6954,
 		},
 		{
-			whenURL:     "/users/new",
-			expectRoute: "/users/new",
+			whenURL:     literal_7916,
+			expectRoute: literal_7916,
 		},
 		{
 			whenURL:     "/users/new2",
@@ -2307,13 +2307,13 @@ func TestRouterParamBacktraceNotFound(t *testing.T) {
 		},
 		{
 			name:        "route /a/foo to /:param1/foo",
-			whenURL:     "/a/foo",
+			whenURL:     literal_0341,
 			expectRoute: "/:param1/foo",
 			expectParam: map[string]string{"param1": "a"},
 		},
 		{
 			name:        "route /a/bar to /:param1/bar",
-			whenURL:     "/a/bar",
+			whenURL:     literal_1489,
 			expectRoute: "/:param1/bar",
 			expectParam: map[string]string{"param1": "a"},
 		},
@@ -2398,21 +2398,21 @@ func TestRouterParamAlias(t *testing.T) {
 // Issue #1052
 func TestRouterParamOrdering(t *testing.T) {
 	api := []*Route{
-		{http.MethodGet, "/:a/:b/:c/:id", ""},
-		{http.MethodGet, "/:a/:id", ""},
-		{http.MethodGet, "/:a/:e/:id", ""},
+		{http.MethodGet, literal_3672, ""},
+		{http.MethodGet, literal_8370, ""},
+		{http.MethodGet, literal_5390, ""},
 	}
 	testRouterAPI(t, api)
 	api2 := []*Route{
-		{http.MethodGet, "/:a/:id", ""},
-		{http.MethodGet, "/:a/:e/:id", ""},
-		{http.MethodGet, "/:a/:b/:c/:id", ""},
+		{http.MethodGet, literal_8370, ""},
+		{http.MethodGet, literal_5390, ""},
+		{http.MethodGet, literal_3672, ""},
 	}
 	testRouterAPI(t, api2)
 	api3 := []*Route{
-		{http.MethodGet, "/:a/:b/:c/:id", ""},
-		{http.MethodGet, "/:a/:e/:id", ""},
-		{http.MethodGet, "/:a/:id", ""},
+		{http.MethodGet, literal_3672, ""},
+		{http.MethodGet, literal_5390, ""},
+		{http.MethodGet, literal_8370, ""},
 	}
 	testRouterAPI(t, api3)
 }
@@ -2439,13 +2439,13 @@ func TestRouterParam1466(t *testing.T) {
 	r.Add(http.MethodPost, "/users/signup", handlerFunc)
 	r.Add(http.MethodPost, "/users/signup/bulk", handlerFunc)
 	r.Add(http.MethodPost, "/users/survey", handlerFunc)
-	r.Add(http.MethodGet, "/users/:username", handlerFunc)
+	r.Add(http.MethodGet, literal_0148, handlerFunc)
 	r.Add(http.MethodGet, "/interests/:name/users", handlerFunc)
 	r.Add(http.MethodGet, "/skills/:name/users", handlerFunc)
 	// Additional routes for Issue 1479
-	r.Add(http.MethodGet, "/users/:username/likes/projects/ids", handlerFunc)
-	r.Add(http.MethodGet, "/users/:username/profile", handlerFunc)
-	r.Add(http.MethodGet, "/users/:username/uploads/:type", handlerFunc)
+	r.Add(http.MethodGet, literal_9267, handlerFunc)
+	r.Add(http.MethodGet, literal_3697, handlerFunc)
+	r.Add(http.MethodGet, literal_7098, handlerFunc)
 
 	var testCases = []struct {
 		whenURL     string
@@ -2454,43 +2454,43 @@ func TestRouterParam1466(t *testing.T) {
 	}{
 		{
 			whenURL:     "/users/ajitem",
-			expectRoute: "/users/:username",
+			expectRoute: literal_0148,
 			expectParam: map[string]string{"username": "ajitem"},
 		},
 		{
 			whenURL:     "/users/sharewithme",
-			expectRoute: "/users/:username",
+			expectRoute: literal_0148,
 			expectParam: map[string]string{"username": "sharewithme"},
 		},
 		{ // route `/users/signup` is registered for POST. so param route `/users/:username` (lesser priority) is matched as it has GET handler
 			whenURL:     "/users/signup",
-			expectRoute: "/users/:username",
+			expectRoute: literal_0148,
 			expectParam: map[string]string{"username": "signup"},
 		},
 		// Additional assertions for #1479
 		{
 			whenURL:     "/users/sharewithme/likes/projects/ids",
-			expectRoute: "/users/:username/likes/projects/ids",
+			expectRoute: literal_9267,
 			expectParam: map[string]string{"username": "sharewithme"},
 		},
 		{
 			whenURL:     "/users/ajitem/likes/projects/ids",
-			expectRoute: "/users/:username/likes/projects/ids",
+			expectRoute: literal_9267,
 			expectParam: map[string]string{"username": "ajitem"},
 		},
 		{
 			whenURL:     "/users/sharewithme/profile",
-			expectRoute: "/users/:username/profile",
+			expectRoute: literal_3697,
 			expectParam: map[string]string{"username": "sharewithme"},
 		},
 		{
 			whenURL:     "/users/ajitem/profile",
-			expectRoute: "/users/:username/profile",
+			expectRoute: literal_3697,
 			expectParam: map[string]string{"username": "ajitem"},
 		},
 		{
 			whenURL:     "/users/sharewithme/uploads/self",
-			expectRoute: "/users/:username/uploads/:type",
+			expectRoute: literal_7098,
 			expectParam: map[string]string{
 				"username": "sharewithme",
 				"type":     "self",
@@ -2498,7 +2498,7 @@ func TestRouterParam1466(t *testing.T) {
 		},
 		{
 			whenURL:     "/users/ajitem/uploads/self",
-			expectRoute: "/users/:username/uploads/:type",
+			expectRoute: literal_7098,
 			expectParam: map[string]string{
 				"username": "ajitem",
 				"type":     "self",
@@ -2567,7 +2567,7 @@ func TestRouterPanicWhenParamNoRootOnlyChildsFailsFind(t *testing.T) {
 	e := New()
 	r := e.router
 
-	r.Add(http.MethodGet, "/users/create", handlerFunc)
+	r.Add(http.MethodGet, literal_0948, handlerFunc)
 	r.Add(http.MethodGet, "/users/:id/edit", handlerFunc)
 	r.Add(http.MethodGet, "/users/:id/active", handlerFunc)
 
@@ -2588,8 +2588,8 @@ func TestRouterPanicWhenParamNoRootOnlyChildsFailsFind(t *testing.T) {
 			expectParam: map[string]string{"id": "bob"},
 		},
 		{
-			whenURL:     "/users/create",
-			expectRoute: "/users/create",
+			whenURL:     literal_0948,
+			expectRoute: literal_0948,
 			expectParam: nil,
 		},
 		//This panic before the fix for Issue #1653
@@ -2629,7 +2629,7 @@ func TestRouterDifferentParamsInPath(t *testing.T) {
 	r.Add(http.MethodPut, "/users/:vid/files/:gid", func(Context) error {
 		return nil
 	})
-	r.Add(http.MethodGet, "/users/:uid/files/:fid", func(Context) error {
+	r.Add(http.MethodGet, literal_8670, func(Context) error {
 		return nil
 	})
 	c := e.NewContext(nil, nil).(*context)
@@ -2650,10 +2650,10 @@ func TestRouterHandleMethodOptions(t *testing.T) {
 	e := New()
 	r := e.router
 
-	r.Add(http.MethodGet, "/users", handlerFunc)
-	r.Add(http.MethodPost, "/users", handlerFunc)
-	r.Add(http.MethodPut, "/users/:id", handlerFunc)
-	r.Add(http.MethodGet, "/users/:id", handlerFunc)
+	r.Add(http.MethodGet, literal_7186, handlerFunc)
+	r.Add(http.MethodPost, literal_7186, handlerFunc)
+	r.Add(http.MethodPut, literal_8032, handlerFunc)
+	r.Add(http.MethodGet, literal_8032, handlerFunc)
 
 	var testCases = []struct {
 		name              string
@@ -2665,21 +2665,21 @@ func TestRouterHandleMethodOptions(t *testing.T) {
 		{
 			name:              "allows GET and POST handlers",
 			whenMethod:        http.MethodOptions,
-			whenURL:           "/users",
+			whenURL:           literal_7186,
 			expectAllowHeader: "OPTIONS, GET, POST",
 			expectStatus:      http.StatusNoContent,
 		},
 		{
 			name:              "allows GET and PUT handlers",
 			whenMethod:        http.MethodOptions,
-			whenURL:           "/users/1",
+			whenURL:           literal_0618,
 			expectAllowHeader: "OPTIONS, GET, PUT",
 			expectStatus:      http.StatusNoContent,
 		},
 		{
 			name:              "GET does not have allows header",
 			whenMethod:        http.MethodGet,
-			whenURL:           "/users",
+			whenURL:           literal_7186,
 			expectAllowHeader: "",
 			expectStatus:      http.StatusOK,
 		},
@@ -2727,12 +2727,12 @@ func TestRouterRoutes(t *testing.T) {
 		{
 			name: "ok, multiple",
 			givenRoutes: []rr{
-				{method: http.MethodGet, path: "/static", name: "/static"},
-				{method: http.MethodGet, path: "/static/*", name: "/static/*"},
+				{method: http.MethodGet, path: literal_5831, name: literal_5831},
+				{method: http.MethodGet, path: literal_6832, name: literal_6832},
 			},
 			expect: []rr{
-				{method: http.MethodGet, path: "/static", name: "/static"},
-				{method: http.MethodGet, path: "/static/*", name: "/static/*"},
+				{method: http.MethodGet, path: literal_5831, name: literal_5831},
+				{method: http.MethodGet, path: literal_6832, name: literal_6832},
 			},
 		},
 		{
@@ -2754,7 +2754,7 @@ func TestRouterRoutes(t *testing.T) {
 			}
 
 			// Add does not add route. because of backwards compatibility we can not change this method signature
-			route.Add("LOCK", "/users", handlerFunc)
+			route.Add("LOCK", literal_7186, handlerFunc)
 
 			result := route.Routes()
 			assert.Len(t, result, len(tc.expect))
@@ -2791,38 +2791,38 @@ func TestRouterReverse(t *testing.T) {
 	r := e.router
 	dummyHandler := func(Context) error { return nil }
 
-	r.add(http.MethodGet, "/static", "/static", dummyHandler)
-	r.add(http.MethodGet, "/static/*", "/static/*", dummyHandler)
-	r.add(http.MethodGet, "/params/:foo", "/params/:foo", dummyHandler)
-	r.add(http.MethodGet, "/params/:foo/bar/:qux", "/params/:foo/bar/:qux", dummyHandler)
-	r.add(http.MethodGet, "/params/:foo/bar/:qux/*", "/params/:foo/bar/:qux/*", dummyHandler)
+	r.add(http.MethodGet, literal_5831, literal_5831, dummyHandler)
+	r.add(http.MethodGet, literal_6832, literal_6832, dummyHandler)
+	r.add(http.MethodGet, literal_3416, literal_3416, dummyHandler)
+	r.add(http.MethodGet, literal_4207, literal_4207, dummyHandler)
+	r.add(http.MethodGet, literal_9351, literal_9351, dummyHandler)
 
-	assert.Equal(t, "/static", r.Reverse("/static"))
-	assert.Equal(t, "/static", r.Reverse("/static", "missing param"))
-	assert.Equal(t, "/static/*", r.Reverse("/static/*"))
-	assert.Equal(t, "/static/foo.txt", r.Reverse("/static/*", "foo.txt"))
+	assert.Equal(t, literal_5831, r.Reverse(literal_5831))
+	assert.Equal(t, literal_5831, r.Reverse(literal_5831, "missing param"))
+	assert.Equal(t, literal_6832, r.Reverse(literal_6832))
+	assert.Equal(t, "/static/foo.txt", r.Reverse(literal_6832, "foo.txt"))
 
-	assert.Equal(t, "/params/:foo", r.Reverse("/params/:foo"))
-	assert.Equal(t, "/params/one", r.Reverse("/params/:foo", "one"))
-	assert.Equal(t, "/params/:foo/bar/:qux", r.Reverse("/params/:foo/bar/:qux"))
-	assert.Equal(t, "/params/one/bar/:qux", r.Reverse("/params/:foo/bar/:qux", "one"))
-	assert.Equal(t, "/params/one/bar/two", r.Reverse("/params/:foo/bar/:qux", "one", "two"))
-	assert.Equal(t, "/params/one/bar/two/three", r.Reverse("/params/:foo/bar/:qux/*", "one", "two", "three"))
+	assert.Equal(t, literal_3416, r.Reverse(literal_3416))
+	assert.Equal(t, "/params/one", r.Reverse(literal_3416, "one"))
+	assert.Equal(t, literal_4207, r.Reverse(literal_4207))
+	assert.Equal(t, "/params/one/bar/:qux", r.Reverse(literal_4207, "one"))
+	assert.Equal(t, "/params/one/bar/two", r.Reverse(literal_4207, "one", "two"))
+	assert.Equal(t, "/params/one/bar/two/three", r.Reverse(literal_9351, "one", "two", "three"))
 }
 
 func TestRouterAllowHeaderForAnyOtherMethodType(t *testing.T) {
 	e := New()
 	r := e.router
 
-	r.Add(http.MethodGet, "/users", handlerFunc)
-	r.Add("COPY", "/users", handlerFunc)
-	r.Add("LOCK", "/users", handlerFunc)
+	r.Add(http.MethodGet, literal_7186, handlerFunc)
+	r.Add("COPY", literal_7186, handlerFunc)
+	r.Add("LOCK", literal_7186, handlerFunc)
 
-	req := httptest.NewRequest("TEST", "/users", nil)
+	req := httptest.NewRequest("TEST", literal_7186, nil)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec).(*context)
 
-	r.Find("TEST", "/users", c)
+	r.Find("TEST", literal_7186, c)
 	err := c.handler(c)
 
 	assert.EqualError(t, err, "code=405, message=Method Not Allowed")
@@ -2889,3 +2889,159 @@ func BenchmarkRouterGooglePlusAPIMisses(b *testing.B) {
 func BenchmarkRouterParamsAndAnyAPI(b *testing.B) {
 	benchmarkRouterRoutes(b, paramAndAnyAPI, paramAndAnyAPIToFind)
 }
+
+const literal_4602 = "/authorizations/:id"
+
+const literal_7620 = "/notifications/threads/:id/subscription"
+
+const literal_5690 = "/user/starred/:owner/:repo"
+
+const literal_3975 = "/repos/:owner/:repo/subscription"
+
+const literal_3691 = "/user/subscriptions/:owner/:repo"
+
+const literal_3801 = "/gists/:id"
+
+const literal_2893 = "/repos/:owner/:repo/git/refs/*ref"
+
+const literal_7382 = "/repos/:owner/:repo/issues/comments/:id"
+
+const literal_5602 = "/repos/:owner/:repo/labels/:name"
+
+const literal_8274 = "/repos/:owner/:repo/issues/:number/labels"
+
+const literal_4896 = "/repos/:owner/:repo/milestones/:number"
+
+const literal_6792 = "/orgs/:org/public_members/:user"
+
+const literal_5497 = "/teams/:id"
+
+const literal_3908 = "/teams/:id/members/:user"
+
+const literal_5761 = "/teams/:id/repos/:owner/:repo"
+
+const literal_1928 = "/repos/:owner/:repo/pulls/comments/:number"
+
+const literal_3125 = "/repos/:owner/:repo/collaborators/:user"
+
+const literal_1385 = "/repos/:owner/:repo/comments/:id"
+
+const literal_0735 = "/repos/:owner/:repo/keys/:id"
+
+const literal_1408 = "/repos/:owner/:repo/hooks/:id"
+
+const literal_3521 = "/repos/:owner/:repo/releases/:id"
+
+const literal_7186 = "/users"
+
+const literal_3017 = "/user/emails"
+
+const literal_5296 = "/user/following/:user"
+
+const literal_2071 = "/user/keys/:id"
+
+const literal_3671 = "/1/classes/:className/:objectId"
+
+const literal_2043 = "/1/users/:objectId"
+
+const literal_9741 = "/1/roles/:objectId"
+
+const literal_7512 = "/1/installations/:objectId"
+
+const literal_8639 = "/root/:first/foo/*"
+
+const literal_2618 = "/root/:first/:second/*"
+
+const literal_4350 = "/root/:first/bar/:second/*"
+
+const literal_2693 = "/root/:first/qux/:second/:third/:fourth"
+
+const literal_3596 = "/root/:first/qux/:second/:third/:fourth/*"
+
+const literal_8675 = "/root/one/foo/after/the/asterisk"
+
+const literal_3472 = "/root/one/foo/path/after/the/asterisk"
+
+const literal_7230 = "/root/one/two/path/after/the/asterisk"
+
+const literal_9437 = "/root/one/bar/two/after/the/asterisk"
+
+const literal_3276 = "/root/one/qux/two/three/four"
+
+const literal_3476 = "/root/one/qux/two/three/four/after/the/asterisk"
+
+const literal_4371 = "/missOne"
+
+const literal_1794 = "/miss/two"
+
+const literal_7945 = "/miss/three/levels"
+
+const literal_1064 = "/miss/four/levels/nooo"
+
+const literal_8032 = "/users/:id"
+
+const literal_0618 = "/users/1"
+
+const literal_8670 = "/users/:uid/files/:fid"
+
+const literal_9425 = "route /a/c/df to /a/c/df"
+
+const literal_0972 = "/a/:b/c"
+
+const literal_5382 = "/:e/c/f"
+
+const literal_3792 = "/users/*"
+
+const literal_7419 = "/img/load"
+
+const literal_7503 = "/img/load/*"
+
+const literal_7302 = "/api/users/jack"
+
+const literal_5480 = "/api/users/jill"
+
+const literal_9012 = "/api/*"
+
+const literal_3906 = "/api/auth/login"
+
+const literal_7916 = "/users/new"
+
+const literal_6139 = "/users/dew"
+
+const literal_3245 = "/users/newsee"
+
+const literal_0341 = "/a/foo"
+
+const literal_1489 = "/a/bar"
+
+const literal_1850 = "/dictionary/skills"
+
+const literal_3028 = "/dictionary/:name"
+
+const literal_6954 = "/server"
+
+const literal_3672 = "/:a/:b/:c/:id"
+
+const literal_8370 = "/:a/:id"
+
+const literal_5390 = "/:a/:e/:id"
+
+const literal_0148 = "/users/:username"
+
+const literal_9267 = "/users/:username/likes/projects/ids"
+
+const literal_3697 = "/users/:username/profile"
+
+const literal_7098 = "/users/:username/uploads/:type"
+
+const literal_0948 = "/users/create"
+
+const literal_5831 = "/static"
+
+const literal_6832 = "/static/*"
+
+const literal_3416 = "/params/:foo"
+
+const literal_4207 = "/params/:foo/bar/:qux"
+
+const literal_9351 = "/params/:foo/bar/:qux/*"

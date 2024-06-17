@@ -6,12 +6,13 @@ package middleware
 import (
 	"bufio"
 	"errors"
-	"github.com/stretchr/testify/assert"
 	"net"
 	"net/http"
 	"net/http/httptest"
 	"regexp"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestRewriteURL(t *testing.T) {

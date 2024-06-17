@@ -79,7 +79,7 @@ func TestEchoStatic(t *testing.T) {
 	}{
 		{
 			name:                 "ok",
-			givenPrefix:          "/images",
+			givenPrefix:          literal_6258,
 			givenRoot:            "_fixture/images",
 			whenURL:              "/images/walle.png",
 			expectStatus:         http.StatusOK,
@@ -87,7 +87,7 @@ func TestEchoStatic(t *testing.T) {
 		},
 		{
 			name:                 "ok with relative path for root points to directory",
-			givenPrefix:          "/images",
+			givenPrefix:          literal_6258,
 			givenRoot:            "./_fixture/images",
 			whenURL:              "/images/walle.png",
 			expectStatus:         http.StatusOK,
@@ -95,53 +95,53 @@ func TestEchoStatic(t *testing.T) {
 		},
 		{
 			name:                 "No file",
-			givenPrefix:          "/images",
+			givenPrefix:          literal_6258,
 			givenRoot:            "_fixture/scripts",
 			whenURL:              "/images/bolt.png",
 			expectStatus:         http.StatusNotFound,
-			expectBodyStartsWith: "{\"message\":\"Not Found\"}\n",
+			expectBodyStartsWith: literal_8921,
 		},
 		{
 			name:                 "Directory",
-			givenPrefix:          "/images",
+			givenPrefix:          literal_6258,
 			givenRoot:            "_fixture/images",
 			whenURL:              "/images/",
 			expectStatus:         http.StatusNotFound,
-			expectBodyStartsWith: "{\"message\":\"Not Found\"}\n",
+			expectBodyStartsWith: literal_8921,
 		},
 		{
 			name:                 "Directory Redirect",
 			givenPrefix:          "/",
 			givenRoot:            "_fixture",
-			whenURL:              "/folder",
+			whenURL:              literal_5912,
 			expectStatus:         http.StatusMovedPermanently,
-			expectHeaderLocation: "/folder/",
+			expectHeaderLocation: literal_7685,
 			expectBodyStartsWith: "",
 		},
 		{
 			name:                 "Directory Redirect with non-root path",
-			givenPrefix:          "/static",
+			givenPrefix:          literal_4578,
 			givenRoot:            "_fixture",
-			whenURL:              "/static",
+			whenURL:              literal_4578,
 			expectStatus:         http.StatusMovedPermanently,
 			expectHeaderLocation: "/static/",
 			expectBodyStartsWith: "",
 		},
 		{
 			name:                 "Prefixed directory 404 (request URL without slash)",
-			givenPrefix:          "/folder/", // trailing slash will intentionally not match "/folder"
+			givenPrefix:          literal_7685, // trailing slash will intentionally not match literal_5912
 			givenRoot:            "_fixture",
-			whenURL:              "/folder", // no trailing slash
+			whenURL:              literal_5912, // no trailing slash
 			expectStatus:         http.StatusNotFound,
-			expectBodyStartsWith: "{\"message\":\"Not Found\"}\n",
+			expectBodyStartsWith: literal_8921,
 		},
 		{
 			name:                 "Prefixed directory redirect (without slash redirect to slash)",
-			givenPrefix:          "/folder", // no trailing slash shall match /folder and /folder/*
+			givenPrefix:          literal_5912, // no trailing slash shall match /folder and /folder/*
 			givenRoot:            "_fixture",
-			whenURL:              "/folder", // no trailing slash
+			whenURL:              literal_5912, // no trailing slash
 			expectStatus:         http.StatusMovedPermanently,
-			expectHeaderLocation: "/folder/",
+			expectHeaderLocation: literal_7685,
 			expectBodyStartsWith: "",
 		},
 		{
@@ -150,31 +150,31 @@ func TestEchoStatic(t *testing.T) {
 			givenRoot:            "_fixture",
 			whenURL:              "/",
 			expectStatus:         http.StatusOK,
-			expectBodyStartsWith: "<!doctype html>",
+			expectBodyStartsWith: literal_2756,
 		},
 		{
 			name:                 "Prefixed directory with index.html (prefix ending with slash)",
-			givenPrefix:          "/assets/",
+			givenPrefix:          literal_6915,
 			givenRoot:            "_fixture",
-			whenURL:              "/assets/",
+			whenURL:              literal_6915,
 			expectStatus:         http.StatusOK,
-			expectBodyStartsWith: "<!doctype html>",
+			expectBodyStartsWith: literal_2756,
 		},
 		{
 			name:                 "Prefixed directory with index.html (prefix ending without slash)",
 			givenPrefix:          "/assets",
 			givenRoot:            "_fixture",
-			whenURL:              "/assets/",
+			whenURL:              literal_6915,
 			expectStatus:         http.StatusOK,
-			expectBodyStartsWith: "<!doctype html>",
+			expectBodyStartsWith: literal_2756,
 		},
 		{
 			name:                 "Sub-directory with index.html",
 			givenPrefix:          "/",
 			givenRoot:            "_fixture",
-			whenURL:              "/folder/",
+			whenURL:              literal_7685,
 			expectStatus:         http.StatusOK,
-			expectBodyStartsWith: "<!doctype html>",
+			expectBodyStartsWith: literal_2756,
 		},
 		{
 			name:                 "do not allow directory traversal (backslash - windows separator)",
@@ -182,7 +182,7 @@ func TestEchoStatic(t *testing.T) {
 			givenRoot:            "_fixture/",
 			whenURL:              `/..\\middleware/basic_auth.go`,
 			expectStatus:         http.StatusNotFound,
-			expectBodyStartsWith: "{\"message\":\"Not Found\"}\n",
+			expectBodyStartsWith: literal_8921,
 		},
 		{
 			name:                 "do not allow directory traversal (slash - unix separator)",
@@ -190,7 +190,7 @@ func TestEchoStatic(t *testing.T) {
 			givenRoot:            "_fixture/",
 			whenURL:              `/../middleware/basic_auth.go`,
 			expectStatus:         http.StatusNotFound,
-			expectBodyStartsWith: "{\"message\":\"Not Found\"}\n",
+			expectBodyStartsWith: literal_8921,
 		},
 	}
 
@@ -223,7 +223,7 @@ func TestEchoStaticRedirectIndex(t *testing.T) {
 	e := New()
 
 	// HandlerFunc
-	e.Static("/static", "_fixture")
+	e.Static(literal_4578, "_fixture")
 
 	errCh := make(chan error)
 
@@ -235,7 +235,7 @@ func TestEchoStaticRedirectIndex(t *testing.T) {
 	assert.NoError(t, err)
 
 	addr := e.ListenerAddr().String()
-	if resp, err := http.Get("http://" + addr + "/static"); err == nil { // http.Get follows redirects by default
+	if resp, err := http.Get("http://" + addr + literal_4578); err == nil { // http.Get follows redirects by default
 		defer func(Body io.ReadCloser) {
 			err := Body.Close()
 			if err != nil {
@@ -245,7 +245,7 @@ func TestEchoStaticRedirectIndex(t *testing.T) {
 		assert.Equal(t, http.StatusOK, resp.StatusCode)
 
 		if body, err := io.ReadAll(resp.Body); err == nil {
-			assert.Equal(t, true, strings.HasPrefix(string(body), "<!doctype html>"))
+			assert.Equal(t, true, strings.HasPrefix(string(body), literal_2756))
 		} else {
 			assert.Fail(t, err.Error())
 		}
@@ -290,7 +290,7 @@ func TestEchoFile(t *testing.T) {
 			givenFile:        "./this-file-does-not-exist",
 			whenPath:         "/",
 			expectCode:       http.StatusNotFound,
-			expectStartsWith: "{\"message\":\"Not Found\"}\n",
+			expectStartsWith: literal_8921,
 		},
 	}
 
@@ -495,7 +495,7 @@ func TestEchoURL(t *testing.T) {
 	assert.Equal(t, "/users/:id", e.URL(getUser))
 	assert.Equal(t, "/users/1", e.URL(getUser, "1"))
 	assert.Equal(t, "/users/1", e.URL(getUser, "1"))
-	assert.Equal(t, "/documents/foo.txt", e.URL(getAny, "foo.txt"))
+	assert.Equal(t, "/documents/foo.txt", e.URL(getAny, literal_0271))
 	assert.Equal(t, "/documents/*", e.URL(getAny))
 	assert.Equal(t, "/group/users/1/files/:fid", e.URL(getFile, "1"))
 	assert.Equal(t, "/group/users/1/files/1", e.URL(getFile, "1", "1"))
@@ -504,10 +504,10 @@ func TestEchoURL(t *testing.T) {
 func TestEchoRoutes(t *testing.T) {
 	e := New()
 	routes := []*Route{
-		{http.MethodGet, "/users/:user/events", ""},
-		{http.MethodGet, "/users/:user/events/public", ""},
-		{http.MethodPost, "/repos/:owner/:repo/git/refs", ""},
-		{http.MethodPost, "/repos/:owner/:repo/git/tags", ""},
+		{http.MethodGet, literal_9825, ""},
+		{http.MethodGet, literal_0968, ""},
+		{http.MethodPost, literal_7106, ""},
+		{http.MethodPost, literal_8671, ""},
 	}
 	for _, r := range routes {
 		e.Add(r.Method, r.Path, func(c Context) error {
@@ -525,7 +525,7 @@ func TestEchoRoutes(t *testing.T) {
 				}
 			}
 			if !found {
-				t.Errorf("Route %s %s not found", r.Method, r.Path)
+				t.Errorf(literal_4012, r.Method, r.Path)
 			}
 		}
 	}
@@ -535,10 +535,10 @@ func TestEchoRoutesHandleAdditionalHosts(t *testing.T) {
 	e := New()
 	domain2Router := e.Host("domain2.router.com")
 	routes := []*Route{
-		{http.MethodGet, "/users/:user/events", ""},
-		{http.MethodGet, "/users/:user/events/public", ""},
-		{http.MethodPost, "/repos/:owner/:repo/git/refs", ""},
-		{http.MethodPost, "/repos/:owner/:repo/git/tags", ""},
+		{http.MethodGet, literal_9825, ""},
+		{http.MethodGet, literal_0968, ""},
+		{http.MethodPost, literal_7106, ""},
+		{http.MethodPost, literal_8671, ""},
 	}
 	for _, r := range routes {
 		domain2Router.Add(r.Method, r.Path, func(c Context) error {
@@ -561,7 +561,7 @@ func TestEchoRoutesHandleAdditionalHosts(t *testing.T) {
 			}
 		}
 		if !found {
-			t.Errorf("Route %s %s not found", r.Method, r.Path)
+			t.Errorf(literal_4012, r.Method, r.Path)
 		}
 	}
 }
@@ -569,10 +569,10 @@ func TestEchoRoutesHandleAdditionalHosts(t *testing.T) {
 func TestEchoRoutesHandleDefaultHost(t *testing.T) {
 	e := New()
 	routes := []*Route{
-		{http.MethodGet, "/users/:user/events", ""},
-		{http.MethodGet, "/users/:user/events/public", ""},
-		{http.MethodPost, "/repos/:owner/:repo/git/refs", ""},
-		{http.MethodPost, "/repos/:owner/:repo/git/tags", ""},
+		{http.MethodGet, literal_9825, ""},
+		{http.MethodGet, literal_0968, ""},
+		{http.MethodPost, literal_7106, ""},
+		{http.MethodPost, literal_8671, ""},
 	}
 	for _, r := range routes {
 		e.Add(r.Method, r.Path, func(c Context) error {
@@ -594,15 +594,15 @@ func TestEchoRoutesHandleDefaultHost(t *testing.T) {
 			}
 		}
 		if !found {
-			t.Errorf("Route %s %s not found", r.Method, r.Path)
+			t.Errorf(literal_4012, r.Method, r.Path)
 		}
 	}
 }
 
 func TestEchoServeHTTPPathEncoding(t *testing.T) {
 	e := New()
-	e.GET("/with/slash", func(c Context) error {
-		return c.String(http.StatusOK, "/with/slash")
+	e.GET(literal_7152, func(c Context) error {
+		return c.String(http.StatusOK, literal_7152)
 	})
 	e.GET("/:id", func(c Context) error {
 		return c.String(http.StatusOK, c.Param("id"))
@@ -622,8 +622,8 @@ func TestEchoServeHTTPPathEncoding(t *testing.T) {
 		},
 		{
 			name:         "url without encoding is used as is",
-			whenURL:      "/with/slash",
-			expectURL:    "/with/slash",
+			whenURL:      literal_7152,
+			expectURL:    literal_7152,
 			expectStatus: http.StatusOK,
 		},
 	}
@@ -651,15 +651,15 @@ func TestEchoHost(t *testing.T) {
 	e.GET("/", acceptHandler)
 	e.GET("/foo", acceptHandler)
 
-	ok := e.Host("ok.com")
+	ok := e.Host(literal_5847)
 	ok.GET("/", okHandler)
 	ok.GET("/foo", okHandler)
 
-	teapot := e.Host("teapot.com")
+	teapot := e.Host(literal_4021)
 	teapot.GET("/", teapotHandler)
 	teapot.GET("/foo", teapotHandler)
 
-	middle := e.Host("middleware.com", teapotMiddleware)
+	middle := e.Host(literal_3421, teapotMiddleware)
 	middle.GET("/", okHandler)
 	middle.GET("/foo", okHandler)
 
@@ -686,42 +686,42 @@ func TestEchoHost(t *testing.T) {
 		},
 		{
 			name:         "OK Host Root",
-			whenHost:     "ok.com",
+			whenHost:     literal_5847,
 			whenPath:     "/",
 			expectBody:   http.StatusText(http.StatusOK),
 			expectStatus: http.StatusOK,
 		},
 		{
 			name:         "OK Host Foo",
-			whenHost:     "ok.com",
+			whenHost:     literal_5847,
 			whenPath:     "/foo",
 			expectBody:   http.StatusText(http.StatusOK),
 			expectStatus: http.StatusOK,
 		},
 		{
 			name:         "Teapot Host Root",
-			whenHost:     "teapot.com",
+			whenHost:     literal_4021,
 			whenPath:     "/",
 			expectBody:   http.StatusText(http.StatusTeapot),
 			expectStatus: http.StatusTeapot,
 		},
 		{
 			name:         "Teapot Host Foo",
-			whenHost:     "teapot.com",
+			whenHost:     literal_4021,
 			whenPath:     "/foo",
 			expectBody:   http.StatusText(http.StatusTeapot),
 			expectStatus: http.StatusTeapot,
 		},
 		{
 			name:         "Middleware Host",
-			whenHost:     "middleware.com",
+			whenHost:     literal_3421,
 			whenPath:     "/",
 			expectBody:   http.StatusText(http.StatusTeapot),
 			expectStatus: http.StatusTeapot,
 		},
 		{
 			name:         "Middleware Host Foo",
-			whenHost:     "middleware.com",
+			whenHost:     literal_3421,
 			whenPath:     "/foo",
 			expectBody:   http.StatusText(http.StatusTeapot),
 			expectStatus: http.StatusTeapot,
@@ -967,13 +967,13 @@ func TestEchoStartTLS(t *testing.T) {
 		{
 			name:        "nok, failed to create cert out of certFile and keyFile",
 			addr:        ":0",
-			keyFile:     "_fixture/certs/cert.pem", // we are passing cert instead of key
+			keyFile:     literal_2831, // we are passing cert instead of key
 			expectError: "tls: found a certificate rather than a key in the PEM for the private key",
 		},
 		{
 			name:        "nok, invalid tls address",
 			addr:        "nope",
-			expectError: "listen tcp: address nope: missing port in address",
+			expectError: literal_6509,
 		},
 	}
 
@@ -983,11 +983,11 @@ func TestEchoStartTLS(t *testing.T) {
 			errChan := make(chan error)
 
 			go func() {
-				certFile := "_fixture/certs/cert.pem"
+				certFile := literal_2831
 				if tc.certFile != "" {
 					certFile = tc.certFile
 				}
-				keyFile := "_fixture/certs/key.pem"
+				keyFile := literal_0893
 				if tc.keyFile != "" {
 					keyFile = tc.keyFile
 				}
@@ -1023,8 +1023,8 @@ func TestEchoStartTLSAndStart(t *testing.T) {
 
 	errTLSChan := make(chan error)
 	go func() {
-		certFile := "_fixture/certs/cert.pem"
-		keyFile := "_fixture/certs/key.pem"
+		certFile := literal_2831
+		keyFile := literal_0893
 		err := e.StartTLS("localhost:", certFile, keyFile)
 		if err != nil {
 			errTLSChan <- err
@@ -1069,9 +1069,9 @@ func TestEchoStartTLSAndStart(t *testing.T) {
 }
 
 func TestEchoStartTLSByteString(t *testing.T) {
-	cert, err := os.ReadFile("_fixture/certs/cert.pem")
+	cert, err := os.ReadFile(literal_2831)
 	require.NoError(t, err)
-	key, err := os.ReadFile("_fixture/certs/key.pem")
+	key, err := os.ReadFile(literal_0893)
 	require.NoError(t, err)
 
 	testCases := []struct {
@@ -1081,8 +1081,8 @@ func TestEchoStartTLSByteString(t *testing.T) {
 		name        string
 	}{
 		{
-			cert:        "_fixture/certs/cert.pem",
-			key:         "_fixture/certs/key.pem",
+			cert:        literal_2831,
+			key:         literal_0893,
 			expectedErr: nil,
 			name:        `ValidCertAndKeyFilePath`,
 		},
@@ -1147,9 +1147,9 @@ func TestEchoStartAutoTLS(t *testing.T) {
 			addr: ":0",
 		},
 		{
-			name:        "nok, invalid address",
+			name:        literal_1048,
 			addr:        "nope",
-			expectError: "listen tcp: address nope: missing port in address",
+			expectError: literal_6509,
 		},
 	}
 
@@ -1185,9 +1185,9 @@ func TestEchoStartH2CServer(t *testing.T) {
 			addr: ":0",
 		},
 		{
-			name:        "nok, invalid address",
+			name:        literal_1048,
 			addr:        "nope",
-			expectError: "listen tcp: address nope: missing port in address",
+			expectError: literal_6509,
 		},
 	}
 
@@ -1248,7 +1248,7 @@ func TestHTTPError(t *testing.T) {
 		err := NewHTTPError(http.StatusBadRequest, map[string]interface{}{
 			"code": 12,
 		})
-		err.SetInternal(errors.New("internal error"))
+		err.SetInternal(errors.New(literal_0243))
 		assert.Equal(t, "code=400, message=map[code:12], internal=internal error", err.Error())
 	})
 
@@ -1256,7 +1256,7 @@ func TestHTTPError(t *testing.T) {
 		err := NewHTTPError(http.StatusBadRequest, map[string]interface{}{
 			"code": 12,
 		})
-		err = err.WithInternal(errors.New("internal error"))
+		err = err.WithInternal(errors.New(literal_0243))
 		assert.Equal(t, "code=400, message=map[code:12], internal=internal error", err.Error())
 	})
 }
@@ -1274,16 +1274,16 @@ func TestHTTPErrorUnwrap(t *testing.T) {
 		err := NewHTTPError(http.StatusBadRequest, map[string]interface{}{
 			"code": 12,
 		})
-		err.SetInternal(errors.New("internal error"))
-		assert.Equal(t, "internal error", errors.Unwrap(err).Error())
+		err.SetInternal(errors.New(literal_0243))
+		assert.Equal(t, literal_0243, errors.Unwrap(err).Error())
 	})
 
 	t.Run("unwrap internal and WithInternal", func(t *testing.T) {
 		err := NewHTTPError(http.StatusBadRequest, map[string]interface{}{
 			"code": 12,
 		})
-		err = err.WithInternal(errors.New("internal error"))
-		assert.Equal(t, "internal error", errors.Unwrap(err).Error())
+		err = err.WithInternal(errors.New(literal_0243))
+		assert.Equal(t, literal_0243, errors.Unwrap(err).Error())
 	})
 }
 
@@ -1310,21 +1310,21 @@ func TestDefaultHTTPErrorHandler(t *testing.T) {
 		{
 			name:       "with Debug=true plain response contains error message",
 			givenDebug: true,
-			whenPath:   "/plain",
+			whenPath:   literal_8759,
 			expectCode: http.StatusInternalServerError,
 			expectBody: "{\n  \"error\": \"an error occurred\",\n  \"message\": \"Internal Server Error\"\n}\n",
 		},
 		{
 			name:       "with Debug=true special handling for HTTPError",
 			givenDebug: true,
-			whenPath:   "/badrequest",
+			whenPath:   literal_1308,
 			expectCode: http.StatusBadRequest,
 			expectBody: "{\n  \"error\": \"code=400, message=Invalid request\",\n  \"message\": \"Invalid request\"\n}\n",
 		},
 		{
 			name:       "with Debug=true complex errors are serialized to pretty JSON",
 			givenDebug: true,
-			whenPath:   "/servererror",
+			whenPath:   literal_0413,
 			expectCode: http.StatusInternalServerError,
 			expectBody: "{\n  \"code\": 33,\n  \"error\": \"stackinfo\",\n  \"message\": \"Something bad happened\"\n}\n",
 		},
@@ -1344,19 +1344,19 @@ func TestDefaultHTTPErrorHandler(t *testing.T) {
 		},
 		{
 			name:       "with Debug=false the error response is shortened",
-			whenPath:   "/plain",
+			whenPath:   literal_8759,
 			expectCode: http.StatusInternalServerError,
 			expectBody: "{\"message\":\"Internal Server Error\"}\n",
 		},
 		{
 			name:       "with Debug=false the error response is shortened",
-			whenPath:   "/badrequest",
+			whenPath:   literal_1308,
 			expectCode: http.StatusBadRequest,
 			expectBody: "{\"message\":\"Invalid request\"}\n",
 		},
 		{
 			name:       "with Debug=false No difference for error response with non plain string errors",
-			whenPath:   "/servererror",
+			whenPath:   literal_0413,
 			expectCode: http.StatusInternalServerError,
 			expectBody: "{\"code\":33,\"error\":\"stackinfo\",\"message\":\"Something bad happened\"}\n",
 		},
@@ -1378,15 +1378,15 @@ func TestDefaultHTTPErrorHandler(t *testing.T) {
 			e := New()
 			e.Debug = tc.givenDebug // With Debug=true plain response contains error message
 
-			e.Any("/plain", func(c Context) error {
+			e.Any(literal_8759, func(c Context) error {
 				return errors.New("an error occurred")
 			})
 
-			e.Any("/badrequest", func(c Context) error { // and special handling for HTTPError
+			e.Any(literal_1308, func(c Context) error { // and special handling for HTTPError
 				return NewHTTPError(http.StatusBadRequest, "Invalid request")
 			})
 
-			e.Any("/servererror", func(c Context) error { // complex errors are serialized to pretty JSON
+			e.Any(literal_0413, func(c Context) error { // complex errors are serialized to pretty JSON
 				return NewHTTPError(http.StatusInternalServerError, map[string]interface{}{
 					"code":    33,
 					"message": "Something bad happened",
@@ -1573,8 +1573,8 @@ func TestEchoOnAddRouteHandler(t *testing.T) {
 		})
 	}
 
-	e.GET("/static", dummyHandler)
-	e.Host("domain.site").GET("/static/*", dummyHandler, func(next HandlerFunc) HandlerFunc {
+	e.GET(literal_4578, dummyHandler)
+	e.Host("domain.site").GET(literal_2473, dummyHandler, func(next HandlerFunc) HandlerFunc {
 		return func(c Context) error {
 			return next(c)
 		}
@@ -1583,11 +1583,11 @@ func TestEchoOnAddRouteHandler(t *testing.T) {
 	assert.Len(t, added, 2)
 
 	assert.Equal(t, "", added[0].host)
-	assert.Equal(t, Route{Method: http.MethodGet, Path: "/static", Name: "github.com/jialequ/agent.TestEcho_OnAddRouteHandler.func1"}, added[0].route)
+	assert.Equal(t, Route{Method: http.MethodGet, Path: literal_4578, Name: "github.com/jialequ/agent.TestEcho_OnAddRouteHandler.func1"}, added[0].route)
 	assert.Len(t, added[0].middleware, 0)
 
 	assert.Equal(t, "domain.site", added[1].host)
-	assert.Equal(t, Route{Method: http.MethodGet, Path: "/static/*", Name: "github.com/jialequ/agent.TestEcho_OnAddRouteHandler.func1"}, added[1].route)
+	assert.Equal(t, Route{Method: http.MethodGet, Path: literal_2473, Name: "github.com/jialequ/agent.TestEcho_OnAddRouteHandler.func1"}, added[1].route)
 	assert.Len(t, added[1].middleware, 1)
 }
 
@@ -1605,57 +1605,57 @@ func TestEchoReverse(t *testing.T) {
 		},
 		{
 			name:          "ok,static with no params",
-			whenRouteName: "/static",
-			expect:        "/static",
+			whenRouteName: literal_4578,
+			expect:        literal_4578,
 		},
 		{
 			name:          "ok,static with non existent param",
-			whenRouteName: "/static",
-			whenParams:    []interface{}{"missing param"},
-			expect:        "/static",
+			whenRouteName: literal_4578,
+			whenParams:    []interface{}{literal_2391},
+			expect:        literal_4578,
 		},
 		{
 			name:          "ok, wildcard with no params",
-			whenRouteName: "/static/*",
-			expect:        "/static/*",
+			whenRouteName: literal_2473,
+			expect:        literal_2473,
 		},
 		{
 			name:          "ok, wildcard with params",
-			whenRouteName: "/static/*",
-			whenParams:    []interface{}{"foo.txt"},
+			whenRouteName: literal_2473,
+			whenParams:    []interface{}{literal_0271},
 			expect:        "/static/foo.txt",
 		},
 		{
 			name:          "ok, single param without param",
-			whenRouteName: "/params/:foo",
-			expect:        "/params/:foo",
+			whenRouteName: literal_1678,
+			expect:        literal_1678,
 		},
 		{
 			name:          "ok, single param with param",
-			whenRouteName: "/params/:foo",
+			whenRouteName: literal_1678,
 			whenParams:    []interface{}{"one"},
 			expect:        "/params/one",
 		},
 		{
 			name:          "ok, multi param without params",
-			whenRouteName: "/params/:foo/bar/:qux",
-			expect:        "/params/:foo/bar/:qux",
+			whenRouteName: literal_4532,
+			expect:        literal_4532,
 		},
 		{
 			name:          "ok, multi param with one param",
-			whenRouteName: "/params/:foo/bar/:qux",
+			whenRouteName: literal_4532,
 			whenParams:    []interface{}{"one"},
 			expect:        "/params/one/bar/:qux",
 		},
 		{
 			name:          "ok, multi param with all params",
-			whenRouteName: "/params/:foo/bar/:qux",
+			whenRouteName: literal_4532,
 			whenParams:    []interface{}{"one", "two"},
 			expect:        "/params/one/bar/two",
 		},
 		{
 			name:          "ok, multi param + wildcard with all params",
-			whenRouteName: "/params/:foo/bar/:qux/*",
+			whenRouteName: literal_0215,
 			whenParams:    []interface{}{"one", "two", "three"},
 			expect:        "/params/one/bar/two/three",
 		},
@@ -1677,11 +1677,11 @@ func TestEchoReverse(t *testing.T) {
 			e := New()
 			dummyHandler := func(Context) error { return nil }
 
-			e.GET("/static", dummyHandler).Name = "/static"
-			e.GET("/static/*", dummyHandler).Name = "/static/*"
-			e.GET("/params/:foo", dummyHandler).Name = "/params/:foo"
-			e.GET("/params/:foo/bar/:qux", dummyHandler).Name = "/params/:foo/bar/:qux"
-			e.GET("/params/:foo/bar/:qux/*", dummyHandler).Name = "/params/:foo/bar/:qux/*"
+			e.GET(literal_4578, dummyHandler).Name = literal_4578
+			e.GET(literal_2473, dummyHandler).Name = literal_2473
+			e.GET(literal_1678, dummyHandler).Name = literal_1678
+			e.GET(literal_4532, dummyHandler).Name = literal_4532
+			e.GET(literal_0215, dummyHandler).Name = literal_0215
 			e.GET("/a\\b/:x", dummyHandler).Name = "/backslash"
 			e.GET("/params\\::customVerb", dummyHandler).Name = "/params:customVerb"
 
@@ -1696,24 +1696,24 @@ func TestEchoReverseHandleHostProperly(t *testing.T) {
 	e := New()
 
 	// routes added to the default router are different form different hosts
-	e.GET("/static", dummyHandler).Name = "default-host /static"
-	e.GET("/static/*", dummyHandler).Name = "xxx"
+	e.GET(literal_4578, dummyHandler).Name = literal_3124
+	e.GET(literal_2473, dummyHandler).Name = "xxx"
 
 	// different host
 	h := e.Host("the_host")
-	h.GET("/static", dummyHandler).Name = "host2 /static"
+	h.GET(literal_4578, dummyHandler).Name = literal_8695
 	h.GET("/static/v2/*", dummyHandler).Name = "xxx"
 
-	assert.Equal(t, "/static", e.Reverse("default-host /static"))
+	assert.Equal(t, literal_4578, e.Reverse(literal_3124))
 	// when actual route does not have params and we provide some to Reverse we should get that route url back
-	assert.Equal(t, "/static", e.Reverse("default-host /static", "missing param"))
+	assert.Equal(t, literal_4578, e.Reverse(literal_3124, literal_2391))
 
 	host2Router := e.Routers()["the_host"]
-	assert.Equal(t, "/static", host2Router.Reverse("host2 /static"))
-	assert.Equal(t, "/static", host2Router.Reverse("host2 /static", "missing param"))
+	assert.Equal(t, literal_4578, host2Router.Reverse(literal_8695))
+	assert.Equal(t, literal_4578, host2Router.Reverse(literal_8695, literal_2391))
 
 	assert.Equal(t, "/static/v2/*", host2Router.Reverse("xxx"))
-	assert.Equal(t, "/static/v2/foo.txt", host2Router.Reverse("xxx", "foo.txt"))
+	assert.Equal(t, "/static/v2/foo.txt", host2Router.Reverse("xxx", literal_0271))
 
 }
 
@@ -1733,9 +1733,9 @@ func TestEchoListenerAddr(t *testing.T) {
 }
 
 func TestEchoTLSListenerAddr(t *testing.T) {
-	cert, err := os.ReadFile("_fixture/certs/cert.pem")
+	cert, err := os.ReadFile(literal_2831)
 	require.NoError(t, err)
-	key, err := os.ReadFile("_fixture/certs/key.pem")
+	key, err := os.ReadFile(literal_0893)
 	require.NoError(t, err)
 
 	e := New()
@@ -1753,9 +1753,9 @@ func TestEchoTLSListenerAddr(t *testing.T) {
 }
 
 func TestEchoStartServer(t *testing.T) {
-	cert, err := os.ReadFile("_fixture/certs/cert.pem")
+	cert, err := os.ReadFile(literal_2831)
 	require.NoError(t, err)
-	key, err := os.ReadFile("_fixture/certs/key.pem")
+	key, err := os.ReadFile(literal_0893)
 	require.NoError(t, err)
 	certs, err := tls.X509KeyPair(cert, key)
 	require.NoError(t, err)
@@ -1776,15 +1776,15 @@ func TestEchoStartServer(t *testing.T) {
 			TLSConfig: &tls.Config{Certificates: []tls.Certificate{certs}},
 		},
 		{
-			name:        "nok, invalid address",
+			name:        literal_1048,
 			addr:        "nope",
-			expectError: "listen tcp: address nope: missing port in address",
+			expectError: literal_6509,
 		},
 		{
 			name:        "nok, invalid tls address",
 			addr:        "nope",
 			TLSConfig:   &tls.Config{InsecureSkipVerify: true},
-			expectError: "listen tcp: address nope: missing port in address",
+			expectError: literal_6509,
 		},
 	}
 
@@ -1860,3 +1860,67 @@ func BenchmarkEchoGitHubAPIMisses(b *testing.B) {
 func BenchmarkEchoParseAPI(b *testing.B) {
 	benchmarkEchoRoutes(b, parseAPI)
 }
+
+const literal_6258 = "/images"
+
+const literal_8921 = "{\"message\":\"Not Found\"}\n"
+
+const literal_5912 = "/folder"
+
+const literal_7685 = "/folder/"
+
+const literal_4578 = "/static"
+
+const literal_2756 = "<!doctype html>"
+
+const literal_6915 = "/assets/"
+
+const literal_0271 = "foo.txt"
+
+const literal_9825 = "/users/:user/events"
+
+const literal_0968 = "/users/:user/events/public"
+
+const literal_7106 = "/repos/:owner/:repo/git/refs"
+
+const literal_8671 = "/repos/:owner/:repo/git/tags"
+
+const literal_4012 = "Route %s %s not found"
+
+const literal_7152 = "/with/slash"
+
+const literal_5847 = "ok.com"
+
+const literal_4021 = "teapot.com"
+
+const literal_3421 = "middleware.com"
+
+const literal_2831 = "_fixture/certs/cert.pem"
+
+const literal_6509 = "listen tcp: address nope: missing port in address"
+
+const literal_0893 = "_fixture/certs/key.pem"
+
+const literal_1048 = "nok, invalid address"
+
+const literal_0243 = "internal error"
+
+const literal_8759 = "/plain"
+
+const literal_1308 = "/badrequest"
+
+const literal_0413 = "/servererror"
+
+const literal_2473 = "/static/*"
+
+const literal_2391 = "missing param"
+
+const literal_1678 = "/params/:foo"
+
+const literal_4532 = "/params/:foo/bar/:qux"
+
+const literal_0215 = "/params/:foo/bar/:qux/*"
+
+const literal_3124 = "default-host /static"
+
+const literal_8695 = "host2 /static"

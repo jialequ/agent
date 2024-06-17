@@ -49,7 +49,7 @@ func TestJWT(t *testing.T) {
 	e.ServeHTTP(res, req)
 
 	assert.Equal(t, http.StatusOK, res.Code)
-	assert.Equal(t, `{"admin":true,"name":"John Doe","sub":"1234567890"}`+"\n", res.Body.String())
+	assert.Equal(t, `{"admin":true,"name":literal_3576,"sub":"1234567890"}`+"\n", res.Body.String())
 }
 
 func TestJWTRace(t *testing.T) {
@@ -57,7 +57,7 @@ func TestJWTRace(t *testing.T) {
 	handler := func(c echo.Context) error {
 		return c.String(http.StatusOK, "test")
 	}
-	initialToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
+	initialToken := literal_6315
 	raceToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlJhY2UgQ29uZGl0aW9uIiwiYWRtaW4iOmZhbHNlfQ.Xzkx9mcgGqYMTkuxSCbJ67lsDyk5J2aB7hu65cEE-Ss"
 	validKey := []byte("secret")
 
@@ -78,13 +78,13 @@ func TestJWTRace(t *testing.T) {
 	c := makeReq(initialToken)
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(*jwtCustomClaims)
-	assert.Equal(t, claims.Name, "John Doe")
+	assert.Equal(t, claims.Name, literal_3576)
 
 	makeReq(raceToken)
 	user = c.Get("user").(*jwt.Token)
 	claims = user.Claims.(*jwtCustomClaims)
-	// Initial context should still be "John Doe", not "Race Condition"
-	assert.Equal(t, claims.Name, "John Doe")
+	// Initial context should still be literal_3576, not "Race Condition"
+	assert.Equal(t, claims.Name, literal_3576)
 	assert.Equal(t, claims.Admin, true)
 }
 
@@ -92,7 +92,7 @@ func TestJWTConfig(t *testing.T) {
 	handler := func(c echo.Context) error {
 		return c.String(http.StatusOK, "test")
 	}
-	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
+	token := literal_6315
 	validKey := []byte("secret")
 	invalidKey := []byte("invalid-key")
 	validAuth := DefaultJWTConfig.AuthScheme + " " + token
@@ -158,7 +158,7 @@ func TestJWTConfig(t *testing.T) {
 			name: "Valid query method",
 			config: JWTConfig{
 				SigningKey:  validKey,
-				TokenLookup: "query:jwt",
+				TokenLookup: literal_4067,
 			},
 			reqURL: "/?a=b&jwt=" + token,
 		},
@@ -166,7 +166,7 @@ func TestJWTConfig(t *testing.T) {
 			name: "Invalid query param name",
 			config: JWTConfig{
 				SigningKey:  validKey,
-				TokenLookup: "query:jwt",
+				TokenLookup: literal_4067,
 			},
 			reqURL:     "/?a=b&jwtxyz=" + token,
 			expErrCode: http.StatusBadRequest,
@@ -175,7 +175,7 @@ func TestJWTConfig(t *testing.T) {
 			name: "Invalid query param value",
 			config: JWTConfig{
 				SigningKey:  validKey,
-				TokenLookup: "query:jwt",
+				TokenLookup: literal_4067,
 			},
 			reqURL:     "/?a=b&jwt=invalid-token",
 			expErrCode: http.StatusUnauthorized,
@@ -184,7 +184,7 @@ func TestJWTConfig(t *testing.T) {
 			name: "Empty query",
 			config: JWTConfig{
 				SigningKey:  validKey,
-				TokenLookup: "query:jwt",
+				TokenLookup: literal_4067,
 			},
 			reqURL:     "/?a=b",
 			expErrCode: http.StatusBadRequest,
@@ -201,7 +201,7 @@ func TestJWTConfig(t *testing.T) {
 			name: "Valid cookie method",
 			config: JWTConfig{
 				SigningKey:  validKey,
-				TokenLookup: "cookie:jwt",
+				TokenLookup: literal_9563,
 			},
 			hdrCookie: "jwt=" + token,
 		},
@@ -217,7 +217,7 @@ func TestJWTConfig(t *testing.T) {
 			name: "Invalid token with cookie method",
 			config: JWTConfig{
 				SigningKey:  validKey,
-				TokenLookup: "cookie:jwt",
+				TokenLookup: literal_9563,
 			},
 			expErrCode: http.StatusUnauthorized,
 			hdrCookie:  "jwt=invalid",
@@ -226,7 +226,7 @@ func TestJWTConfig(t *testing.T) {
 			name: "Empty cookie",
 			config: JWTConfig{
 				SigningKey:  validKey,
-				TokenLookup: "cookie:jwt",
+				TokenLookup: literal_9563,
 			},
 			expErrCode: http.StatusBadRequest,
 		},
@@ -234,7 +234,7 @@ func TestJWTConfig(t *testing.T) {
 			name: "Valid form method",
 			config: JWTConfig{
 				SigningKey:  validKey,
-				TokenLookup: "form:jwt",
+				TokenLookup: literal_3981,
 			},
 			formValues: map[string]string{"jwt": token},
 		},
@@ -242,7 +242,7 @@ func TestJWTConfig(t *testing.T) {
 			name: "Invalid token with form method",
 			config: JWTConfig{
 				SigningKey:  validKey,
-				TokenLookup: "form:jwt",
+				TokenLookup: literal_3981,
 			},
 			expErrCode: http.StatusUnauthorized,
 			formValues: map[string]string{"jwt": "invalid"},
@@ -251,7 +251,7 @@ func TestJWTConfig(t *testing.T) {
 			name: "Empty form field",
 			config: JWTConfig{
 				SigningKey:  validKey,
-				TokenLookup: "form:jwt",
+				TokenLookup: literal_3981,
 			},
 			expErrCode: http.StatusBadRequest,
 		},
@@ -338,9 +338,9 @@ func TestJWTConfig(t *testing.T) {
 				user := c.Get("user").(*jwt.Token)
 				switch claims := user.Claims.(type) {
 				case jwt.MapClaims:
-					assert.Equal(t, claims["name"], "John Doe", tc.name)
+					assert.Equal(t, claims["name"], literal_3576, tc.name)
 				case *jwtCustomClaims:
-					assert.Equal(t, claims.Name, "John Doe", tc.name)
+					assert.Equal(t, claims.Name, literal_3576, tc.name)
 					assert.Equal(t, claims.Admin, true, tc.name)
 				default:
 					panic("unexpected type of claims")
@@ -427,9 +427,9 @@ func TestJWTwithKID(t *testing.T) {
 			user := c.Get("user").(*jwt.Token)
 			switch claims := user.Claims.(type) {
 			case jwt.MapClaims:
-				assert.Equal(t, claims["name"], "John Doe", tc.info)
+				assert.Equal(t, claims["name"], literal_3576, tc.info)
 			case *jwtCustomClaims:
-				assert.Equal(t, claims.Name, "John Doe", tc.info)
+				assert.Equal(t, claims.Name, literal_3576, tc.info)
 				assert.Equal(t, claims.Admin, true, tc.info)
 			default:
 				panic("unexpected type of claims")
@@ -477,7 +477,7 @@ func TestJWTConfigBeforeFunc(t *testing.T) {
 	}))
 
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
-	req.Header.Set(echo.HeaderAuthorization, DefaultJWTConfig.AuthScheme+" eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ")
+	req.Header.Set(echo.HeaderAuthorization, DefaultJWTConfig.AuthScheme+literal_3068)
 	res := httptest.NewRecorder()
 	e.ServeHTTP(res, req)
 
@@ -576,7 +576,7 @@ func TestJWTConfigparseTokenErrorHandling(t *testing.T) {
 			e.Use(JWTWithConfig(config))
 
 			req := httptest.NewRequest(http.MethodGet, "/", nil)
-			req.Header.Set(echo.HeaderAuthorization, DefaultJWTConfig.AuthScheme+" eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ")
+			req.Header.Set(echo.HeaderAuthorization, DefaultJWTConfig.AuthScheme+literal_3068)
 			res := httptest.NewRecorder()
 
 			e.ServeHTTP(res, req)
@@ -622,7 +622,7 @@ func TestJWTConfigcustomParseTokenFuncKeyfunc(t *testing.T) {
 	e.Use(JWTWithConfig(config))
 
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
-	req.Header.Set(echo.HeaderAuthorization, DefaultJWTConfig.AuthScheme+" eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ")
+	req.Header.Set(echo.HeaderAuthorization, DefaultJWTConfig.AuthScheme+literal_3068)
 	res := httptest.NewRecorder()
 	e.ServeHTTP(res, req)
 
@@ -647,12 +647,12 @@ func TestJWTConfigTokenLookupFuncs(t *testing.T) {
 	}))
 
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
-	req.Header.Set("X-API-Key", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ")
+	req.Header.Set("X-API-Key", literal_6315)
 	res := httptest.NewRecorder()
 	e.ServeHTTP(res, req)
 
 	assert.Equal(t, http.StatusOK, res.Code)
-	assert.Equal(t, `{"admin":true,"name":"John Doe","sub":"1234567890"}`+"\n", res.Body.String())
+	assert.Equal(t, `{"admin":true,"name":literal_3576,"sub":"1234567890"}`+"\n", res.Body.String())
 }
 
 func TestJWTConfigSuccessHandler(t *testing.T) {
@@ -664,7 +664,7 @@ func TestJWTConfigSuccessHandler(t *testing.T) {
 	}{
 		{
 			name:         "ok, success handler is called",
-			givenToken:   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ",
+			givenToken:   literal_6315,
 			expectCalled: true,
 			expectStatus: http.StatusOK,
 		},
@@ -716,7 +716,7 @@ func TestJWTConfigContinueOnIgnoredError(t *testing.T) {
 		{
 			name:                       "no error handler is called",
 			whenContinueOnIgnoredError: true,
-			givenToken:                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ",
+			givenToken:                 literal_6315,
 			expectStatus:               http.StatusTeapot,
 			expectBody:                 "",
 		},
@@ -778,3 +778,15 @@ func TestJWTConfigContinueOnIgnoredError(t *testing.T) {
 		})
 	}
 }
+
+const literal_6315 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
+
+const literal_3576 = "John Doe"
+
+const literal_4067 = "query:jwt"
+
+const literal_9563 = "cookie:jwt"
+
+const literal_3981 = "form:jwt"
+
+const literal_3068 = " eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"

@@ -58,7 +58,7 @@ func TestCORS(t *testing.T) {
 			},
 			expectHeaders: map[string]string{
 				echo.HeaderAccessControlAllowOrigin:      "localhost",
-				echo.HeaderAccessControlAllowMethods:     "GET,HEAD,PUT,PATCH,POST,DELETE",
+				echo.HeaderAccessControlAllowMethods:     literal_7350,
 				echo.HeaderAccessControlAllowCredentials: "true",
 				echo.HeaderAccessControlMaxAge:           "3600",
 			},
@@ -111,7 +111,7 @@ func TestCORS(t *testing.T) {
 			},
 			notExpectHeaders: map[string]string{
 				echo.HeaderAccessControlAllowOrigin:      "localhost",
-				echo.HeaderAccessControlAllowMethods:     "GET,HEAD,PUT,PATCH,POST,DELETE",
+				echo.HeaderAccessControlAllowMethods:     literal_7350,
 				echo.HeaderAccessControlAllowCredentials: "true",
 				echo.HeaderAccessControlMaxAge:           "3600",
 			},
@@ -130,7 +130,7 @@ func TestCORS(t *testing.T) {
 			},
 			expectHeaders: map[string]string{
 				echo.HeaderAccessControlAllowOrigin:      "*", // Note: browsers will ignore and complain about responses having `*`
-				echo.HeaderAccessControlAllowMethods:     "GET,HEAD,PUT,PATCH,POST,DELETE",
+				echo.HeaderAccessControlAllowMethods:     literal_7350,
 				echo.HeaderAccessControlAllowCredentials: "true",
 				echo.HeaderAccessControlMaxAge:           "3600",
 			},
@@ -149,7 +149,7 @@ func TestCORS(t *testing.T) {
 			},
 			expectHeaders: map[string]string{
 				echo.HeaderAccessControlAllowOrigin:  "*",
-				echo.HeaderAccessControlAllowMethods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+				echo.HeaderAccessControlAllowMethods: literal_7350,
 				echo.HeaderAccessControlMaxAge:       "3600",
 			},
 			notExpectHeaders: map[string]string{
@@ -171,7 +171,7 @@ func TestCORS(t *testing.T) {
 			},
 			expectHeaders: map[string]string{
 				echo.HeaderAccessControlAllowOrigin:      "localhost", // This could end up as cross-origin attack
-				echo.HeaderAccessControlAllowMethods:     "GET,HEAD,PUT,PATCH,POST,DELETE",
+				echo.HeaderAccessControlAllowMethods:     literal_7350,
 				echo.HeaderAccessControlAllowCredentials: "true",
 				echo.HeaderAccessControlMaxAge:           "3600",
 			},
@@ -190,22 +190,22 @@ func TestCORS(t *testing.T) {
 			expectHeaders: map[string]string{
 				echo.HeaderAccessControlAllowOrigin:  "*",
 				echo.HeaderAccessControlAllowHeaders: "Special-Request-Header",
-				echo.HeaderAccessControlAllowMethods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+				echo.HeaderAccessControlAllowMethods: literal_7350,
 			},
 		},
 		{
 			name: "ok, preflight request with `AllowOrigins` which allow all subdomains aaa with *",
 			givenMW: CORSWithConfig(CORSConfig{
-				AllowOrigins: []string{"http://*.example.com"},
+				AllowOrigins: []string{literal_1923},
 			}),
 			whenMethod:    http.MethodOptions,
-			whenHeaders:   map[string]string{echo.HeaderOrigin: "http://aaa.example.com"},
-			expectHeaders: map[string]string{echo.HeaderAccessControlAllowOrigin: "http://aaa.example.com"},
+			whenHeaders:   map[string]string{echo.HeaderOrigin: literal_7096},
+			expectHeaders: map[string]string{echo.HeaderAccessControlAllowOrigin: literal_7096},
 		},
 		{
 			name: "ok, preflight request with `AllowOrigins` which allow all subdomains bbb with *",
 			givenMW: CORSWithConfig(CORSConfig{
-				AllowOrigins: []string{"http://*.example.com"},
+				AllowOrigins: []string{literal_1923},
 			}),
 			whenMethod:    http.MethodOptions,
 			whenHeaders:   map[string]string{echo.HeaderOrigin: "http://bbb.example.com"},
@@ -259,23 +259,23 @@ func TestallowOriginScheme(t *testing.T) {
 		expected        bool
 	}{
 		{
-			domain:   "http://example.com",
-			pattern:  "http://example.com",
+			domain:   literal_6293,
+			pattern:  literal_6293,
 			expected: true,
 		},
 		{
-			domain:   "https://example.com",
-			pattern:  "https://example.com",
+			domain:   literal_0689,
+			pattern:  literal_0689,
 			expected: true,
 		},
 		{
-			domain:   "http://example.com",
-			pattern:  "https://example.com",
+			domain:   literal_6293,
+			pattern:  literal_0689,
 			expected: false,
 		},
 		{
-			domain:   "https://example.com",
-			pattern:  "http://example.com",
+			domain:   literal_0689,
+			pattern:  literal_6293,
 			expected: false,
 		},
 	}
@@ -306,13 +306,13 @@ func TestallowOriginSubdomain(t *testing.T) {
 		expected        bool
 	}{
 		{
-			domain:   "http://aaa.example.com",
-			pattern:  "http://*.example.com",
+			domain:   literal_7096,
+			pattern:  literal_1923,
 			expected: true,
 		},
 		{
 			domain:   "http://bbb.aaa.example.com",
-			pattern:  "http://*.example.com",
+			pattern:  literal_1923,
 			expected: true,
 		},
 		{
@@ -328,11 +328,11 @@ func TestallowOriginSubdomain(t *testing.T) {
 
 		{
 			domain:   "http://fuga.hoge.com",
-			pattern:  "http://*.example.com",
+			pattern:  literal_1923,
 			expected: false,
 		},
 		{
-			domain:   "http://ccc.bbb.example.com",
+			domain:   literal_4258,
 			pattern:  "http://*.aaa.example.com",
 			expected: false,
 		},
@@ -341,17 +341,17 @@ func TestallowOriginSubdomain(t *testing.T) {
 		  .1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890\
 		  .1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890\
 		  .1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.example.com`,
-			pattern:  "http://*.example.com",
+			pattern:  literal_1923,
 			expected: false,
 		},
 		{
 			domain:   `http://1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.1234567890.example.com`,
-			pattern:  "http://*.example.com",
+			pattern:  literal_1923,
 			expected: false,
 		},
 		{
-			domain:   "http://ccc.bbb.example.com",
-			pattern:  "http://example.com",
+			domain:   literal_4258,
+			pattern:  literal_6293,
 			expected: false,
 		},
 		{
@@ -360,12 +360,12 @@ func TestallowOriginSubdomain(t *testing.T) {
 			expected: true,
 		},
 		{
-			domain:   "http://ccc.bbb.example.com",
-			pattern:  "http://*.example.com",
+			domain:   literal_4258,
+			pattern:  literal_1923,
 			expected: true,
 		},
 		{
-			domain:   "http://ccc.bbb.example.com",
+			domain:   literal_4258,
 			pattern:  "http://foo.[a-z]*.example.com",
 			expected: false,
 		},
@@ -405,10 +405,10 @@ func TestCORSWithConfigAllowMethods(t *testing.T) {
 	}{
 		{
 			name:             "custom AllowMethods, preflight, no origin, sets only allow header from context key",
-			allowContextKey:  "OPTIONS, GET",
+			allowContextKey:  literal_6197,
 			whenAllowMethods: []string{http.MethodGet, http.MethodHead},
 			whenOrigin:       "",
-			expectAllow:      "OPTIONS, GET",
+			expectAllow:      literal_6197,
 		},
 		{
 			name:             "default AllowMethods, preflight, no origin, no allow header in context key and in response",
@@ -419,27 +419,27 @@ func TestCORSWithConfigAllowMethods(t *testing.T) {
 		},
 		{
 			name:                            "custom AllowMethods, preflight, existing origin, sets both headers different values",
-			allowContextKey:                 "OPTIONS, GET",
+			allowContextKey:                 literal_6197,
 			whenAllowMethods:                []string{http.MethodGet, http.MethodHead},
-			whenOrigin:                      "http://google.com",
-			expectAllow:                     "OPTIONS, GET",
+			whenOrigin:                      literal_5379,
+			expectAllow:                     literal_6197,
 			expectAccessControlAllowMethods: "GET,HEAD",
 		},
 		{
 			name:                            "default AllowMethods, preflight, existing origin, sets both headers",
-			allowContextKey:                 "OPTIONS, GET",
+			allowContextKey:                 literal_6197,
 			whenAllowMethods:                nil,
-			whenOrigin:                      "http://google.com",
-			expectAllow:                     "OPTIONS, GET",
-			expectAccessControlAllowMethods: "OPTIONS, GET",
+			whenOrigin:                      literal_5379,
+			expectAllow:                     literal_6197,
+			expectAccessControlAllowMethods: literal_6197,
 		},
 		{
 			name:                            "default AllowMethods, preflight, existing origin, no allows, sets only CORS allow methods",
 			allowContextKey:                 "",
 			whenAllowMethods:                nil,
-			whenOrigin:                      "http://google.com",
+			whenOrigin:                      literal_5379,
 			expectAllow:                     "",
-			expectAccessControlAllowMethods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+			expectAccessControlAllowMethods: literal_7350,
 		},
 	}
 
@@ -493,7 +493,7 @@ func TestCorsHeaders(t *testing.T) {
 		},
 		{
 			name:          "non-preflight request, allow any origin, specific origin domain",
-			originDomain:  "http://example.com",
+			originDomain:  literal_6293,
 			allowedOrigin: "*",
 			method:        http.MethodGet,
 			expected:      true,
@@ -502,7 +502,7 @@ func TestCorsHeaders(t *testing.T) {
 		{
 			name:          "non-preflight request, allow specific origin, missing origin header = no CORS logic done",
 			originDomain:  "", // Request does not have Origin header
-			allowedOrigin: "http://example.com",
+			allowedOrigin: literal_6293,
 			method:        http.MethodGet,
 			expected:      false,
 			expectStatus:  http.StatusOK,
@@ -510,15 +510,15 @@ func TestCorsHeaders(t *testing.T) {
 		{
 			name:          "non-preflight request, allow specific origin, different origin header = CORS logic failure",
 			originDomain:  "http://bar.com",
-			allowedOrigin: "http://example.com",
+			allowedOrigin: literal_6293,
 			method:        http.MethodGet,
 			expected:      false,
 			expectStatus:  http.StatusOK,
 		},
 		{
 			name:          "non-preflight request, allow specific origin, matching origin header = CORS logic done",
-			originDomain:  "http://example.com",
-			allowedOrigin: "http://example.com",
+			originDomain:  literal_6293,
+			allowedOrigin: literal_6293,
 			method:        http.MethodGet,
 			expected:      true,
 			expectStatus:  http.StatusOK,
@@ -530,43 +530,43 @@ func TestCorsHeaders(t *testing.T) {
 			method:            http.MethodOptions,
 			expected:          false,
 			expectStatus:      http.StatusNoContent,
-			expectAllowHeader: "OPTIONS, GET, POST",
+			expectAllowHeader: literal_9218,
 		},
 		{
 			name:              "preflight, allow any origin, existing origin header = CORS logic done",
-			originDomain:      "http://example.com",
+			originDomain:      literal_6293,
 			allowedOrigin:     "*",
 			method:            http.MethodOptions,
 			expected:          true,
 			expectStatus:      http.StatusNoContent,
-			expectAllowHeader: "OPTIONS, GET, POST",
+			expectAllowHeader: literal_9218,
 		},
 		{
 			name:              "preflight, allow any origin, missing origin header = no CORS logic done",
 			originDomain:      "", // Request does not have Origin header
-			allowedOrigin:     "http://example.com",
+			allowedOrigin:     literal_6293,
 			method:            http.MethodOptions,
 			expected:          false,
 			expectStatus:      http.StatusNoContent,
-			expectAllowHeader: "OPTIONS, GET, POST",
+			expectAllowHeader: literal_9218,
 		},
 		{
 			name:              "preflight, allow specific origin, different origin header = no CORS logic done",
 			originDomain:      "http://bar.com",
-			allowedOrigin:     "http://example.com",
+			allowedOrigin:     literal_6293,
 			method:            http.MethodOptions,
 			expected:          false,
 			expectStatus:      http.StatusNoContent,
-			expectAllowHeader: "OPTIONS, GET, POST",
+			expectAllowHeader: literal_9218,
 		},
 		{
 			name:              "preflight, allow specific origin, matching origin header = CORS logic done",
-			originDomain:      "http://example.com",
-			allowedOrigin:     "http://example.com",
+			originDomain:      literal_6293,
+			allowedOrigin:     literal_6293,
 			method:            http.MethodOptions,
 			expected:          true,
 			expectStatus:      http.StatusNoContent,
-			expectAllowHeader: "OPTIONS, GET, POST",
+			expectAllowHeader: literal_9218,
 		},
 	}
 
@@ -643,7 +643,7 @@ func TestallowOriginFunc(t *testing.T) {
 		returnError,
 	}
 
-	const origin = "http://example.com"
+	const origin = literal_6293
 
 	e := echo.New()
 	for _, allowOriginFunc := range allowOriginFuncs {
@@ -671,3 +671,21 @@ func TestallowOriginFunc(t *testing.T) {
 		}
 	}
 }
+
+const literal_7350 = "GET,HEAD,PUT,PATCH,POST,DELETE"
+
+const literal_1923 = "http://*.example.com"
+
+const literal_7096 = "http://aaa.example.com"
+
+const literal_6293 = "http://example.com"
+
+const literal_0689 = "https://example.com"
+
+const literal_4258 = "http://ccc.bbb.example.com"
+
+const literal_6197 = "OPTIONS, GET"
+
+const literal_5379 = "http://google.com"
+
+const literal_9218 = "OPTIONS, GET, POST"

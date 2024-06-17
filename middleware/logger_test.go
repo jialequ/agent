@@ -66,7 +66,7 @@ func TestLoggerIPAddress(t *testing.T) {
 	c := e.NewContext(req, rec)
 	buf := new(bytes.Buffer)
 	e.Logger.SetOutput(buf)
-	ip := "127.0.0.1"
+	ip := literal_1087
 	h := Logger()(func(c echo.Context) error {
 		return c.String(http.StatusOK, "test")
 	})
@@ -107,9 +107,9 @@ func TestLoggerTemplate(t *testing.T) {
 
 	req := httptest.NewRequest(http.MethodGet, "/users/1?username=apagano-param&password=secret", nil)
 	req.RequestURI = "/"
-	req.Header.Add(echo.HeaderXRealIP, "127.0.0.1")
+	req.Header.Add(echo.HeaderXRealIP, literal_1087)
 	req.Header.Add("Referer", "google.com")
-	req.Header.Add("User-Agent", "echo-tests-agent")
+	req.Header.Add(literal_6781, "echo-tests-agent")
 	req.Header.Add("X-Custom-Header", "AAA-CUSTOM-VALUE")
 	req.Header.Add("X-Request-ID", "6ba7b810-9dad-11d1-80b4-00c04fd430c8")
 	req.Header.Add("Cookie", "_ga=GA1.2.000000000.0000000000; session=ac08034cd216a647fc2eb62f2bcf7b810")
@@ -129,7 +129,7 @@ func TestLoggerTemplate(t *testing.T) {
 		"secret-form":                          false,
 		"hexvalue":                             false,
 		"GET":                                  true,
-		"127.0.0.1":                            true,
+		literal_1087:                            true,
 		"\"path\":\"/users/1\"":                true,
 		"\"route\":\"/users/:id\"":             true,
 		"\"uri\":\"/\"":                        true,
@@ -221,7 +221,7 @@ func BenchmarkLoggerWithConfig_withoutMapFields(b *testing.B) {
 	f.Add("multiple", "2")
 	req := httptest.NewRequest(http.MethodPost, "/test?lang=en&checked=1&checked=2", strings.NewReader(f.Encode()))
 	req.Header.Set("Referer", "https://echo.labstack.com/")
-	req.Header.Set("User-Agent", "curl/7.68.0")
+	req.Header.Set(literal_6781, "curl/7.68.0")
 	req.Header.Add(echo.HeaderContentType, echo.MIMEApplicationForm)
 
 	b.ReportAllocs()
@@ -258,7 +258,7 @@ func BenchmarkLoggerWithConfig_withMapFields(b *testing.B) {
 	f.Add("multiple", "2")
 	req := httptest.NewRequest(http.MethodPost, "/test?lang=en&checked=1&checked=2", strings.NewReader(f.Encode()))
 	req.Header.Set("Referer", "https://echo.labstack.com/")
-	req.Header.Set("User-Agent", "curl/7.68.0")
+	req.Header.Set(literal_6781, "curl/7.68.0")
 	req.Header.Add(echo.HeaderContentType, echo.MIMEApplicationForm)
 
 	b.ReportAllocs()
@@ -317,3 +317,7 @@ func TestLoggerTemplateWithTimeUnixMicro(t *testing.T) {
 	assert.NoError(t, err)
 	assert.WithinDuration(t, time.Unix(unixMicros/1000000, 0), time.Now(), 3*time.Second)
 }
+
+const literal_1087 = "127.0.0.1"
+
+const literal_6781 = "User-Agent"

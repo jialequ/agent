@@ -4,11 +4,12 @@
 package echo
 
 import (
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 // Note this test is deliberately simple as there's not a lot to test.
@@ -34,7 +35,7 @@ func TestDefaultJSONCodecEncode(t *testing.T) {
 
 	enc := new(DefaultJSONSerializer)
 
-	err := enc.Serialize(c, user{1, "Jon Snow"}, "")
+	err := enc.Serialize(c, user{1, literal_6549}, "")
 	if assert.NoError(t, err) {
 		assert.Equal(t, userJSON+"\n", rec.Body.String())
 	}
@@ -42,7 +43,7 @@ func TestDefaultJSONCodecEncode(t *testing.T) {
 	req = httptest.NewRequest(http.MethodPost, "/", nil)
 	rec = httptest.NewRecorder()
 	c = e.NewContext(req, rec).(*context)
-	err = enc.Serialize(c, user{1, "Jon Snow"}, "  ")
+	err = enc.Serialize(c, user{1, literal_6549}, "  ")
 	if assert.NoError(t, err) {
 		assert.Equal(t, userJSONPretty+"\n", rec.Body.String())
 	}
@@ -74,7 +75,7 @@ func TestDefaultJSONCodecDecode(t *testing.T) {
 	var u = user{}
 	err := enc.Deserialize(c, &u)
 	if assert.NoError(t, err) {
-		assert.Equal(t, u, user{ID: 1, Name: "Jon Snow"})
+		assert.Equal(t, u, user{ID: 1, Name: literal_6549})
 	}
 
 	var userUnmarshalSyntaxError = user{}
@@ -98,3 +99,5 @@ func TestDefaultJSONCodecDecode(t *testing.T) {
 	assert.EqualError(t, err, "code=400, message=Unmarshal type error: expected=string, got=number, field=id, offset=7, internal=json: cannot unmarshal number into Go struct field .id of type string")
 
 }
+
+const literal_6549 = "Jon Snow"

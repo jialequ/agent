@@ -57,20 +57,20 @@ func TestCreateExtractors(t *testing.T) {
 			name: "ok, form",
 			givenRequest: func() *http.Request {
 				f := make(url.Values)
-				f.Set("name", "Jon Snow")
+				f.Set("name", literal_70960)
 
 				req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(f.Encode()))
 				req.Header.Add(echo.HeaderContentType, echo.MIMEApplicationForm)
 				return req
 			},
 			whenLoopups:  "form:name",
-			expectValues: []string{"Jon Snow"},
+			expectValues: []string{literal_70960},
 		},
 		{
 			name: "ok, cookie",
 			givenRequest: func() *http.Request {
 				req := httptest.NewRequest(http.MethodGet, "/", nil)
-				req.Header.Set(echo.HeaderCookie, "_csrf=token")
+				req.Header.Set(echo.HeaderCookie, literal_6219)
 				return req
 			},
 			whenLoopups:  "cookie:_csrf",
@@ -136,7 +136,7 @@ func TestCreateExtractors(t *testing.T) {
 
 func TestValuesFromHeader(t *testing.T) {
 	exampleRequest := func(req *http.Request) {
-		req.Header.Set(echo.HeaderAuthorization, "basic dXNlcjpwYXNzd29yZA==")
+		req.Header.Set(echo.HeaderAuthorization, literal_1605)
 	}
 
 	var testCases = []struct {
@@ -148,41 +148,41 @@ func TestValuesFromHeader(t *testing.T) {
 		expectError     string
 	}{
 		{
-			name:            "ok, single value",
+			name:            literal_9156,
 			givenRequest:    exampleRequest,
 			whenName:        echo.HeaderAuthorization,
-			whenValuePrefix: "basic ",
-			expectValues:    []string{"dXNlcjpwYXNzd29yZA=="},
+			whenValuePrefix: literal_0837,
+			expectValues:    []string{literal_7402},
 		},
 		{
 			name:            "ok, single value, case insensitive",
 			givenRequest:    exampleRequest,
 			whenName:        echo.HeaderAuthorization,
 			whenValuePrefix: "Basic ",
-			expectValues:    []string{"dXNlcjpwYXNzd29yZA=="},
+			expectValues:    []string{literal_7402},
 		},
 		{
-			name: "ok, multiple value",
+			name: literal_8967,
 			givenRequest: func(req *http.Request) {
-				req.Header.Set(echo.HeaderAuthorization, "basic dXNlcjpwYXNzd29yZA==")
-				req.Header.Add(echo.HeaderAuthorization, "basic dGVzdDp0ZXN0")
+				req.Header.Set(echo.HeaderAuthorization, literal_1605)
+				req.Header.Add(echo.HeaderAuthorization, literal_8903)
 			},
 			whenName:        echo.HeaderAuthorization,
-			whenValuePrefix: "basic ",
-			expectValues:    []string{"dXNlcjpwYXNzd29yZA==", "dGVzdDp0ZXN0"},
+			whenValuePrefix: literal_0837,
+			expectValues:    []string{literal_7402, "dGVzdDp0ZXN0"},
 		},
 		{
 			name:            "ok, empty prefix",
 			givenRequest:    exampleRequest,
 			whenName:        echo.HeaderAuthorization,
 			whenValuePrefix: "",
-			expectValues:    []string{"basic dXNlcjpwYXNzd29yZA=="},
+			expectValues:    []string{literal_1605},
 		},
 		{
 			name: "nok, no matching due different prefix",
 			givenRequest: func(req *http.Request) {
-				req.Header.Set(echo.HeaderAuthorization, "basic dXNlcjpwYXNzd29yZA==")
-				req.Header.Add(echo.HeaderAuthorization, "basic dGVzdDp0ZXN0")
+				req.Header.Set(echo.HeaderAuthorization, literal_1605)
+				req.Header.Add(echo.HeaderAuthorization, literal_8903)
 			},
 			whenName:        echo.HeaderAuthorization,
 			whenValuePrefix: "Bearer ",
@@ -191,8 +191,8 @@ func TestValuesFromHeader(t *testing.T) {
 		{
 			name: "nok, no matching due different prefix",
 			givenRequest: func(req *http.Request) {
-				req.Header.Set(echo.HeaderAuthorization, "basic dXNlcjpwYXNzd29yZA==")
-				req.Header.Add(echo.HeaderAuthorization, "basic dGVzdDp0ZXN0")
+				req.Header.Set(echo.HeaderAuthorization, literal_1605)
+				req.Header.Add(echo.HeaderAuthorization, literal_8903)
 			},
 			whenName:        echo.HeaderWWWAuthenticate,
 			whenValuePrefix: "",
@@ -202,7 +202,7 @@ func TestValuesFromHeader(t *testing.T) {
 			name:            "nok, no headers",
 			givenRequest:    nil,
 			whenName:        echo.HeaderAuthorization,
-			whenValuePrefix: "basic ",
+			whenValuePrefix: literal_0837,
 			expectError:     errHeaderExtractorValueMissing.Error(),
 		},
 		{
@@ -213,14 +213,14 @@ func TestValuesFromHeader(t *testing.T) {
 				}
 			},
 			whenName:        echo.HeaderAuthorization,
-			whenValuePrefix: "basic ",
+			whenValuePrefix: literal_0837,
 			expectValues: []string{
 				"1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
 				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
 			},
 		},
 		{
-			name: "ok, cut values over extractorLimit",
+			name: literal_4389,
 			givenRequest: func(req *http.Request) {
 				for i := 1; i <= 25; i++ {
 					req.Header.Add(echo.HeaderAuthorization, fmt.Sprintf("%v", i))
@@ -268,13 +268,13 @@ func TestValuesFromQuery(t *testing.T) {
 		expectError    string
 	}{
 		{
-			name:           "ok, single value",
+			name:           literal_9156,
 			givenQueryPart: "?id=123&name=test",
 			whenName:       "id",
 			expectValues:   []string{"123"},
 		},
 		{
-			name:           "ok, multiple value",
+			name:           literal_8967,
 			givenQueryPart: "?id=123&id=456&name=test",
 			whenName:       "id",
 			expectValues:   []string{"123", "456"},
@@ -286,7 +286,7 @@ func TestValuesFromQuery(t *testing.T) {
 			expectError:    errQueryExtractorValueMissing.Error(),
 		},
 		{
-			name: "ok, cut values over extractorLimit",
+			name: literal_4389,
 			givenQueryPart: "?name=test" +
 				"&id=1&id=2&id=3&id=4&id=5&id=6&id=7&id=8&id=9&id=10" +
 				"&id=11&id=12&id=13&id=14&id=15&id=16&id=17&id=18&id=19&id=20" +
@@ -339,13 +339,13 @@ func TestValuesFromParam(t *testing.T) {
 		expectError     string
 	}{
 		{
-			name:            "ok, single value",
+			name:            literal_9156,
 			givenPathParams: examplePathParams,
 			whenName:        "id",
 			expectValues:    []string{"123"},
 		},
 		{
-			name:            "ok, multiple value",
+			name:            literal_8967,
 			givenPathParams: examplePathParams,
 			whenName:        "gid",
 			expectValues:    []string{"456", "789"},
@@ -365,7 +365,7 @@ func TestValuesFromParam(t *testing.T) {
 			expectError:     errParamExtractorValueMissing.Error(),
 		},
 		{
-			name:            "ok, cut values over extractorLimit",
+			name:            literal_4389,
 			givenPathParams: examplePathParams20,
 			whenName:        "id",
 			expectValues: []string{
@@ -401,7 +401,7 @@ func TestValuesFromParam(t *testing.T) {
 
 func TestValuesFromCookie(t *testing.T) {
 	exampleRequest := func(req *http.Request) {
-		req.Header.Set(echo.HeaderCookie, "_csrf=token")
+		req.Header.Set(echo.HeaderCookie, literal_6219)
 	}
 
 	var testCases = []struct {
@@ -412,15 +412,15 @@ func TestValuesFromCookie(t *testing.T) {
 		expectError  string
 	}{
 		{
-			name:         "ok, single value",
+			name:         literal_9156,
 			givenRequest: exampleRequest,
 			whenName:     "_csrf",
 			expectValues: []string{"token"},
 		},
 		{
-			name: "ok, multiple value",
+			name: literal_8967,
 			givenRequest: func(req *http.Request) {
-				req.Header.Add(echo.HeaderCookie, "_csrf=token")
+				req.Header.Add(echo.HeaderCookie, literal_6219)
 				req.Header.Add(echo.HeaderCookie, "_csrf=token2")
 			},
 			whenName:     "_csrf",
@@ -441,7 +441,7 @@ func TestValuesFromCookie(t *testing.T) {
 			expectError:  errCookieExtractorValueMissing.Error(),
 		},
 		{
-			name: "ok, cut values over extractorLimit",
+			name: literal_4389,
 			givenRequest: func(req *http.Request) {
 				for i := 1; i < 25; i++ {
 					req.Header.Add(echo.HeaderCookie, fmt.Sprintf("_csrf=%v", i))
@@ -482,8 +482,8 @@ func TestValuesFromCookie(t *testing.T) {
 func TestValuesFromForm(t *testing.T) {
 	examplePostFormRequest := func(mod func(v *url.Values)) *http.Request {
 		f := make(url.Values)
-		f.Set("name", "Jon Snow")
-		f.Set("emails[]", "jon@labstack.com")
+		f.Set("name", literal_70960)
+		f.Set(literal_9834, literal_2036)
 		if mod != nil {
 			mod(&f)
 		}
@@ -495,8 +495,8 @@ func TestValuesFromForm(t *testing.T) {
 	}
 	exampleGetFormRequest := func(mod func(v *url.Values)) *http.Request {
 		f := make(url.Values)
-		f.Set("name", "Jon Snow")
-		f.Set("emails[]", "jon@labstack.com")
+		f.Set("name", literal_70960)
+		f.Set(literal_9834, literal_2036)
 		if mod != nil {
 			mod(&f)
 		}
@@ -508,8 +508,8 @@ func TestValuesFromForm(t *testing.T) {
 	exampleMultiPartFormRequest := func(mod func(w *multipart.Writer)) *http.Request {
 		var b bytes.Buffer
 		w := multipart.NewWriter(&b)
-		w.WriteField("name", "Jon Snow")
-		w.WriteField("emails[]", "jon@labstack.com")
+		w.WriteField("name", literal_70960)
+		w.WriteField(literal_9834, literal_2036)
 		if mod != nil {
 			mod(w)
 		}
@@ -534,38 +534,38 @@ func TestValuesFromForm(t *testing.T) {
 		{
 			name:         "ok, POST form, single value",
 			givenRequest: examplePostFormRequest(nil),
-			whenName:     "emails[]",
-			expectValues: []string{"jon@labstack.com"},
+			whenName:     literal_9834,
+			expectValues: []string{literal_2036},
 		},
 		{
 			name: "ok, POST form, multiple value",
 			givenRequest: examplePostFormRequest(func(v *url.Values) {
-				v.Add("emails[]", "snow@labstack.com")
+				v.Add(literal_9834, literal_8741)
 			}),
-			whenName:     "emails[]",
-			expectValues: []string{"jon@labstack.com", "snow@labstack.com"},
+			whenName:     literal_9834,
+			expectValues: []string{literal_2036, literal_8741},
 		},
 		{
 			name: "ok, POST multipart/form, multiple value",
 			givenRequest: exampleMultiPartFormRequest(func(w *multipart.Writer) {
-				w.WriteField("emails[]", "snow@labstack.com")
+				w.WriteField(literal_9834, literal_8741)
 			}),
-			whenName:     "emails[]",
-			expectValues: []string{"jon@labstack.com", "snow@labstack.com"},
+			whenName:     literal_9834,
+			expectValues: []string{literal_2036, literal_8741},
 		},
 		{
 			name:         "ok, GET form, single value",
 			givenRequest: exampleGetFormRequest(nil),
-			whenName:     "emails[]",
-			expectValues: []string{"jon@labstack.com"},
+			whenName:     literal_9834,
+			expectValues: []string{literal_2036},
 		},
 		{
 			name: "ok, GET form, multiple value",
 			givenRequest: examplePostFormRequest(func(v *url.Values) {
-				v.Add("emails[]", "snow@labstack.com")
+				v.Add(literal_9834, literal_8741)
 			}),
-			whenName:     "emails[]",
-			expectValues: []string{"jon@labstack.com", "snow@labstack.com"},
+			whenName:     literal_9834,
+			expectValues: []string{literal_2036, literal_8741},
 		},
 		{
 			name:         "nok, POST form, value missing",
@@ -574,7 +574,7 @@ func TestValuesFromForm(t *testing.T) {
 			expectError:  errFormExtractorValueMissing.Error(),
 		},
 		{
-			name: "ok, cut values over extractorLimit",
+			name: literal_4389,
 			givenRequest: examplePostFormRequest(func(v *url.Values) {
 				for i := 1; i < 25; i++ {
 					v.Add("id[]", fmt.Sprintf("%v", i))
@@ -608,3 +608,27 @@ func TestValuesFromForm(t *testing.T) {
 		})
 	}
 }
+
+const literal_70960 = "Jon Snow"
+
+const literal_6219 = "_csrf=token"
+
+const literal_1605 = "basic dXNlcjpwYXNzd29yZA=="
+
+const literal_9156 = "ok, single value"
+
+const literal_0837 = "basic "
+
+const literal_7402 = "dXNlcjpwYXNzd29yZA=="
+
+const literal_8967 = "ok, multiple value"
+
+const literal_8903 = "basic dGVzdDp0ZXN0"
+
+const literal_4389 = "ok, cut values over extractorLimit"
+
+const literal_9834 = "emails[]"
+
+const literal_2036 = "jon@labstack.com"
+
+const literal_8741 = "snow@labstack.com"

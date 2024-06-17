@@ -27,10 +27,10 @@ func TestStatic(t *testing.T) {
 		expectCode           int
 	}{
 		{
-			name:           "ok, serve index with Echo message",
+			name:           literal_7293,
 			whenURL:        "/",
 			expectCode:     http.StatusOK,
-			expectContains: "<title>Echo</title>",
+			expectContains: literal_3814,
 		},
 		{
 			name:         "ok, serve file from subdirectory",
@@ -41,12 +41,12 @@ func TestStatic(t *testing.T) {
 		{
 			name: "ok, when html5 mode serve index for any static file that does not exist",
 			givenConfig: &StaticConfig{
-				Root:  "../_fixture",
+				Root:  literal_1805,
 				HTML5: true,
 			},
 			whenURL:        "/random",
 			expectCode:     http.StatusOK,
-			expectContains: "<title>Echo</title>",
+			expectContains: literal_3814,
 		},
 		{
 			name: "ok, serve index as directory index listing files directory",
@@ -86,19 +86,19 @@ func TestStatic(t *testing.T) {
 			name:           "nok, file not found",
 			whenURL:        "/none",
 			expectCode:     http.StatusNotFound,
-			expectContains: "{\"message\":\"Not Found\"}\n",
+			expectContains: literal_4032,
 		},
 		{
 			name:           "nok, do not allow directory traversal (backslash - windows separator)",
 			whenURL:        `/..\\middleware/basic_auth.go`,
 			expectCode:     http.StatusNotFound,
-			expectContains: "{\"message\":\"Not Found\"}\n",
+			expectContains: literal_4032,
 		},
 		{
 			name:           "nok,do not allow directory traversal (slash - unix separator)",
 			whenURL:        `/../middleware/basic_auth.go`,
 			expectCode:     http.StatusNotFound,
-			expectContains: "{\"message\":\"Not Found\"}\n",
+			expectContains: literal_4032,
 		},
 		{
 			name:           "ok, do not serve file, when a handler took care of the request",
@@ -109,7 +109,7 @@ func TestStatic(t *testing.T) {
 		{
 			name: "nok, when html5 fail if the index file does not exist",
 			givenConfig: &StaticConfig{
-				Root:  "../_fixture",
+				Root:  literal_1805,
 				HTML5: true,
 				Index: "missing.html",
 			},
@@ -124,7 +124,7 @@ func TestStatic(t *testing.T) {
 			},
 			whenURL:        "/",
 			expectCode:     http.StatusOK,
-			expectContains: "<title>Echo</title>",
+			expectContains: literal_3814,
 		},
 	}
 
@@ -132,7 +132,7 @@ func TestStatic(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			e := echo.New()
 
-			config := StaticConfig{Root: "../_fixture"}
+			config := StaticConfig{Root: literal_1805}
 			if tc.givenConfig != nil {
 				config = *tc.givenConfig
 			}
@@ -182,7 +182,7 @@ func TestStaticGroupWithStatic(t *testing.T) {
 	}{
 		{
 			name:                 "ok",
-			givenPrefix:          "/images",
+			givenPrefix:          literal_0153,
 			givenRoot:            "../_fixture/images",
 			whenURL:              "/group/images/walle.png",
 			expectStatus:         http.StatusOK,
@@ -190,24 +190,24 @@ func TestStaticGroupWithStatic(t *testing.T) {
 		},
 		{
 			name:                 "No file",
-			givenPrefix:          "/images",
+			givenPrefix:          literal_0153,
 			givenRoot:            "../_fixture/scripts",
 			whenURL:              "/group/images/bolt.png",
 			expectStatus:         http.StatusNotFound,
-			expectBodyStartsWith: "{\"message\":\"Not Found\"}\n",
+			expectBodyStartsWith: literal_4032,
 		},
 		{
 			name:                 "Directory not found (no trailing slash)",
-			givenPrefix:          "/images",
+			givenPrefix:          literal_0153,
 			givenRoot:            "../_fixture/images",
 			whenURL:              "/group/images/",
 			expectStatus:         http.StatusNotFound,
-			expectBodyStartsWith: "{\"message\":\"Not Found\"}\n",
+			expectBodyStartsWith: literal_4032,
 		},
 		{
 			name:                 "Directory redirect",
 			givenPrefix:          "/",
-			givenRoot:            "../_fixture",
+			givenRoot:            literal_1805,
 			whenURL:              "/group/folder",
 			expectStatus:         http.StatusMovedPermanently,
 			expectHeaderLocation: "/group/folder/",
@@ -216,7 +216,7 @@ func TestStaticGroupWithStatic(t *testing.T) {
 		{
 			name:                 "Directory redirect",
 			givenPrefix:          "/",
-			givenRoot:            "../_fixture",
+			givenRoot:            literal_1805,
 			whenURL:              "/group/folder%2f..",
 			expectStatus:         http.StatusMovedPermanently,
 			expectHeaderLocation: "/group/folder/../",
@@ -226,16 +226,16 @@ func TestStaticGroupWithStatic(t *testing.T) {
 			name:                 "Prefixed directory 404 (request URL without slash)",
 			givenGroup:           "_fixture",
 			givenPrefix:          "/folder/", // trailing slash will intentionally not match "/folder"
-			givenRoot:            "../_fixture",
+			givenRoot:            literal_1805,
 			whenURL:              "/_fixture/folder", // no trailing slash
 			expectStatus:         http.StatusNotFound,
-			expectBodyStartsWith: "{\"message\":\"Not Found\"}\n",
+			expectBodyStartsWith: literal_4032,
 		},
 		{
 			name:                 "Prefixed directory redirect (without slash redirect to slash)",
 			givenGroup:           "_fixture",
 			givenPrefix:          "/folder", // no trailing slash shall match /folder and /folder/*
-			givenRoot:            "../_fixture",
+			givenRoot:            literal_1805,
 			whenURL:              "/_fixture/folder", // no trailing slash
 			expectStatus:         http.StatusMovedPermanently,
 			expectHeaderLocation: "/_fixture/folder/",
@@ -244,34 +244,34 @@ func TestStaticGroupWithStatic(t *testing.T) {
 		{
 			name:                 "Directory with index.html",
 			givenPrefix:          "/",
-			givenRoot:            "../_fixture",
+			givenRoot:            literal_1805,
 			whenURL:              "/group/",
 			expectStatus:         http.StatusOK,
-			expectBodyStartsWith: "<!doctype html>",
+			expectBodyStartsWith: literal_1267,
 		},
 		{
 			name:                 "Prefixed directory with index.html (prefix ending with slash)",
 			givenPrefix:          "/assets/",
-			givenRoot:            "../_fixture",
+			givenRoot:            literal_1805,
 			whenURL:              "/group/assets/",
 			expectStatus:         http.StatusOK,
-			expectBodyStartsWith: "<!doctype html>",
+			expectBodyStartsWith: literal_1267,
 		},
 		{
 			name:                 "Prefixed directory with index.html (prefix ending without slash)",
 			givenPrefix:          "/assets",
-			givenRoot:            "../_fixture",
+			givenRoot:            literal_1805,
 			whenURL:              "/group/assets/",
 			expectStatus:         http.StatusOK,
-			expectBodyStartsWith: "<!doctype html>",
+			expectBodyStartsWith: literal_1267,
 		},
 		{
 			name:                 "Sub-directory with index.html",
 			givenPrefix:          "/",
-			givenRoot:            "../_fixture",
+			givenRoot:            literal_1805,
 			whenURL:              "/group/folder/",
 			expectStatus:         http.StatusOK,
-			expectBodyStartsWith: "<!doctype html>",
+			expectBodyStartsWith: literal_1267,
 		},
 		{
 			name:                 "do not allow directory traversal (backslash - windows separator)",
@@ -279,7 +279,7 @@ func TestStaticGroupWithStatic(t *testing.T) {
 			givenRoot:            "../_fixture/",
 			whenURL:              `/group/..\\middleware/basic_auth.go`,
 			expectStatus:         http.StatusNotFound,
-			expectBodyStartsWith: "{\"message\":\"Not Found\"}\n",
+			expectBodyStartsWith: literal_4032,
 		},
 		{
 			name:                 "do not allow directory traversal (slash - unix separator)",
@@ -287,7 +287,7 @@ func TestStaticGroupWithStatic(t *testing.T) {
 			givenRoot:            "../_fixture/",
 			whenURL:              `/group/../middleware/basic_auth.go`,
 			expectStatus:         http.StatusNotFound,
-			expectBodyStartsWith: "{\"message\":\"Not Found\"}\n",
+			expectBodyStartsWith: literal_4032,
 		},
 	}
 
@@ -332,19 +332,19 @@ func TestStaticCustomFS(t *testing.T) {
 		expectCode     int
 	}{
 		{
-			name:           "ok, serve index with Echo message",
+			name:           literal_7293,
 			whenURL:        "/",
-			filesystem:     os.DirFS("../_fixture"),
+			filesystem:     os.DirFS(literal_1805),
 			expectCode:     http.StatusOK,
-			expectContains: "<title>Echo</title>",
+			expectContains: literal_3814,
 		},
 
 		{
-			name:           "ok, serve index with Echo message",
+			name:           literal_7293,
 			whenURL:        "/_fixture/",
 			filesystem:     os.DirFS(".."),
 			expectCode:     http.StatusOK,
-			expectContains: "<title>Echo</title>",
+			expectContains: literal_3814,
 		},
 		{
 			name:    "ok, serve file from map fs",
@@ -412,3 +412,15 @@ func TestStaticCustomFS(t *testing.T) {
 		})
 	}
 }
+
+const literal_7293 = "ok, serve index with Echo message"
+
+const literal_3814 = "<title>Echo</title>"
+
+const literal_1805 = "../_fixture"
+
+const literal_4032 = "{\"message\":\"Not Found\"}\n"
+
+const literal_0153 = "/images"
+
+const literal_1267 = "<!doctype html>"

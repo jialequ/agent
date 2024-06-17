@@ -16,7 +16,7 @@ import (
 
 func testKeyValidator(key string, c echo.Context) (bool, error) {
 	switch key {
-	case "valid-key":
+	case literal_9162:
 		return true, nil
 	case "error-key":
 		return false, errors.New("some user defined error")
@@ -64,7 +64,7 @@ func TestKeyAuthWithConfig(t *testing.T) {
 		{
 			name: "ok, custom skipper",
 			givenRequest: func(req *http.Request) {
-				req.Header.Set(echo.HeaderAuthorization, "Bearer error-key")
+				req.Header.Set(echo.HeaderAuthorization, literal_5304)
 			},
 			whenConfig: func(conf *KeyAuthConfig) {
 				conf.Skipper = func(context echo.Context) bool {
@@ -99,7 +99,7 @@ func TestKeyAuthWithConfig(t *testing.T) {
 			name: "ok, custom key lookup from multiple places, query and header",
 			givenRequest: func(req *http.Request) {
 				req.URL.RawQuery = "key=invalid-key"
-				req.Header.Set("API-Key", "valid-key")
+				req.Header.Set("API-Key", literal_9162)
 			},
 			whenConfig: func(conf *KeyAuthConfig) {
 				conf.KeyLookup = "query:key,header:API-Key"
@@ -109,7 +109,7 @@ func TestKeyAuthWithConfig(t *testing.T) {
 		{
 			name: "ok, custom key lookup, header",
 			givenRequest: func(req *http.Request) {
-				req.Header.Set("API-Key", "valid-key")
+				req.Header.Set("API-Key", literal_9162)
 			},
 			whenConfig: func(conf *KeyAuthConfig) {
 				conf.KeyLookup = "header:API-Key"
@@ -130,7 +130,7 @@ func TestKeyAuthWithConfig(t *testing.T) {
 			name: "ok, custom key lookup, query",
 			givenRequest: func(req *http.Request) {
 				q := req.URL.Query()
-				q.Add("key", "valid-key")
+				q.Add("key", literal_9162)
 				req.URL.RawQuery = q.Encode()
 			},
 			whenConfig: func(conf *KeyAuthConfig) {
@@ -176,10 +176,10 @@ func TestKeyAuthWithConfig(t *testing.T) {
 			givenRequest: func(req *http.Request) {
 				req.AddCookie(&http.Cookie{
 					Name:  "key",
-					Value: "valid-key",
+					Value: literal_9162,
 				})
 				q := req.URL.Query()
-				q.Add("key", "valid-key")
+				q.Add("key", literal_9162)
 				req.URL.RawQuery = q.Encode()
 			},
 			whenConfig: func(conf *KeyAuthConfig) {
@@ -211,7 +211,7 @@ func TestKeyAuthWithConfig(t *testing.T) {
 		{
 			name: "nok, custom errorHandler, error from validator",
 			givenRequest: func(req *http.Request) {
-				req.Header.Set(echo.HeaderAuthorization, "Bearer error-key")
+				req.Header.Set(echo.HeaderAuthorization, literal_5304)
 			},
 			whenConfig: func(conf *KeyAuthConfig) {
 				conf.ErrorHandler = func(err error, context echo.Context) error {
@@ -226,7 +226,7 @@ func TestKeyAuthWithConfig(t *testing.T) {
 		{
 			name: "nok, defaults, error from validator",
 			givenRequest: func(req *http.Request) {
-				req.Header.Set(echo.HeaderAuthorization, "Bearer error-key")
+				req.Header.Set(echo.HeaderAuthorization, literal_5304)
 			},
 			whenConfig:          func(conf *KeyAuthConfig) {},
 			expectHandlerCalled: false,
@@ -314,7 +314,7 @@ func TestKeyAuthWithConfigContinueOnIgnoredError(t *testing.T) {
 		{
 			name:                       "no error handler is called",
 			whenContinueOnIgnoredError: true,
-			givenKey:                   "valid-key",
+			givenKey:                   literal_9162,
 			expectStatus:               http.StatusTeapot,
 			expectBody:                 "",
 		},
@@ -377,3 +377,7 @@ func TestKeyAuthWithConfigContinueOnIgnoredError(t *testing.T) {
 		})
 	}
 }
+
+const literal_9162 = "valid-key"
+
+const literal_5304 = "Bearer error-key"

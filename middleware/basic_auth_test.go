@@ -30,7 +30,7 @@ func TestBasicAuth(t *testing.T) {
 	})
 
 	// Valid credentials
-	auth := basic + " " + base64.StdEncoding.EncodeToString([]byte("joe:secret"))
+	auth := basic + " " + base64.StdEncoding.EncodeToString([]byte(literal_0856))
 	req.Header.Set(echo.HeaderAuthorization, auth)
 	assert.NoError(t, h(c))
 
@@ -42,12 +42,12 @@ func TestBasicAuth(t *testing.T) {
 	})
 
 	// Valid credentials
-	auth = basic + " " + base64.StdEncoding.EncodeToString([]byte("joe:secret"))
+	auth = basic + " " + base64.StdEncoding.EncodeToString([]byte(literal_0856))
 	req.Header.Set(echo.HeaderAuthorization, auth)
 	assert.NoError(t, h(c))
 
 	// Case-insensitive header scheme
-	auth = strings.ToUpper(basic) + " " + base64.StdEncoding.EncodeToString([]byte("joe:secret"))
+	auth = strings.ToUpper(basic) + " " + base64.StdEncoding.EncodeToString([]byte(literal_0856))
 	req.Header.Set(echo.HeaderAuthorization, auth)
 	assert.NoError(t, h(c))
 
@@ -91,3 +91,5 @@ func TestBasicAuth(t *testing.T) {
 	assert.NoError(t, h(c))
 
 }
+
+const literal_0856 = "joe:secret"

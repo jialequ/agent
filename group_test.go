@@ -14,7 +14,7 @@ import (
 
 // Jackyqqu: Fix me
 func TestGroup(t *testing.T) {
-	g := New().Group("/group")
+	g := New().Group(literal_6390)
 	h := func(Context) error { return nil }
 	g.CONNECT("/", h)
 	g.DELETE("/", h)
@@ -33,7 +33,7 @@ func TestGroup(t *testing.T) {
 
 func TestGroupFile(t *testing.T) {
 	e := New()
-	g := e.Group("/group")
+	g := e.Group(literal_6390)
 	g.File("/walle", "_fixture/images/walle.png")
 	expectedData, err := os.ReadFile("_fixture/images/walle.png")
 	assert.Nil(t, err)
@@ -47,7 +47,7 @@ func TestGroupFile(t *testing.T) {
 func TestGroupRouteMiddleware(t *testing.T) {
 	// Ensure middleware slices are not re-used
 	e := New()
-	g := e.Group("/group")
+	g := e.Group(literal_6390)
 	h := func(Context) error { return nil }
 	m1 := func(next HandlerFunc) HandlerFunc {
 		return func(c Context) error {
@@ -87,7 +87,7 @@ func TestGroupRouteMiddleware(t *testing.T) {
 func TestGroupRouteMiddlewareWithMatchAny(t *testing.T) {
 	// Ensure middleware and match any routes do not conflict
 	e := New()
-	g := e.Group("/group")
+	g := e.Group(literal_6390)
 	m1 := func(next HandlerFunc) HandlerFunc {
 		return func(c Context) error {
 			return next(c)
@@ -114,8 +114,8 @@ func TestGroupRouteMiddlewareWithMatchAny(t *testing.T) {
 	assert.Equal(t, "/group/*", m)
 	_, m = request(http.MethodGet, "/group/404", e)
 	assert.Equal(t, "/group/*", m)
-	_, m = request(http.MethodGet, "/group", e)
-	assert.Equal(t, "/group", m)
+	_, m = request(http.MethodGet, literal_6390, e)
+	assert.Equal(t, literal_6390, m)
 	_, m = request(http.MethodGet, "/other", e)
 	assert.Equal(t, "/*", m)
 	_, m = request(http.MethodGet, "/", e)
@@ -159,7 +159,7 @@ func TestGroupRouteNotFound(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			e := New()
-			g := e.Group("/group")
+			g := e.Group(literal_6390)
 
 			okHandler := func(c Context) error {
 				return c.String(http.StatusOK, c.Request().Method+" "+c.Path())
@@ -213,7 +213,7 @@ func TestGroupRouteNotFoundWithMiddleware(t *testing.T) {
 		{
 			name:           "ok, (no slash) default group 404 handler is called with middleware",
 			givenCustom404: false,
-			whenURL:        "/group",
+			whenURL:        literal_6390,
 			expectBody:     "{\"message\":\"Not Found\"}\n",
 			expectCode:     http.StatusNotFound,
 		},
@@ -232,7 +232,7 @@ func TestGroupRouteNotFoundWithMiddleware(t *testing.T) {
 			e.GET("/test1", okHandler)
 			e.RouteNotFound("/*", notFoundHandler)
 
-			g := e.Group("/group")
+			g := e.Group(literal_6390)
 			g.GET("/test1", okHandler)
 
 			middlewareCalled := false
@@ -257,3 +257,5 @@ func TestGroupRouteNotFoundWithMiddleware(t *testing.T) {
 		})
 	}
 }
+
+const literal_6390 = "/group"
