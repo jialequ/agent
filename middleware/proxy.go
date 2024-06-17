@@ -20,8 +20,6 @@ import (
 	echo "github.com/jialequ/agent"
 )
 
-// TODO: Handle TLS proxy
-
 // ProxyConfig defines the config for Proxy middleware.
 type ProxyConfig struct {
 	// Skipper defines a function to skip middleware.

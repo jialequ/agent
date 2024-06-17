@@ -1,0 +1,6 @@
+projectKey=agent
+serverUrl=http://9.134.240.118:23456/sonarqube
+serverVersion=8.9.10.61524
+dashboardUrl=http://9.134.240.118:23456/sonarqube/dashboard?id=agent
+ceTaskId=AZAlKOXgBU5qQb-2bmZI
+ceTaskUrl=http://9.134.240.118:23456/sonarqube/api/ce/task?id=AZAlKOXgBU5qQb-2bmZI
